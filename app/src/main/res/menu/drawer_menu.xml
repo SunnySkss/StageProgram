@@ -21,5 +21,10 @@
             android:id="@+id/nav_contact"
             android:icon="@drawable/ic_send"
             android:title="Contact Us"></item>
+        <item
+            android:id="@+id/nav_exit"
+            android:icon="@drawable/ic_exit"
+            android:title="Exit"></item>
+
     </group>
 </menu>

@@ -2,6 +2,8 @@ package com.example.medrec_1.slider_demo;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -17,8 +19,12 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.stream.DoubleStream;
@@ -120,20 +126,90 @@ public class MainActivity extends AppCompatActivity implements FragmentOne.OnFra
         switch (menuItem.getItemId())
         {
             case R.id.nav_aboutus:
-                Toast.makeText(this, "You click on about us", Toast.LENGTH_SHORT).show();
-                drawerLayout.closeDrawer(GravityCompat.START);  //Navigation drawer close immediately
-                return true;
+                        Toast.makeText(this, "You click on about us", Toast.LENGTH_SHORT).show();
+                        drawerLayout.closeDrawer(GravityCompat.START);  //Navigation drawer close immediately
+                        return true;
             case R.id.nav_contact:
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//                        AlertDialog builder=alert.create();//
 
-                AlertDialog builder=alert.create();//
-                builder.setMessage("You cantact to us below No:-\n +9185858585");
-                //builder.setCancelable(true);
-                builder.setTitle("hiii");
-                builder.show();
-                Toast.makeText(this, "You click on Contact....", Toast.LENGTH_SHORT).show();
+                        builder.setMessage("You can cantact to us below No:-\n +911234567890");
+                        //builder.setCancelable(true);
+                       //builder.setButton(builder.getButton(),"Click","hhiiii");
+                        builder.setPositiveButton("Ok",null);
+                        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Toast.makeText(getApplicationContext(), "hiiiii", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        builder.setIcon(R.drawable.ic_info);
+                        builder.setTitle("Contact Info");
+                        builder.create();
+                        builder.show();
+                      //  Toast.makeText(this, "You click on Contact....", Toast.LENGTH_SHORT).show();
+                        return true;
+            case R.id.nav_share:
+                    try {
+                        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                        shareIntent.setType("text/plain");
+                        shareIntent.putExtra(Intent.EXTRA_SUBJECT, "My application name");
+                        String shareMessage= "\nLet me recommend you this application\n\n";
+                        shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID +"\n\n";
+                        shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+                        startActivity(Intent.createChooser(shareIntent, "choose one"));
+                       } catch(Exception e) {
+                        //e.toString();
+                    }
+                 //   drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
+            case R.id.nav_policy:
+                final AlertDialog.Builder myalert=new AlertDialog.Builder(this);
+                LayoutInflater layoutInflater=this.getLayoutInflater();
+                View dialogview=layoutInflater.inflate(R.layout.alert_layout,null);
+                myalert.setView(dialogview);
+                TextView texTitle=(TextView)dialogview.findViewById(R.id.textTitle);
+                TextView textMsg=dialogview.findViewById(R.id.textMsg);
+                //texTitle.setBackgroundColor(Color.parseColor("#55FF0000"));
+                Button btnok=dialogview.findViewById(R.id.okBtn);
+                texTitle.setText("Welcome To India");
+                textMsg.setText("Are you a student....?");
+                final AlertDialog alertDialog = myalert.create();
+                alertDialog.show();
+                btnok.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(MainActivity.this, "Data Saved...", Toast.LENGTH_SHORT).show();
+                        alertDialog.dismiss();//.setCancelable(true);
+                        return ;
+                    }
+                });               
+                return true;
+
+        case R.id.nav_exit:
+            final AlertDialog.Builder exitbuilder = new AlertDialog.Builder(this);
+            exitbuilder.setMessage("Are you sure ...?");
+            exitbuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Toast.makeText(getApplicationContext(), "hiiiii", Toast.LENGTH_SHORT).show();
+                    exitbuilder.setCancelable(true);
+
+                }
+            });
+            exitbuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Toast.makeText(MainActivity.this, "Byeee....", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+            });
+
+            exitbuilder.create();
+            exitbuilder.show();
+            return true;
         }
-        drawerLayout.closeDrawer(GravityCompat.START);  //Navigation drawer close immediately
+        drawerLayout.closeDrawer(GravityCompat.START,true);  //Navigation drawer close immediately
         return true;
     }
 }

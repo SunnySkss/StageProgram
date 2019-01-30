@@ -61,15 +61,12 @@ public class FragmentOne extends Fragment implements RecycleAdapter.OnItemClickL
        updateView();
         getList();
         setAdapter(createUserResponses);
-
         return view;
     }
 
     private void updateView() {
         recycleAdapter = new RecycleAdapter(createUserResponses,getContext());
-
         recycleAdapter.onOfferClickListener(this);
-
         recyclerView=view.findViewById(R.id.myRecyclerTop);
         linearLayoutManager=new LinearLayoutManager(getContext());
         mProgressDialog = new ProgressDialog(getContext());
@@ -81,8 +78,6 @@ public class FragmentOne extends Fragment implements RecycleAdapter.OnItemClickL
     public void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.e("getList()","onCreate");
-
-
     }
 
 //    @Override
@@ -127,7 +122,6 @@ public class FragmentOne extends Fragment implements RecycleAdapter.OnItemClickL
                 if (response.isSuccessful() && response.code()==200) {
                     for (int i = 0; i < response.body().size(); i++) {
                         createUserResponses.add(response.body().get(i));
-
                     }
                 }
                 setAdapter(createUserResponses);
@@ -142,9 +136,7 @@ public class FragmentOne extends Fragment implements RecycleAdapter.OnItemClickL
     }
 
     private void setAdapter(ArrayList<CreateUserResponse> data) {
-
-
-        Log.d("onFailure","sunny");
+//        Log.d("onFailure","sunny");
         recyclerView.setAdapter(new RecycleAdapter(data, getContext()));
         mProgressDialog.dismiss();
     }

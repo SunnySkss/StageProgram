@@ -95,11 +95,11 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyHolder
     public void onBindViewHolder(@NonNull final MyHolder viewHolder, final int i) {
         viewHolder.bind(items.get(i), listener);
 
-//        Picasso.get()
-//                .load("http://stageprogram.com/"+userList.get(i).getStandardThumbnailUrl())
-//                .placeholder(R.drawable.chak_de_india)
-//                .error(R.drawable.chak_de_india)
-//                .into(viewHolder.img);
+        Picasso.get()
+                .load("http://stageprogram.com/"+items.get(i).getStandardThumbnailUrl())
+                .placeholder(R.drawable.chak_de_india)
+                .error(R.drawable.chak_de_india)
+                .into(viewHolder.img);
 //        viewHolder.textView.setText(userList.get(i).getMediaUrl());
 //        String str=userList.get(i).getMediaUrl();
 //
@@ -144,7 +144,13 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyHolder
         public void bind(final CreateUserResponse item, final OnItemClickListener mlistener) {
             textView.setText(item.getMediaUrl());
 
+
             //Picasso.load("http://stageprogram.com/"+item.getMediaUrl()).into(img);
+//            Picasso.get()
+//                .load("http://stageprogram.com/"+item.getStandardThumbnailUrl())
+//                .placeholder(R.drawable.chak_de_india)
+//                .error(R.drawable.chak_de_india)
+//                .into(MyHolder.img);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
                     mlistener.onItemClick(item);
