@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity implements FragmentOne.OnFra
     Toolbar mtoolbar;
     NavigationView navigationView;
     AlertDialog.Builder  alert;
-    Menu mymenu;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +45,6 @@ public class MainActivity extends AppCompatActivity implements FragmentOne.OnFra
         mTablayout=findViewById(R.id.tablayout);
         mtoolbar=findViewById(R.id.toolbar);
         drawerLayout= findViewById(R.id.drawer_layout);
-        //mymenu=(Menu)findViewById(R.id.nav_menu);
         alert = new AlertDialog.Builder(this);
         navigationView=(NavigationView)findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -67,7 +65,6 @@ public class MainActivity extends AppCompatActivity implements FragmentOne.OnFra
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         selectTab();
-
 
     /*    viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -131,11 +128,7 @@ public class MainActivity extends AppCompatActivity implements FragmentOne.OnFra
                         return true;
             case R.id.nav_contact:
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//                        AlertDialog builder=alert.create();//
-
                         builder.setMessage("You can cantact to us below No:-\n +911234567890");
-                        //builder.setCancelable(true);
-                       //builder.setButton(builder.getButton(),"Click","hhiiii");
                         builder.setPositiveButton("Ok",null);
                         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                             @Override
@@ -147,7 +140,6 @@ public class MainActivity extends AppCompatActivity implements FragmentOne.OnFra
                         builder.setTitle("Contact Info");
                         builder.create();
                         builder.show();
-                      //  Toast.makeText(this, "You click on Contact....", Toast.LENGTH_SHORT).show();
                         return true;
             case R.id.nav_share:
                     try {
@@ -168,9 +160,8 @@ public class MainActivity extends AppCompatActivity implements FragmentOne.OnFra
                 LayoutInflater layoutInflater=this.getLayoutInflater();
                 View dialogview=layoutInflater.inflate(R.layout.alert_layout,null);
                 myalert.setView(dialogview);
-                TextView texTitle=(TextView)dialogview.findViewById(R.id.textTitle);
+                TextView texTitle=dialogview.findViewById(R.id.textTitle);
                 TextView textMsg=dialogview.findViewById(R.id.textMsg);
-                //texTitle.setBackgroundColor(Color.parseColor("#55FF0000"));
                 Button btnok=dialogview.findViewById(R.id.okBtn);
                 texTitle.setText("Welcome To India");
                 textMsg.setText("Are you a student....?");
@@ -180,7 +171,7 @@ public class MainActivity extends AppCompatActivity implements FragmentOne.OnFra
                     @Override
                     public void onClick(View v) {
                         Toast.makeText(MainActivity.this, "Data Saved...", Toast.LENGTH_SHORT).show();
-                        alertDialog.dismiss();//.setCancelable(true);
+                        alertDialog.dismiss();
                         return ;
                     }
                 });               

@@ -40,9 +40,9 @@ public class FragmentOther extends Fragment implements RecycleAdapter.OnItemClic
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
          view = inflater.inflate(R.layout.fragment_fragment_other, container, false);
-        recycleAdapter = new RecycleAdapter(createUserResponses,getContext());
+      //  recycleAdapter = new RecycleAdapter(createUserResponses,getContext());
         recyclerView=view.findViewById(R.id.myRecyclerOther);
-        recycleAdapter.onOfferClickListener(this);
+      //  recycleAdapter.onOfferClickListener(this);
         linearLayoutManager=new LinearLayoutManager(getContext());
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -83,7 +83,7 @@ public class FragmentOther extends Fragment implements RecycleAdapter.OnItemClic
     }
 
     private void setAdapter(ArrayList<CreateUserResponse> data) {
-        recyclerView.setAdapter(new RecycleAdapter(data,getContext()));
+        recyclerView.setAdapter(new RecycleAdapter(data,this,getContext()));
     }
 
 
@@ -100,7 +100,11 @@ public class FragmentOther extends Fragment implements RecycleAdapter.OnItemClic
 
     @Override
     public void onItemClick(CreateUserResponse item) {
-        Toast.makeText(getContext(), "hiiiii", Toast.LENGTH_SHORT).show();
+
+        Intent i = new Intent(getActivity().getBaseContext(),
+                MediaActivity.class);
+        i.putExtra("data",item);
+        getActivity().startActivity(i);
     }
 
     public interface OnFragmentInteractionListener {

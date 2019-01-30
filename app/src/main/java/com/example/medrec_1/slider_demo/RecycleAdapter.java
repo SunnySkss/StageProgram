@@ -68,6 +68,13 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyHolder
 //        this.notifyDataSetChanged();
 //    }
 
+    public RecycleAdapter(List<CreateUserResponse> items,OnItemClickListener onItemClickListener, Context context){
+        this.items=items;
+        this.context=context;
+        this.listener=onItemClickListener;
+
+    }
+
     public RecycleAdapter(List<CreateUserResponse> items, Context context){
         this.items=items;
         this.context=context;
@@ -133,25 +140,29 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyHolder
 
         CardView cardView;
         ImageView img;
-        TextView textView,hiddenData;
+        TextView cardVedTital,cardVedDescription,cardVedViews,cardViewHowLong;
 
         public MyHolder( View itemView) {
             super(itemView);
             img = itemView.findViewById(R.id.mimageView);
-            textView=(TextView)itemView.findViewById(R.id.mtextView);
+            cardVedTital=(TextView)itemView.findViewById(R.id.cardVedTitle);
             cardView=(CardView) itemView.findViewById(R.id.card_view);
+            cardVedDescription=itemView.findViewById(R.id.cardVedDesc);
+            cardVedViews=itemView.findViewById(R.id.cardVedViews);
+            cardViewHowLong=itemView.findViewById(R.id.cardVedHowLong);
         }
         public void bind(final CreateUserResponse item, final OnItemClickListener mlistener) {
-            textView.setText(item.getMediaUrl());
-
-
+            cardVedTital.setText(item.getVideoTitle());
+            cardVedDescription.setText(item.getVideoDescription());
+            cardVedViews.setText(item.getTotalViews()+"  views");
+            cardViewHowLong.setText(item.getHowLong());
             //Picasso.load("http://stageprogram.com/"+item.getMediaUrl()).into(img);
 //            Picasso.get()
 //                .load("http://stageprogram.com/"+item.getStandardThumbnailUrl())
 //                .placeholder(R.drawable.chak_de_india)
 //                .error(R.drawable.chak_de_india)
 //                .into(MyHolder.img);
-            itemView.setOnClickListener(new View.OnClickListener() {
+            cardView.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
                     mlistener.onItemClick(item);
                 }

@@ -65,8 +65,8 @@ public class FragmentOne extends Fragment implements RecycleAdapter.OnItemClickL
     }
 
     private void updateView() {
-        recycleAdapter = new RecycleAdapter(createUserResponses,getContext());
-        recycleAdapter.onOfferClickListener(this);
+       // recycleAdapter = new RecycleAdapter(createUserResponses,getContext());
+       // recycleAdapter.onOfferClickListener(this);
         recyclerView=view.findViewById(R.id.myRecyclerTop);
         linearLayoutManager=new LinearLayoutManager(getContext());
         mProgressDialog = new ProgressDialog(getContext());
@@ -88,7 +88,16 @@ public class FragmentOne extends Fragment implements RecycleAdapter.OnItemClickL
     @Override
     public void onItemClick(CreateUserResponse item) {
 
-        Toast.makeText(getContext(), "hiiiii", Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(getContext(), "hiiiii", Toast.LENGTH_SHORT).show();
+       // createUserResponses=item;
+        Intent i = new Intent(getActivity().getBaseContext(),
+                  MediaActivity.class);
+               // i.putStringArrayListExtra("userData",item);
+        i.putExtra("data",item);
+        /*    i.putExtra("mediaUrl","http://stageprogram.com/"+item.getMediaUrl());
+            i.putExtra("likesVed",item.getTotalLike());
+            i.putExtra("dislikeVed",item.getTotalDislike());*/
+        getActivity().startActivity(i);
     }
 
 //    @Override
@@ -137,7 +146,7 @@ public class FragmentOne extends Fragment implements RecycleAdapter.OnItemClickL
 
     private void setAdapter(ArrayList<CreateUserResponse> data) {
 //        Log.d("onFailure","sunny");
-        recyclerView.setAdapter(new RecycleAdapter(data, getContext()));
+        recyclerView.setAdapter(new RecycleAdapter(data,this, getContext()));
         mProgressDialog.dismiss();
     }
 

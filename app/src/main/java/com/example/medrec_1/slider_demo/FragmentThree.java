@@ -42,9 +42,9 @@ public class FragmentThree extends Fragment implements RecycleAdapter.OnItemClic
         // Inflate the layout for this fragment
          view = inflater.inflate(R.layout.fragment_fragment_three, container, false);
         recyclerView=view.findViewById(R.id.myRecyclerPanjabHaryana);
-        recycleAdapter = new RecycleAdapter(createUserResponses,getContext());
-        recycleAdapter.onOfferClickListener(this);
 
+     //   recycleAdapter.onOfferClickListener(this);
+//        recycleAdapter = new RecycleAdapter(createUserResponses,getContext());
         linearLayoutManager=new LinearLayoutManager(getContext());
        recyclerView.setHasFixedSize(true);
        recyclerView.setLayoutManager(linearLayoutManager);
@@ -85,7 +85,7 @@ public class FragmentThree extends Fragment implements RecycleAdapter.OnItemClic
     }
 
     private void setAdapter(ArrayList<CreateUserResponse> data) {
-        recyclerView.setAdapter(new RecycleAdapter(data,getContext()));
+        recyclerView.setAdapter(new RecycleAdapter(data,this,getContext()));
     }
 
 
@@ -103,7 +103,10 @@ public class FragmentThree extends Fragment implements RecycleAdapter.OnItemClic
 
     @Override
     public void onItemClick(CreateUserResponse item) {
-        Toast.makeText(getContext(), "hiiiii", Toast.LENGTH_SHORT).show();
+        Intent i = new Intent(getActivity().getBaseContext(),
+                MediaActivity.class);
+        i.putExtra("data",item);
+        getActivity().startActivity(i);
     }
 
     public interface OnFragmentInteractionListener {

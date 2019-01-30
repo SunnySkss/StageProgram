@@ -1,7 +1,10 @@
 package com.example.medrec_1.slider_demo;
 
 
-public class CreateUserResponse {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class CreateUserResponse implements Parcelable {
 
 
     /**
@@ -207,4 +210,71 @@ public class CreateUserResponse {
     public void setHowLong(String HowLong) {
         this.HowLong = HowLong;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.VideoSourceId);
+        dest.writeString(this.VideoTitle);
+        dest.writeString(this.MediaUrl);
+        dest.writeString(this.MainThumbnailUrl);
+        dest.writeString(this.SmallThumbnailUrl);
+        dest.writeString(this.StandardThumbnailUrl);
+        dest.writeByte(this.ShouldDisplay ? (byte) 1 : (byte) 0);
+        dest.writeString(this.VideoDescription);
+        dest.writeString(this.CreatedDate);
+        dest.writeString(this.CreatedBy);
+        dest.writeString(this.UserIp);
+        dest.writeInt(this.TotalViews);
+        dest.writeString(this.ModifiedDate);
+        dest.writeString(this.ModifiedBy);
+        dest.writeByte(this.IsActive ? (byte) 1 : (byte) 0);
+        dest.writeInt(this.StateId);
+        dest.writeInt(this.TotalLike);
+        dest.writeInt(this.TotalDislike);
+        dest.writeString(this.EncryptedId);
+        dest.writeString(this.HowLong);
+    }
+
+    public CreateUserResponse() {
+    }
+
+    protected CreateUserResponse(Parcel in) {
+        this.VideoSourceId = in.readInt();
+        this.VideoTitle = in.readString();
+        this.MediaUrl = in.readString();
+        this.MainThumbnailUrl = in.readString();
+        this.SmallThumbnailUrl = in.readString();
+        this.StandardThumbnailUrl = in.readString();
+        this.ShouldDisplay = in.readByte() != 0;
+        this.VideoDescription = in.readString();
+        this.CreatedDate = in.readString();
+        this.CreatedBy = in.readString();
+        this.UserIp = in.readString();
+        this.TotalViews = in.readInt();
+        this.ModifiedDate = in.readString();
+        this.ModifiedBy = in.readString();
+        this.IsActive = in.readByte() != 0;
+        this.StateId = in.readInt();
+        this.TotalLike = in.readInt();
+        this.TotalDislike = in.readInt();
+        this.EncryptedId = in.readString();
+        this.HowLong = in.readString();
+    }
+
+    public static final Parcelable.Creator<CreateUserResponse> CREATOR = new Parcelable.Creator<CreateUserResponse>() {
+        @Override
+        public CreateUserResponse createFromParcel(Parcel source) {
+            return new CreateUserResponse(source);
+        }
+
+        @Override
+        public CreateUserResponse[] newArray(int size) {
+            return new CreateUserResponse[size];
+        }
+    };
 }

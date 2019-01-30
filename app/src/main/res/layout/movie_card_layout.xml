@@ -5,17 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
 
-    android:paddingTop="18dp"
+    android:padding="8dp"
     android:orientation="vertical">
 <android.support.v7.widget.CardView
 
+    android:layout_gravity="center"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/tools"
     card_view:cardCornerRadius="10dp"
     card_view:cardUseCompatPadding="true"
     android:id="@+id/card_view"
-    android:layout_marginBottom="10dp"
 
     app:ignore="NamespaceTypo">
     <LinearLayout
@@ -29,20 +29,53 @@
                 android:layout_height="200dp"
 
                 android:layout_gravity="center"
-                android:layout_marginTop="1dp"
+                android:layout_marginTop="10dp"
                 />
             <TextView
-                android:id="@+id/mtextView"
-
+                android:id="@+id/cardVedTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-
                 android:layout_marginTop="6dp"
+                android:layout_marginLeft="15dp"
+                android:textColor="@android:color/black"
                 android:textStyle="italic"
-                android:textColor="@android:color/holo_blue_dark"
-                android:textSize="13dp"/>
+
+                android:textSize="18dp"/>
+        <TextView
+            android:id="@+id/cardVedDesc"
+            android:layout_width="match_parent"
+            android:layout_height="26dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:textStyle="normal"
+
+            android:textSize="11dp"/>
+        <RelativeLayout
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/cardVedViews"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="15dp"
+                android:textStyle="normal"
+                android:textSize="11dp"/>
+            <TextView
+                android:id="@+id/cardVedHowLong"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="90dp"
+                android:textStyle="normal"
+                android:textSize="11dp"/>
+        </RelativeLayout>
+
     </LinearLayout>
+
+
 
 
 

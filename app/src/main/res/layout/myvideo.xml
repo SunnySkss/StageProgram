@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:layout_behavior="@android:string/autofill"
     tools:context=".MediaActivity">
 
     <!-- TODO: Update blank fragment layout -->
 
-    <LinearLayout
 
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-
-        >
 
         <!-- TODO: Update blank fragment layout -->
         <VideoView
@@ -22,13 +19,84 @@
             android:layout_width="fill_parent"
             android:layout_height="250dp"
              />
+    <TextView
+        android:id="@+id/vedioTital"
+        android:layout_below="@id/myVedionew"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+
+        android:text="0" />
+    <RelativeLayout
+        android:id="@+id/relViews"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:layout_below="@+id/vedioTital">
+        <TextView
+            android:id="@+id/TotViews"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/vedioDateTime"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="200dp"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_below="@id/relViews"
+        android:src="@drawable/likes"
+        />
 
         <TextView
+            android:id="@+id/likesVedio"
+            android:layout_below="@id/relViews"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="50dp"
+            android:text="0" />
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_below="@id/relViews"
+        android:layout_marginLeft="100dp"
+        android:src="@drawable/dislke"
+        />
+
+    <TextView
+        android:id="@+id/dislikeVedio"
+        android:layout_below="@id/relViews"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="140dp"
+
+        android:text="0" />
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_below="@id/relViews"
+        android:layout_marginLeft="170dp"
+        android:src="@drawable/ic_share"/>
+        <RelativeLayout
+            android:id="@+id/shadowLine"
+            android:layout_below="@+id/likesVedio"
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/hello_blank_fragment" />
+            android:layout_margin="15dp"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            android:elevation="1dp"></RelativeLayout>
 
-    </LinearLayout>
-
-</FrameLayout>
+    <TextView
+        android:id="@+id/vedioDesc"
+        android:layout_below="@id/shadowLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="16dp"
+        android:textSize="12dp"
+        android:textStyle="bold"
+        android:text="0" />
+</RelativeLayout>
 

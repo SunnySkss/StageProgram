@@ -43,9 +43,10 @@ public class FragmentRajasthan extends Fragment implements RecycleAdapter.OnItem
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
          view = inflater.inflate(R.layout.fragment_fragment_rajasthan, container, false);
-        recycleAdapter = new RecycleAdapter(createUserResponses,getContext());
-        recyclerView=view.findViewById(R.id.myRecyclerRajasthan);
-        recycleAdapter.onOfferClickListener(this);
+         recyclerView=view.findViewById(R.id.myRecyclerRajasthan);
+
+         //recycleAdapter = new RecycleAdapter(createUserResponses,getContext());
+       // recycleAdapter.onOfferClickListener(this);
 
 
         linearLayoutManager=new LinearLayoutManager(getContext());
@@ -88,7 +89,7 @@ public class FragmentRajasthan extends Fragment implements RecycleAdapter.OnItem
     }
 
     private void setAdapter(ArrayList<CreateUserResponse> data) {
-        recyclerView.setAdapter(new RecycleAdapter(data,getContext()));
+        recyclerView.setAdapter(new RecycleAdapter(data,this,getContext()));
     }
 
 
@@ -106,7 +107,10 @@ public class FragmentRajasthan extends Fragment implements RecycleAdapter.OnItem
 
     @Override
     public void onItemClick(CreateUserResponse item) {
-        Toast.makeText(getContext(), "hiiiii", Toast.LENGTH_SHORT).show();
+        Intent i = new Intent(getActivity().getBaseContext(),
+                MediaActivity.class);
+        i.putExtra("data",item);
+        getActivity().startActivity(i);
     }
 
     public interface OnFragmentInteractionListener {
