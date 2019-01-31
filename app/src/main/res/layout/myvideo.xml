@@ -43,6 +43,7 @@
             android:layout_height="wrap_content" />
     </RelativeLayout>
     <ImageView
+        android:id="@+id/like_vedio_img"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_below="@id/relViews"
@@ -57,6 +58,7 @@
             android:layout_marginLeft="50dp"
             android:text="0" />
     <ImageView
+        android:id="@+id/dislike_vedio_img"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_below="@id/relViews"
@@ -73,6 +75,7 @@
 
         android:text="0" />
     <ImageView
+        android:id="@+id/share_vedio_img"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_below="@id/relViews"

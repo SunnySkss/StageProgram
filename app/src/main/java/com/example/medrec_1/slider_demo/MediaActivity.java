@@ -6,29 +6,45 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.telecom.Call;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.example.medrec_1.slider_demo.utils.Constant;
 
+import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.TimeZone;
 
-public class MediaActivity extends AppCompatActivity {
+import retrofit2.Callback;
+import retrofit2.Response;
 
+public class MediaActivity extends AppCompatActivity implements View.OnClickListener {
+
+    String mobileIp;
+   // private ArrayList<LikeVedioResponse> likeVedioResponses = new ArrayList<>();
+    APIInterface apiInterface;
     VideoView videoView;
-    TextView likes, dislikes,vedioTital,totViews,vedioDateTime,vedioDesc;
+    TextView likes, dislikes, vedioTital, totViews, vedioDateTime, vedioDesc;
     CreateUserResponse mData;
+    ImageView imgLike, imgdislike, imgvedioshare;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,18 +53,18 @@ public class MediaActivity extends AppCompatActivity {
         videoView = findViewById(R.id.myVedionew);
         likes = findViewById(R.id.likesVedio);
         dislikes = findViewById(R.id.dislikeVedio);
-        vedioTital=findViewById(R.id.vedioTital);
-        totViews=findViewById(R.id.TotViews);
-        vedioDateTime=findViewById(R.id.vedioDateTime);
-        vedioDesc=findViewById(R.id.vedioDesc);
-        // videoView.setVideoPath("http://stageprogram.com/VideoFiles/2016_September_17/2016-Sep-17-00-43-47_BhojpuriNachMauryaHotelStageShowBihar.mp4");
-//        String value = Bundle.getString("sks");
-//        // videoView.setVideoPath(vedioPath);
-//
-//        Uri myUri = Uri.parse(value);
-//
-//        videoView.setVideoURI(myUri);
-        // videoView.start();
+        vedioTital = findViewById(R.id.vedioTital);
+        totViews = findViewById(R.id.TotViews);
+        vedioDateTime = findViewById(R.id.vedioDateTime);
+        vedioDesc = findViewById(R.id.vedioDesc);
+        imgLike = findViewById(R.id.like_vedio_img);
+        imgdislike = findViewById(R.id.dislike_vedio_img);
+        imgvedioshare = findViewById(R.id.share_vedio_img);
+        imgLike.setOnClickListener(this);
+        imgdislike.setOnClickListener(this);
+        imgvedioshare.setOnClickListener(this);
+
+        apiInterface = APIClient.getClient().create(APIInterface.class);
 
         if (getIntent() != null && getIntent().hasExtra("data")) {
             mData = getIntent().getParcelableExtra("data");
@@ -58,37 +74,31 @@ public class MediaActivity extends AppCompatActivity {
         //int totlikes = i.getIntExtra("likesVed", 0);
         //int totdislike = i.getIntExtra("dislikeVed", 1);
 
+//        Utils.getIPAddress(true);
+        mobileIp = getIPAddress(true);
 
-        String videoUrl = Constant.VIDEO_URL +mData.getMediaUrl();
+        // String videoUrl = Constant.VIDEO_URL +mData.getMediaUrl();
         int totlikes = mData.getTotalLike();
-        int totdislike =mData.getTotalDislike();
+        int totdislike = mData.getTotalDislike();
 
         final String dateTime = mData.getCreatedDate();
 
-       // ZonedDateTime d = ZonedDateTime.parse(dateTime);
+        // ZonedDateTime d = ZonedDateTime.parse(dateTime);
 
-     /*   DateTimeFormatter formatter = null;
+    /*    DateTimeFormatter formatter = null;
         try {
-            formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'hh:mm:ss.SX");
+            formatter = DateTimeFormatter.ofPattern("yyyy-mm-dd'T'hh:mm:ss");
         } catch (Exception e) {
+
             e.printStackTrace();
         }
 
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        final ZonedDateTime parsed = ZonedDateTime.parse(dateTime,formatter);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSSSZ");
         sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
 
-        final ZonedDateTime parsed = ZonedDateTime.parse(dateTime);
+
 */
-        Calendar calendar = new GregorianCalendar(TimeZone.getTimeZone("GMT"));
-
-        DateTimeFormatter formatter;
-        String dateString = "2010-03-01T00:00:00-08:00";
-        String pattern = "yyyy-MM-dd'T'HH:mm:ssZ";
-        DateTimeFormatter dtf = DateTimeFormat.forPattern(pattern);
-        DateTime dateTime = dtf.parseDateTime(dateString);
-        System.out.println(dateTime);
-
 
         String datenTime = mData.getCreatedDate();
         String[] parts = datenTime.split("T");
@@ -98,10 +108,10 @@ public class MediaActivity extends AppCompatActivity {
         likes.setText(String.valueOf(totlikes));
         dislikes.setText(String.valueOf(totdislike));
         vedioTital.setText(mData.getVideoTitle());
-        totViews.setText(String.valueOf(mData.getTotalViews())+"views");
+        totViews.setText(String.valueOf(mData.getTotalViews()) + "views");
         vedioDateTime.setText(mData.getCreatedDate());
         vedioDesc.setText(mData.getVideoDescription());
-        playVideo(videoUrl);
+        playVideo(Constant.VIDEO_URL + mData.getMediaUrl());
 
 
     }
@@ -115,4 +125,125 @@ public class MediaActivity extends AppCompatActivity {
         videoView.start();
     }
 
+    public static String getIPAddress(boolean useIPv4) {
+        try {
+            List<NetworkInterface> interfaces = Collections.list(NetworkInterface.getNetworkInterfaces());
+            for (NetworkInterface intf : interfaces) {
+                List<InetAddress> addrs = Collections.list(intf.getInetAddresses());
+                for (InetAddress addr : addrs) {
+                    if (!addr.isLoopbackAddress()) {
+                        String sAddr = addr.getHostAddress();
+                        //boolean isIPv4 = InetAddressUtils.isIPv4Address(sAddr);
+                        boolean isIPv4 = sAddr.indexOf(':') < 0;
+
+                        if (useIPv4) {
+                            if (isIPv4)
+                                return sAddr;
+                        } else {
+                            if (!isIPv4) {
+                                int delim = sAddr.indexOf('%'); // drop ip6 zone suffix
+                                return delim < 0 ? sAddr.toUpperCase() : sAddr.substring(0, delim).toUpperCase();
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (Exception ignored) {
+        } // for now eat exceptions
+        return "";
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.like_vedio_img:
+                LikeVedioAPI();
+                break;
+            case R.id.dislike_vedio_img:
+                DislikeVedioAPI();
+                break;
+            case R.id.share_vedio_img:
+                try {
+                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                    shareIntent.setType("text/plain");
+                    shareIntent.putExtra(Intent.EXTRA_SUBJECT, "My application name");
+                    String shareMessage = "\nLet me recommend you this application\n\n";
+                    shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID + "\n\n";
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+                    startActivity(Intent.createChooser(shareIntent, "choose one"));
+                } catch (Exception e) {
+                    //e.toString();
+                }
+                break;
+        }
+    }
+
+    public void LikeVedioAPI() {
+
+        // userList.clear();
+        Log.d("inside", "retro");
+        // Call<ResponseBody> call2=apiInterface.doGetListResources();
+
+        retrofit2.Call<LikeVedioResponse> call = apiInterface.doLikeVedio(mData.getVideoSourceId(), mobileIp);
+        call.enqueue(new Callback<LikeVedioResponse>() {
+            @Override
+            public void onResponse(retrofit2.Call<LikeVedioResponse> call, Response<LikeVedioResponse> response) {
+
+                if (response.isSuccessful() && response.code() == 200) {
+                    //for (int i = 0; i < response.body().size(); i++) {
+
+                    onLikeSuccess(response.body());
+                    // likeVedioResponses.add(response.body());//.get(i));
+                }
+                //setAdapter(createUserResponses);
+            }
+
+            @Override
+            public void onFailure(retrofit2.Call<LikeVedioResponse> call, Throwable t) {
+                Log.d("onFailure", t.getMessage());
+                call.cancel();
+            }
+
+        });
+    }
+
+    private void onLikeSuccess(LikeVedioResponse body) {
+        if (body != null && body.getMessage().equalsIgnoreCase("Added")) {
+            Toast.makeText(this, "Like the video", Toast.LENGTH_SHORT).show();
+
+        } else if (body.getMessage().equalsIgnoreCase("Already Added")) {
+            Toast.makeText(this, "You already like this video", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+
+    public void DislikeVedioAPI()
+    {
+        retrofit2.Call<DisLikeVedioResponse> call=apiInterface.doDisLikeVedio(mData.getVideoSourceId(),mobileIp);
+        call.enqueue(new Callback<DisLikeVedioResponse>() {
+            @Override
+            public void onResponse(retrofit2.Call<DisLikeVedioResponse> call, Response<DisLikeVedioResponse> response) {
+                if(response.isSuccessful() && response.code()==200)
+                {
+                    onDisLike(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(retrofit2.Call<DisLikeVedioResponse> call, Throwable t) {
+                Log.d("onFailure", t.getMessage());
+                call.cancel();
+            }
+        });
+    }
+
+    private void onDisLike(DisLikeVedioResponse body) {
+        if(body!=null && body.getMessage().equalsIgnoreCase("Added")){
+            Toast.makeText(this, "Dislike the video", Toast.LENGTH_SHORT).show();
+        } else if (body.getMessage().equalsIgnoreCase("Already Added")) {
+            Toast.makeText(this, "You already Dislike this video", Toast.LENGTH_SHORT).show();
+        }
+
+    }
 }

@@ -22,4 +22,15 @@ interface APIInterface {
     @FormUrlEncoded
     @POST("/GetVideo")
     Call<List<CreateUserResponse>> doCreateUserWithField(@Field("PageNumber") int PageNumber, @Field("PageSize") int PageSize, @Field("StateId") int StateId);
+
+    @FormUrlEncoded
+    @POST("/LikeVideo")
+    Call<LikeVedioResponse> doLikeVedio(@Field("VideoSourceId") int VideoSourceId,@Field("UserIp") String UserIp);
+
+
+    @FormUrlEncoded
+    @POST("/DisLikeVideo")
+    Call<DisLikeVedioResponse> doDisLikeVedio(@Field("VideoSourceId") int VideoSourceId,@Field("UserIp") String UserIp);
+
+
 }
