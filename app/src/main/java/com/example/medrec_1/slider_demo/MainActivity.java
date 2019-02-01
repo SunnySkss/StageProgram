@@ -121,13 +121,17 @@ public class MainActivity extends AppCompatActivity implements FragmentTop.OnFra
         switch (menuItem.getItemId())
         {
             case R.id.nav_aboutus:
-                startActivity(new Intent(MainActivity.this,AboutUsActivity.class));
+                Intent aboutintent=new Intent(this,WebActivity.class);
+                aboutintent.putExtra("URL","http://stageprogram.com/About");
+                startActivity(aboutintent);
                       //  Toast.makeText(this, "You click on about us", Toast.LENGTH_SHORT).show();
                        // drawerLayout.closeDrawer(GravityCompat.START);  //Navigation drawer close immediately
                         return true;
             case R.id.nav_contact:
-
-                    startActivity(new Intent(MainActivity.this,ContactActivity.class));
+                Intent contactintent=new Intent(this,WebActivity.class);
+                contactintent.putExtra("URL","http://stageprogram.com/Contact");
+                startActivity(contactintent);
+                   // startActivity(new Intent(MainActivity.this,ContactActivity.class));
 //                AlertDialog.Builder alert = new AlertDialog.Builder(this);
 //                LayoutInflater layoutInflaterContact=this.getLayoutInflater();
 //                View dialogviewContact=layoutInflaterContact.inflate(R.layout.alertcontact,null);
@@ -171,7 +175,10 @@ public class MainActivity extends AppCompatActivity implements FragmentTop.OnFra
                  //   drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
             case R.id.nav_policy:
-                startActivity(new Intent(MainActivity.this,PolicyActivity.class));
+                Intent policyintent=new Intent(this,WebActivity.class);
+                policyintent.putExtra("URL","http://stageprogram.com/Privacy");
+                startActivity(policyintent);
+//                startActivity(new Intent(MainActivity.this,PolicyActivity.class));
 
 //                final AlertDialog.Builder myalert=new AlertDialog.Builder(this);
 //                LayoutInflater layoutInflater=this.getLayoutInflater();
@@ -221,3 +228,4 @@ public class MainActivity extends AppCompatActivity implements FragmentTop.OnFra
         return true;
     }
 }
+// jjhiojoijijijjoi
