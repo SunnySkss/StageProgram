@@ -106,8 +106,8 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyHolder
 
         Picasso.get()
                 .load("http://stageprogram.com/"+items.get(i).getStandardThumbnailUrl())
-                .placeholder(R.drawable.chak_de_india)
-                .error(R.drawable.chak_de_india)
+                .placeholder(R.drawable.dummyvideo)
+                .error(R.drawable.dummyvideo)
                 .into(viewHolder.img);
 //        viewHolder.textView.setText(userList.get(i).getMediaUrl());
 //        String str=userList.get(i).getMediaUrl();

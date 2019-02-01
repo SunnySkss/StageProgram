@@ -18,7 +18,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 //ableLayout;
@@ -31,6 +33,8 @@ public class MainActivity extends AppCompatActivity implements FragmentTop.OnFra
     Toolbar mtoolbar;
     NavigationView navigationView;
     AlertDialog.Builder  alert;
+    ImageView alert_img_contact;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements FragmentTop.OnFra
         drawerLayout= findViewById(R.id.drawer_layout);
         alert = new AlertDialog.Builder(this);
         navigationView=(NavigationView)findViewById(R.id.nav_view);
+       // alert_img_contact=findViewById(R.id.alert_contact_img);
         navigationView.setNavigationItemSelectedListener(this);
         mTablayout.addTab(mTablayout.newTab().setText("TOP") );
         mTablayout.addTab(mTablayout.newTab().setText("BIHAR") );
@@ -116,23 +121,40 @@ public class MainActivity extends AppCompatActivity implements FragmentTop.OnFra
         switch (menuItem.getItemId())
         {
             case R.id.nav_aboutus:
-                        Toast.makeText(this, "You click on about us", Toast.LENGTH_SHORT).show();
-                        drawerLayout.closeDrawer(GravityCompat.START);  //Navigation drawer close immediately
+                startActivity(new Intent(MainActivity.this,AboutUsActivity.class));
+                      //  Toast.makeText(this, "You click on about us", Toast.LENGTH_SHORT).show();
+                       // drawerLayout.closeDrawer(GravityCompat.START);  //Navigation drawer close immediately
                         return true;
             case R.id.nav_contact:
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                        builder.setMessage("You can cantact to us below No:-\n +911234567890");
-                        builder.setPositiveButton("Ok",null);
-                        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(getApplicationContext(), "hiiiii", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                        builder.setIcon(R.drawable.ic_info);
-                        builder.setTitle("Contact Info");
-                        builder.create();
-                        builder.show();
+
+                    startActivity(new Intent(MainActivity.this,ContactActivity.class));
+//                AlertDialog.Builder alert = new AlertDialog.Builder(this);
+//                LayoutInflater layoutInflaterContact=this.getLayoutInflater();
+//                View dialogviewContact=layoutInflaterContact.inflate(R.layout.alertcontact,null);
+//                alert.setView(dialogviewContact);
+
+             // alert_img_contact.setImageResource(R.drawable.office);
+               // alert.setView(dialogviewContact);
+//                alert.setNeutralButton("Ok!!", new DialogInterface.OnClickListener() {
+//                   public void onClick(DialogInterface dlg, int sumthin) {
+//
+//                   }
+//                });
+//                alert.create();
+//                alert.show();
+//                        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//                        builder.setMessage("You can cantact to us below No:-\n +911234567890");
+//                        builder.setPositiveButton("Ok",null);
+//                        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                Toast.makeText(getApplicationContext(), "hiiiii", Toast.LENGTH_SHORT).show();
+//                            }
+//                        });
+//                        builder.setIcon(R.drawable.ic_info);
+//                        builder.setTitle("Contact Info");
+//                        builder.create();
+//                        builder.show();
                         return true;
             case R.id.nav_share:
                     try {
@@ -149,25 +171,27 @@ public class MainActivity extends AppCompatActivity implements FragmentTop.OnFra
                  //   drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
             case R.id.nav_policy:
-                final AlertDialog.Builder myalert=new AlertDialog.Builder(this);
-                LayoutInflater layoutInflater=this.getLayoutInflater();
-                View dialogview=layoutInflater.inflate(R.layout.alert_layout,null);
-                myalert.setView(dialogview);
-                TextView texTitle=dialogview.findViewById(R.id.textTitle);
-                TextView textMsg=dialogview.findViewById(R.id.textMsg);
-                Button btnok=dialogview.findViewById(R.id.okBtn);
-                texTitle.setText("Welcome To India");
-                textMsg.setText("Are you a student....?");
-                final AlertDialog alertDialog = myalert.create();
-                alertDialog.show();
-                btnok.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Toast.makeText(MainActivity.this, "Data Saved...", Toast.LENGTH_SHORT).show();
-                        alertDialog.dismiss();
-                        return ;
-                    }
-                });               
+                startActivity(new Intent(MainActivity.this,PolicyActivity.class));
+
+//                final AlertDialog.Builder myalert=new AlertDialog.Builder(this);
+//                LayoutInflater layoutInflater=this.getLayoutInflater();
+//                View dialogview=layoutInflater.inflate(R.layout.alert_layout,null);
+//                myalert.setView(dialogview);
+//                TextView texTitle=dialogview.findViewById(R.id.textTitle);
+//                TextView textMsg=dialogview.findViewById(R.id.textMsg);
+//                Button btnok=dialogview.findViewById(R.id.okBtn);
+//                texTitle.setText("Welcome To India");
+//                textMsg.setText("Are you a student....?");
+//                final AlertDialog alertDialog = myalert.create();
+//                alertDialog.show();
+//                btnok.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        Toast.makeText(MainActivity.this, "Data Saved...", Toast.LENGTH_SHORT).show();
+//                        alertDialog.dismiss();
+//                        return ;
+//                    }
+//                });
                 return true;
 
         case R.id.nav_exit:

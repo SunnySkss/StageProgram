@@ -45,7 +45,7 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
     VideoView videoView;
     TextView likes, dislikes, vedioTital, totViews, vedioDateTime, vedioDesc;
     CreateUserResponse mData;
-    ImageView imgLike, imgdislike, imgvedioshare;
+    ImageView imgBack,imgLike, imgdislike, imgvedioshare;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +61,8 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
         imgLike = findViewById(R.id.like_vedio_img);
         imgdislike = findViewById(R.id.dislike_vedio_img);
         imgvedioshare = findViewById(R.id.share_vedio_img);
+        imgBack=findViewById(R.id.imgback);
+        imgBack.setOnClickListener(this);
         imgLike.setOnClickListener(this);
         imgdislike.setOnClickListener(this);
         imgvedioshare.setOnClickListener(this);
@@ -177,6 +179,10 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
                     //e.toString();
                 }
                 break;
+            case R.id.imgback:
+                onBackPressed();
+                //Toast.makeText(this, "hello", Toast.LENGTH_SHORT).show();
+                break;
         }
     }
 
@@ -282,5 +288,10 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
         } else if (body.getMessage().equalsIgnoreCase("Already Added")) {
            // Toast.makeText(this, "You already Dislike this video", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }
