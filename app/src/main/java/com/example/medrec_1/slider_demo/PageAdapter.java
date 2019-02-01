@@ -18,11 +18,11 @@ public class PageAdapter extends FragmentStatePagerAdapter {
 
         switch (i)
         {
-            case 0: FragmentOne one=new FragmentOne();
+            case 0: FragmentTop one=new FragmentTop();
                     return one;
-            case 1: FragmentTwo two=new FragmentTwo();
+            case 1: FragmentBihar two=new FragmentBihar();
                     return two;
-            case 2: FragmentThree three=new FragmentThree();
+            case 2: FragmentPunjabHaryana three=new FragmentPunjabHaryana();
                     return three;
             case 3: FragmentRajasthan four=new FragmentRajasthan();
                     return four;

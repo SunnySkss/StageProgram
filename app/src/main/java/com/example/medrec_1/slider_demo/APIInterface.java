@@ -1,5 +1,7 @@
 package com.example.medrec_1.slider_demo;
 
+import com.example.medrec_1.slider_demo.utils.ViewerResponse;
+
 import java.util.List;
 
 import retrofit2.Call;
@@ -33,4 +35,7 @@ interface APIInterface {
     Call<DisLikeVedioResponse> doDisLikeVedio(@Field("VideoSourceId") int VideoSourceId,@Field("UserIp") String UserIp);
 
 
+    @FormUrlEncoded
+    @POST("/SetViews")
+    Call<ViewerResponse> doViewers(@Field("VideoSourceId") int VideoSourceId,@Field("UserIp") String UserIp);
 }

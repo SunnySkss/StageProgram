@@ -16,6 +16,7 @@ import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.example.medrec_1.slider_demo.utils.Constant;
+import com.example.medrec_1.slider_demo.utils.ViewerResponse;
 
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -111,6 +112,7 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
         totViews.setText(String.valueOf(mData.getTotalViews()) + "views");
         vedioDateTime.setText(mData.getCreatedDate());
         vedioDesc.setText(mData.getVideoDescription());
+        getViewers();
         playVideo(Constant.VIDEO_URL + mData.getMediaUrl());
 
 
@@ -209,6 +211,8 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
 
     private void onLikeSuccess(LikeVedioResponse body) {
         if (body != null && body.getMessage().equalsIgnoreCase("Added")) {
+            int Lik=mData.getTotalLike();
+            likes.setText(String.valueOf(Lik+1));
             Toast.makeText(this, "Like the video", Toast.LENGTH_SHORT).show();
 
         } else if (body.getMessage().equalsIgnoreCase("Already Added")) {
@@ -240,10 +244,43 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
 
     private void onDisLike(DisLikeVedioResponse body) {
         if(body!=null && body.getMessage().equalsIgnoreCase("Added")){
+            int DisL=mData.getTotalDislike();
+            dislikes.setText(String.valueOf(DisL+1));
             Toast.makeText(this, "Dislike the video", Toast.LENGTH_SHORT).show();
         } else if (body.getMessage().equalsIgnoreCase("Already Added")) {
             Toast.makeText(this, "You already Dislike this video", Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    public void getViewers()
+    {
+        retrofit2.Call<ViewerResponse>call=apiInterface.doViewers(mData.getVideoSourceId(),mobileIp);
+        call.enqueue(new Callback<ViewerResponse>() {
+            @Override
+            public void onResponse(retrofit2.Call<ViewerResponse> call, Response<ViewerResponse> response) {
+                if(response.isSuccessful() && response.code()==200)
+                {
+                        onViewers(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(retrofit2.Call<ViewerResponse> call, Throwable t) {
+                Log.d("onFailure", t.getMessage());
+                call.cancel();
+            }
+        });
+
+    }
+
+    private void onViewers(ViewerResponse body) {
+        if(body!=null && body.getMessage().equalsIgnoreCase("Incremented")){
+            int tot_Viewer=mData.getTotalViews();
+            totViews.setText(String.valueOf(tot_Viewer+1)+" views");
+           // Toast.makeText(this, "Dislike the video", Toast.LENGTH_SHORT).show();
+        } else if (body.getMessage().equalsIgnoreCase("Already Added")) {
+           // Toast.makeText(this, "You already Dislike this video", Toast.LENGTH_SHORT).show();
+        }
     }
 }

@@ -1,5 +1,6 @@
 package com.example.medrec_1.slider_demo;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -15,55 +16,55 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class FragmentThree extends Fragment implements RecycleAdapter.OnItemClickListener{
+public class FragmentBihar extends Fragment implements RecycleAdapter.OnItemClickListener{
 
     APIInterface apiInterface;
     private ArrayList<CreateUserResponse> createUserResponses =  new ArrayList<>();
+    private ArrayList<CreateUserResponse> createUserResponses2 =  new ArrayList<>();
     RecyclerView recyclerView;
     LinearLayoutManager linearLayoutManager;
     private View view;
-    private RecycleAdapter  recycleAdapter;
-    public FragmentThree() {
 
+    private RecycleAdapter  recycleAdapter;
+   // private String movienames[]={"Chak De India","Lagan"};
+   // private int moviewPoster[]={R.drawable.chak_de_india,R.drawable.lagan};
+    public FragmentBihar() {apiInterface=null;
         // Required empty public constructor
     }
-
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-         view = inflater.inflate(R.layout.fragment_fragment_three, container, false);
-        recyclerView=view.findViewById(R.id.myRecyclerPanjabHaryana);
+        view = inflater.inflate(R.layout.fragment_fragment_two, container, false);
+        recyclerView=view.findViewById(R.id.myRecyclerBihar);
+     //   recycleAdapter = new RecycleAdapter(createUserResponses,getContext());
+      //  recycleAdapter.onOfferClickListener(this);
 
-     //   recycleAdapter.onOfferClickListener(this);
-//        recycleAdapter = new RecycleAdapter(createUserResponses,getContext());
         linearLayoutManager=new LinearLayoutManager(getContext());
-       recyclerView.setHasFixedSize(true);
-       recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(linearLayoutManager);
         apiInterface = APIClient.getClient().create(APIInterface.class);
 
         // RecycleAdapter recycleAdapter=new RecycleAdapter(getContext(),moviewPoster,movienames);
-        //   recyclerView.setAdapter(recycleAdapter);
-        getList();
+     //   recyclerView.setAdapter(recycleAdapter);
+          getList();
         return view;
-
-
     }
-
     private void getList() {
         // userList.clear();
         Log.d("inside","retro");
         // Call<ResponseBody> call2=apiInterface.doGetListResources();
 
-        Call<List<CreateUserResponse>> call = apiInterface.doCreateUserWithField(1,20,13);
+        Call<List<CreateUserResponse>> call = apiInterface.doCreateUserWithField(1,1000,5);
         call.enqueue(new Callback<List<CreateUserResponse>>() {
             @Override
             public void onResponse(Call<List<CreateUserResponse>> call, Response<List<CreateUserResponse>> response) {
@@ -72,8 +73,18 @@ public class FragmentThree extends Fragment implements RecycleAdapter.OnItemClic
                     for (int i = 0; i < response.body().size(); i++) {
                         createUserResponses.add(response.body().get(i));
                     }
-                    setAdapter(createUserResponses);
+
+
                 }
+                for(int j=0;j<createUserResponses.size();j++)
+                {
+                    int minno=0;
+                    int maxSize=createUserResponses.size()-1;
+                    Random r = new Random();
+                    int ii= r.nextInt((maxSize - minno) + 1) + minno;
+                    createUserResponses2.add(createUserResponses.get(ii));
+                }
+                setAdapter(createUserResponses2);
             }
 
             @Override
@@ -99,6 +110,7 @@ public class FragmentThree extends Fragment implements RecycleAdapter.OnItemClic
 //        i.putExtra("SENDER_KEY", str);
 //        getActivity().startActivity(i);
 //    }
+
 
 
     @Override

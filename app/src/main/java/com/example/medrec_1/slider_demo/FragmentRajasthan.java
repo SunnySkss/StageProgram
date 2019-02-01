@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,6 +28,8 @@ public class FragmentRajasthan extends Fragment implements RecycleAdapter.OnItem
 
     APIInterface apiInterface;
     private ArrayList<CreateUserResponse> createUserResponses =  new ArrayList<>();
+    private ArrayList<CreateUserResponse> createUserResponses2 =  new ArrayList<>();
+
     RecyclerView recyclerView;
     LinearLayoutManager linearLayoutManager;
     private RecycleAdapter  recycleAdapter;
@@ -67,7 +70,7 @@ public class FragmentRajasthan extends Fragment implements RecycleAdapter.OnItem
         Log.d("inside","retro");
         // Call<ResponseBody> call2=apiInterface.doGetListResources();
 
-        Call<List<CreateUserResponse>> call = apiInterface.doCreateUserWithField(1,20,30);
+        Call<List<CreateUserResponse>> call = apiInterface.doCreateUserWithField(1,1000,30);
         call.enqueue(new Callback<List<CreateUserResponse>>() {
             @Override
             public void onResponse(Call<List<CreateUserResponse>> call, Response<List<CreateUserResponse>> response) {
@@ -76,8 +79,16 @@ public class FragmentRajasthan extends Fragment implements RecycleAdapter.OnItem
                     for (int i = 0; i < response.body().size(); i++) {
                         createUserResponses.add(response.body().get(i));
                     }
-                    setAdapter(createUserResponses);
                 }
+                for(int j=0;j<createUserResponses.size();j++)
+                {
+                    int minno=0;
+                    int maxSize=createUserResponses.size()-1;
+                    Random r = new Random();
+                    int ii= r.nextInt((maxSize - minno) + 1) + minno;
+                    createUserResponses2.add(createUserResponses.get(ii));
+                }
+                setAdapter(createUserResponses2);
             }
 
             @Override

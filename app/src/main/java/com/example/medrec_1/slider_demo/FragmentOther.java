@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,10 +26,12 @@ public class FragmentOther extends Fragment implements RecycleAdapter.OnItemClic
 
     APIInterface apiInterface;
     private ArrayList<CreateUserResponse> createUserResponses =  new ArrayList<>();
+    private ArrayList<CreateUserResponse> createUserResponses2 =  new ArrayList<>();
     RecyclerView recyclerView;
     private View view;
     LinearLayoutManager linearLayoutManager;
     private RecycleAdapter  recycleAdapter;
+
     public FragmentOther() {
         // Required empty public constructor
     }
@@ -61,7 +64,7 @@ public class FragmentOther extends Fragment implements RecycleAdapter.OnItemClic
         Log.d("inside","retro");
         // Call<ResponseBody> call2=apiInterface.doGetListResources();
 
-        Call<List<CreateUserResponse>> call = apiInterface.doCreateUserWithField(1,20,29);
+        Call<List<CreateUserResponse>> call = apiInterface.doCreateUserWithField(1,1000,29);
         call.enqueue(new Callback<List<CreateUserResponse>>() {
             @Override
             public void onResponse(Call<List<CreateUserResponse>> call, Response<List<CreateUserResponse>> response) {
@@ -70,8 +73,18 @@ public class FragmentOther extends Fragment implements RecycleAdapter.OnItemClic
                     for (int i = 0; i < response.body().size(); i++) {
                         createUserResponses.add(response.body().get(i));
                     }
-                    setAdapter(createUserResponses);
+
                 }
+                for(int j=0;j<createUserResponses.size();j++)
+                {
+                    int minno=0;
+                    int maxSize=createUserResponses.size()-1;
+                    Random r = new Random();
+                    int ii= r.nextInt((maxSize - minno) + 1) + minno;
+                    createUserResponses2.add(createUserResponses.get(ii));
+                }
+                setAdapter(createUserResponses2);
+
             }
 
             @Override
@@ -83,6 +96,7 @@ public class FragmentOther extends Fragment implements RecycleAdapter.OnItemClic
     }
 
     private void setAdapter(ArrayList<CreateUserResponse> data) {
+     //   Toast.makeText(getContext(), "hh"+String.valueOf(data.size()), Toast.LENGTH_SHORT).show();
         recyclerView.setAdapter(new RecycleAdapter(data,this,getContext()));
     }
 

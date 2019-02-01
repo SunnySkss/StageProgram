@@ -100,6 +100,8 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyHolder
 
     @Override
     public void onBindViewHolder(@NonNull final MyHolder viewHolder, final int i) {
+
+
         viewHolder.bind(items.get(i), listener);
 
         Picasso.get()

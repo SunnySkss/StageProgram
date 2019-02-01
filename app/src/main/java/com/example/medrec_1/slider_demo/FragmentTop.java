@@ -22,13 +22,14 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class FragmentOne extends Fragment implements RecycleAdapter.OnItemClickListener {
+public class FragmentTop extends Fragment implements RecycleAdapter.OnItemClickListener {
     RecyclerView recyclerView;
     LinearLayoutManager linearLayoutManager;
     private String movienames[]={"First","Second"};
@@ -37,10 +38,11 @@ public class FragmentOne extends Fragment implements RecycleAdapter.OnItemClickL
     APIInterface apiInterface;
     private RecycleAdapter  recycleAdapter;
     private ArrayList<CreateUserResponse> createUserResponses =  new ArrayList<>();
+    private ArrayList<CreateUserResponse> createUserResponses2 =  new ArrayList<>();
     private ProgressDialog mProgressDialog;
 
 
-    public FragmentOne() {
+    public FragmentTop() {
        //apiInterface=null;
         // Required empty public constructor
     }
@@ -123,7 +125,7 @@ public class FragmentOne extends Fragment implements RecycleAdapter.OnItemClickL
         // Call<ResponseBody> call2=apiInterface.doGetListResources();
         mProgressDialog.setMessage("Loading");
         mProgressDialog.show();
-        Call<List<CreateUserResponse>> call = apiInterface.doCreateUserWithField(1,20);
+        Call<List<CreateUserResponse>> call = apiInterface.doCreateUserWithField(1,1000);
         call.enqueue(new Callback<List<CreateUserResponse>>() {
             @Override
             public void onResponse(Call<List<CreateUserResponse>> call, Response<List<CreateUserResponse>> response) {
@@ -133,7 +135,16 @@ public class FragmentOne extends Fragment implements RecycleAdapter.OnItemClickL
                         createUserResponses.add(response.body().get(i));
                     }
                 }
-                setAdapter(createUserResponses);
+                for(int j=0;j<createUserResponses.size();j++)
+                {
+                    int minno=0;
+                    int maxSize=createUserResponses.size()-1;
+                    Random r = new Random();
+                    int ii= r.nextInt((maxSize - minno) + 1) + minno;
+                    createUserResponses2.add(createUserResponses.get(ii));
+                }
+                setAdapter(createUserResponses2);
+
                 mProgressDialog.dismiss();
             }
             @Override
