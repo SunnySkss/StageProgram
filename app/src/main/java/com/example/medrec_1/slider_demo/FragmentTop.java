@@ -82,10 +82,6 @@ public class FragmentTop extends Fragment implements RecycleAdapter.OnItemClickL
         Log.e("getList()","onCreate");
     }
 
-//    @Override
-//    public void onAdapter1Click(int position) {
-//        Log.e("getList()","onCreate");
-//    }
 
     @Override
     public void onItemClick(CreateUserResponse item) {
@@ -101,18 +97,6 @@ public class FragmentTop extends Fragment implements RecycleAdapter.OnItemClickL
             i.putExtra("dislikeVed",item.getTotalDislike());*/
         getActivity().startActivity(i);
     }
-
-//    @Override
-//    public void RecycleOnClick(int position) {
-//
-//        String str="http://stageprogram.com/"+createUserResponses.get(position).getMediaUrl();
-//        Intent i = new Intent(getActivity().getBaseContext(),
-//                MediaActivity.class);
-//        //PACK DATA
-//        i.putExtra("SENDER_KEY", str);
-//        getActivity().startActivity(i);
-//
-//    }
 
 
     public interface OnFragmentInteractionListener {
@@ -144,7 +128,6 @@ public class FragmentTop extends Fragment implements RecycleAdapter.OnItemClickL
                     createUserResponses2.add(createUserResponses.get(ii));
                 }
                 setAdapter(createUserResponses2);
-
                 mProgressDialog.dismiss();
             }
             @Override
@@ -160,9 +143,4 @@ public class FragmentTop extends Fragment implements RecycleAdapter.OnItemClickL
         recyclerView.setAdapter(new RecycleAdapter(data,this, getContext()));
         mProgressDialog.dismiss();
     }
-
-
-
-
-
-  }
+}
