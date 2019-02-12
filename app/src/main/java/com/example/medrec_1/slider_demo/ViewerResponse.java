@@ -1,4 +1,4 @@
-package com.example.medrec_1.slider_demo.utils;
+package com.example.medrec_1.slider_demo;
 
 public class ViewerResponse {
     /**

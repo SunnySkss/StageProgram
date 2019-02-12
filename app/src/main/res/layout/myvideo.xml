@@ -50,7 +50,6 @@
         android:layout_below="@id/myVedionew"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
-
         android:text="0" />
     <RelativeLayout
         android:id="@+id/relViews"

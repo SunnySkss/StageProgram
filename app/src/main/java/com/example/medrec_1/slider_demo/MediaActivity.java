@@ -1,12 +1,14 @@
 package com.example.medrec_1.slider_demo;
 
-import android.app.Activity;
 import android.content.Intent;
 
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.telecom.Call;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,23 +18,15 @@ import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.example.medrec_1.slider_demo.utils.Constant;
-import com.example.medrec_1.slider_demo.utils.ViewerResponse;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.TimeZone;
 
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -167,17 +161,75 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
                 DislikeVedioAPI();
                 break;
             case R.id.share_vedio_img:
+//                Intent share = new Intent(Intent.ACTION_SEND);
+//
+//                // If you want to share a png image only, you can do:
+//                // setType("image/png"); OR for jpeg: setType("image/jpeg");
+//                share.setType("image/*");
+//
+//                // Make sure you put example png image named myImage.png in your
+//                // directory
+//                String imagePath = Constant.VIDEO_URL+mData.getMainThumbnailUrl();
+//
+//                File imageFileToShare = new File(imagePath);
+//
+//                Uri uri = Uri.fromFile(imageFileToShare);
+//                share.putExtra(Intent.EXTRA_STREAM, uri);
+//
+//                startActivity(Intent.createChooser(share, "Share Image!"));
+              //  Bitmap bitmap=getB
+    Bitmap bitmap=getBitmapFormVIew(videoView);
+//    try
+//    {
+//       // File file=new File(Constant.VIDEO_URL+mData.getMainThumbnailUrl());
+//      //  FileOutputStream fOut=new FileOutputStream(file);
+////       // bitmap.compress(Bitmap.CompressFormat.JPEG,100,fOut);
+////        fOut.flush();
+////        fOut.close();
+////        file.setReadable(true,false);
+//        final Intent intent=new Intent(Intent.ACTION_SEND);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        intent.putExtra(Intent.EXTRA_TEXT,Uri.parse(Constant.VIDEO_URL+mData.getMainThumbnailUrl()));
+//        intent.setType("image/png");
+//        startActivity(Intent.createChooser(intent,"share image via"));
+//
+//
+//    } catch (Exception e) {
+//        e.printStackTrace();
+//    }
+
+
                 try {
                     Intent shareIntent = new Intent(Intent.ACTION_SEND);
                     shareIntent.setType("text/plain");
+                    String path=Constant.VIDEO_URL+mData.getMainThumbnailUrl();
                     shareIntent.putExtra(Intent.EXTRA_SUBJECT, "My application name");
                     String shareMessage = "\nLet me recommend you this application\n\n";
-                    shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID + "\n\n";
+//                    shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID + "\n\n";
+                    shareMessage=shareMessage+Constant.VIDEO_URL+mData.getMediaUrl();
                     shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
                     startActivity(Intent.createChooser(shareIntent, "choose one"));
                 } catch (Exception e) {
                     //e.toString();
                 }
+
+//                Uri imageUri = Uri.parse(Constant.VIDEO_URL+mData.getMediaUrl());
+//                Intent shareIntent = new Intent();
+//                shareIntent.setAction(Intent.ACTION_SEND);
+//                //Target whatsapp:
+//
+//                shareIntent.setPackage("com.whatsapp");
+//                //Add text and then Image URI
+//                shareIntent.putExtra(Intent.EXTRA_TEXT, mData.getVideoTitle());
+//                shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
+//                shareIntent.setType("image/jpeg");
+//                shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+//
+//                try {
+//                    startActivity(shareIntent);
+//                } catch (android.content.ActivityNotFoundException ex) {
+//                    //ToastHelper.MakeShortText("Whatsapp have not been installed.");
+//                }
                 break;
             case R.id.imgback:
                 onBackPressed();
@@ -185,7 +237,20 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
                 break;
         }
     }
-
+    public Bitmap getBitmapFormVIew(View view)
+    {
+        Bitmap returnBitmap=Bitmap.createBitmap(view.getWidth(),view.getHeight(),Bitmap.Config.ARGB_8888);
+        Canvas canvas=new Canvas(returnBitmap);
+        Drawable bgDrawable=view.getBackground();
+        if(bgDrawable!=null)
+        {
+            bgDrawable.draw(canvas);
+        } else{
+            canvas.drawColor(Color.WHITE);
+        }
+        view.draw(canvas);
+        return returnBitmap;
+    }
     public void LikeVedioAPI() {
 
         // userList.clear();

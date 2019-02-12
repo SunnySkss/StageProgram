@@ -5,10 +5,7 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_share"
-            android:icon="@drawable/ic_share"
-            android:title="Share"> </item>
+
         <item
             android:id="@+id/nav_policy"
             android:icon="@drawable/ic_send"
@@ -21,6 +18,10 @@
             android:id="@+id/nav_contact"
             android:icon="@drawable/ic_send"
             android:title="Contact Us"></item>
+        <item
+            android:id="@+id/nav_share"
+            android:icon="@drawable/ic_share"
+            android:title="Share"> </item>
         <item
             android:id="@+id/nav_exit"
             android:icon="@drawable/ic_exit"
