@@ -38,13 +38,23 @@
 
             />
     </android.support.v7.widget.Toolbar>
-        <VideoView
+
+    <com.google.android.exoplayer2.ui.PlayerView
+        android:layout_below="@+id/toolbar"
+        android:id="@+id/myVedionew"
+        android:focusable="true"
+        android:layout_margin="10dp"
+        android:layout_width="fill_parent"
+        android:layout_height="250dp"
+        />
+
+    <!--   <VideoView
             android:layout_below="@+id/toolbar"
             android:id="@+id/myVedionew"
             android:layout_margin="10dp"
             android:layout_width="fill_parent"
             android:layout_height="250dp"
-             />
+             />  -->
     <TextView
         android:id="@+id/vedioTital"
         android:layout_below="@id/myVedionew"
@@ -126,5 +136,13 @@
         android:textSize="12dp"
         android:textStyle="bold"
         android:text="0" />
+
+    <SeekBar
+        android:layout_below="@id/vedioDesc"
+        android:id="@+id/seekbar"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        />
+
 </RelativeLayout>
 

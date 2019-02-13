@@ -1,11 +1,13 @@
 package com.example.medrec_1.slider_demo;
 
+import android.content.Context;
 import android.content.Intent;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,11 +15,21 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.MediaController;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.example.medrec_1.slider_demo.utils.Constant;
+import com.google.android.exoplayer2.ExoPlayerFactory;
+import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.source.ExtractorMediaSource;
+import com.google.android.exoplayer2.source.MediaSource;
+import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
+import com.google.android.exoplayer2.ui.PlayerView;
+import com.google.android.exoplayer2.upstream.DataSource;
+import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
+import com.google.android.exoplayer2.util.Util;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -40,12 +52,17 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
     TextView likes, dislikes, vedioTital, totViews, vedioDateTime, vedioDesc;
     CreateUserResponse mData;
     ImageView imgBack,imgLike, imgdislike, imgvedioshare;
+    private  SimpleExoPlayer exoPlayer;
+    private SeekBar volumeSeekBar;
 
+    private  PlayerView playerView;
+
+    AudioManager audioManager;// = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.myvideo);
-        videoView = findViewById(R.id.myVedionew);
+        //videoView = findViewById(R.id.myVedionew);
         likes = findViewById(R.id.likesVedio);
         dislikes = findViewById(R.id.dislikeVedio);
         vedioTital = findViewById(R.id.vedioTital);
@@ -60,9 +77,10 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
         imgLike.setOnClickListener(this);
         imgdislike.setOnClickListener(this);
         imgvedioshare.setOnClickListener(this);
-
+        playerView=findViewById(R.id.myVedionew);
         apiInterface = APIClient.getClient().create(APIInterface.class);
 
+        volumeSeekBar=findViewById(R.id.seekbar);
         if (getIntent() != null && getIntent().hasExtra("data")) {
             mData = getIntent().getParcelableExtra("data");
         }
@@ -109,18 +127,84 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
         vedioDateTime.setText(mData.getCreatedDate());
         vedioDesc.setText(mData.getVideoDescription());
         getViewers();
-        playVideo(Constant.VIDEO_URL + mData.getMediaUrl());
+        //playVideo(Constant.VIDEO_URL + mData.getMediaUrl());
 
+
+
+
+        audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+        volumeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                audioManager.setStreamVolume(exoPlayer.getAudioStreamType(), i, 0);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
 
     }
 
     public void playVideo(String str) {
+//        //playerView.v
+//        SimpleExoPlayer player=ExoPlayerFactory.newSimpleInstance(this.getApplicationContext());
+//        playerView.setPlayer(player);
+//
+//        DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(getApplicationContext(),
+//                Util.getUserAgent(getApplicationContext(), "yourApplicationName"));
+//// This is the MediaSource representing the media to be played.
+//        MediaSource videoSource = new ExtractorMediaSource.Factory(dataSourceFactory)
+//                .createMediaSource(Uri.parse(str));
+//// Prepare the player with the source.
+//        player.prepare(videoSource);
+
+
+
         MediaController m = new MediaController(this);
+        m.playSoundEffect(View.SOUND_EFFECTS_ENABLED);
+        m.setZ(100);
+        m.setX(10);
+        m.setY(13);
+        m.setBottom(Color.BLUE);
         videoView.setMediaController(m);
+
 
         Uri myUri = Uri.parse(str);
         videoView.setVideoURI(myUri);
         videoView.start();
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        String urlVedio=Constant.VIDEO_URL+mData.getMediaUrl();
+        exoPlayer=ExoPlayerFactory.newSimpleInstance(this,
+                new DefaultTrackSelector());
+        playerView.setPlayer(exoPlayer);
+
+        DefaultDataSourceFactory dataSourceFactory=new DefaultDataSourceFactory(this,
+                Util.getUserAgent(this,"ExhoPlayerDemo"));
+        ExtractorMediaSource mediaSource=new ExtractorMediaSource.Factory(dataSourceFactory)
+                .createMediaSource(Uri.parse(urlVedio));
+
+        exoPlayer.setVolume(12);
+        exoPlayer.prepare(mediaSource);
+        exoPlayer.setPlayWhenReady(true);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        playerView.setPlayer(null);
+        exoPlayer.release();
+        exoPlayer=null;
+
     }
 
     public static String getIPAddress(boolean useIPv4) {
