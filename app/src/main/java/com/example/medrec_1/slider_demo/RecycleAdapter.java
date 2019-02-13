@@ -1,36 +1,16 @@
 package com.example.medrec_1.slider_demo;
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.text.Html;
-import android.text.SpannableString;
-import android.text.style.UnderlineSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.squareup.picasso.Picasso;
-
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-
-import static android.provider.Settings.System.getString;
-import static android.support.v4.content.ContextCompat.startActivity;
-
 
 public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyHolder>  {
 
