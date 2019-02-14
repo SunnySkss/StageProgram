@@ -1,9 +1,11 @@
 package com.example.medrec_1.slider_demo;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -25,7 +27,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 //ableLayout;
 
-public class MainActivity extends AppCompatActivity implements FragmentTop.OnFragmentInteractionListener,FragmentBihar.OnFragmentInteractionListener,FragmentPunjabHaryana.OnFragmentInteractionListener,FragmentRajasthan.OnFragmentInteractionListener,FragmentOther.OnFragmentInteractionListener, NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements FragmentTop.OnFragmentInteractionListener,
+        FragmentBihar.OnFragmentInteractionListener,FragmentPunjabHaryana.OnFragmentInteractionListener,
+        FragmentRajasthan.OnFragmentInteractionListener,FragmentOther.OnFragmentInteractionListener,
+        NavigationView.OnNavigationItemSelectedListener {
 
     TabLayout mTablayout;
     private DrawerLayout drawerLayout;
@@ -46,23 +51,25 @@ public class MainActivity extends AppCompatActivity implements FragmentTop.OnFra
         navigationView=(NavigationView)findViewById(R.id.nav_view);
        // alert_img_contact=findViewById(R.id.alert_contact_img);
         navigationView.setNavigationItemSelectedListener(this);
-        mTablayout.addTab(mTablayout.newTab().setText("TOP") );
-        mTablayout.addTab(mTablayout.newTab().setText("BIHAR") );
-        mTablayout.addTab(mTablayout.newTab().setText("PUNJAB & HARYANA") );
-        mTablayout.addTab(mTablayout.newTab().setText("RAJASTHAN") );
-        mTablayout.addTab(mTablayout.newTab().setText("OTHER") );
-        mTablayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        viewPager=(ViewPager)findViewById(R.id.myPager);
-        final PageAdapter adapter=new PageAdapter(getSupportFragmentManager(),mTablayout.getTabCount());
-        viewPager.setAdapter(adapter);
-        viewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTablayout));
-        mTablayout.setTabTextColors(Color.parseColor("#727272"), Color.parseColor("#ffffff"));
+        boolean aa=isNetworkConnected();
+        //if(aa) {
+            mTablayout.addTab(mTablayout.newTab().setText("TOP"));
+            mTablayout.addTab(mTablayout.newTab().setText("BIHAR"));
+            mTablayout.addTab(mTablayout.newTab().setText("PUNJAB & HARYANA"));
+            mTablayout.addTab(mTablayout.newTab().setText("RAJASTHAN"));
+            mTablayout.addTab(mTablayout.newTab().setText("OTHER"));
+            mTablayout.setTabGravity(TabLayout.GRAVITY_FILL);
+            viewPager = (ViewPager) findViewById(R.id.myPager);
+            final PageAdapter adapter = new PageAdapter(getSupportFragmentManager(), mTablayout.getTabCount());
+            viewPager.setAdapter(adapter);
+            viewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTablayout));
+            mTablayout.setTabTextColors(Color.parseColor("#727272"), Color.parseColor("#ffffff"));
 
-        ActionBarDrawerToggle toggle;
-        toggle = new ActionBarDrawerToggle(this, drawerLayout, mtoolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
-        selectTab();
+            ActionBarDrawerToggle toggle;
+            toggle = new ActionBarDrawerToggle(this, drawerLayout, mtoolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+            drawerLayout.addDrawerListener(toggle);
+            toggle.syncState();
+            selectTab();
 
     /*    viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -71,9 +78,16 @@ public class MainActivity extends AppCompatActivity implements FragmentTop.OnFra
                     mTablayout.getTabAt(i).setIcon(i != position ? TAB_ICONS_UNSELECTED[i] : TAB_ICONS_SELECTED[i]);
             }
         });*/
+//        }
+//        else
+//            Toast.makeText(this, "Check Your Internet Connection...", Toast.LENGTH_SHORT).show();
     }
 
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
+        return cm.getActiveNetworkInfo() != null;
+    }
 
 
     private void selectTab() {

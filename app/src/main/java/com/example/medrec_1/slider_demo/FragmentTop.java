@@ -1,7 +1,9 @@
 package com.example.medrec_1.slider_demo;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,6 +13,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.example.medrec_1.slider_demo.utils.Constant;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -50,12 +56,22 @@ public class FragmentTop extends Fragment implements RecycleAdapter.OnItemClickL
           view = inflater.inflate(R.layout.fragment_fragment_one, container, false);
          // updateView();
         Log.e("getList()", String.valueOf(createUserResponses.size()));
+        //boolean aa=new Constant().isNetworkConnected();
+        if(isNetworkConnected()){
        updateView();
         getList();
         setAdapter(createUserResponses);
+        }
+        else
+        {
+            Toast.makeText(getContext(), "Check internet connection...", Toast.LENGTH_SHORT).show();
+        }
         return view;
     }
-
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        return cm.getActiveNetworkInfo() != null;
+    }
     private void updateView() {
        // recycleAdapter = new RecycleAdapter(createUserResponses,getContext());
        // recycleAdapter.onOfferClickListener(this);
@@ -70,6 +86,7 @@ public class FragmentTop extends Fragment implements RecycleAdapter.OnItemClickL
     public void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.e("getList()","onCreate");
+
     }
 
 
