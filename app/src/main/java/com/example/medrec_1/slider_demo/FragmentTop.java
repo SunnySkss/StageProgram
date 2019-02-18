@@ -57,14 +57,15 @@ public class FragmentTop extends Fragment implements RecycleAdapter.OnItemClickL
          // updateView();
         Log.e("getList()", String.valueOf(createUserResponses.size()));
         //boolean aa=new Constant().isNetworkConnected();
-        if(isNetworkConnected()){
-       updateView();
-        getList();
-        setAdapter(createUserResponses);
+        if(Constant.isNetworkConnected())//|| Constant.isWifiConnected())
+        {
+            updateView();
+            getList();
+            setAdapter(createUserResponses);
         }
         else
         {
-            Toast.makeText(getContext(), "Check internet connection...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Check internet connection first...", Toast.LENGTH_SHORT).show();
         }
         return view;
     }

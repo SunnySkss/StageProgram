@@ -1,6 +1,4 @@
 package com.example.medrec_1.slider_demo;
-
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,12 +9,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -48,6 +43,7 @@ public class FragmentRajasthan extends Fragment implements RecycleAdapter.OnItem
          view = inflater.inflate(R.layout.fragment_fragment_rajasthan, container, false);
          recyclerView=view.findViewById(R.id.myRecyclerRajasthan);
 
+         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
          //recycleAdapter = new RecycleAdapter(createUserResponses,getContext());
        // recycleAdapter.onOfferClickListener(this);
 
@@ -86,6 +82,7 @@ public class FragmentRajasthan extends Fragment implements RecycleAdapter.OnItem
                     int maxSize=createUserResponses.size()-1;
                     Random r = new Random();
                     int ii= r.nextInt((maxSize - minno) + 1) + minno;
+
                     createUserResponses2.add(createUserResponses.get(ii));
                 }
                 setAdapter(createUserResponses2);

@@ -35,6 +35,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.List;
 
@@ -93,25 +97,26 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
         // String videoUrl = Constant.VIDEO_URL +mData.getMediaUrl();
         int totlikes = mData.getTotalLike();
         int totdislike = mData.getTotalDislike();
-
+               //   2017-05-18T21:01:55.203
         final String dateTime = mData.getCreatedDate();
+     //   final DateFormat df = new SimpleDateFormat("yyyyMMddHHmmss.SSS");
 
-        // ZonedDateTime d = ZonedDateTime.parse(dateTime);
+         //ZonedDateTime d = ZonedDateTime.parse(dateTime);
 
-    /*    DateTimeFormatter formatter = null;
+        DateTimeFormatter formatter = null;
         try {
-            formatter = DateTimeFormatter.ofPattern("yyyy-mm-dd'T'hh:mm:ss");
+            formatter = DateTimeFormatter.ofPattern("yyyy-mm-dd'T'hh:mm:sss");
         } catch (Exception e) {
 
             e.printStackTrace();
         }
 
-        final ZonedDateTime parsed = ZonedDateTime.parse(dateTime,formatter);
+  /*      final ZonedDateTime parsed = ZonedDateTime.parse(dateTime,formatter);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSSSZ");
         sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
 
-
 */
+
 
         String datenTime = mData.getCreatedDate();
         String[] parts = datenTime.split("T");

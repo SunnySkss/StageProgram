@@ -16,7 +16,7 @@
     card_view:cardCornerRadius="10dp"
     card_view:cardUseCompatPadding="true"
     android:id="@+id/card_view"
-
+    card_view:contentPaddingBottom="5dp"
     app:ignore="NamespaceTypo">
     <LinearLayout
         android:layout_width="match_parent"
