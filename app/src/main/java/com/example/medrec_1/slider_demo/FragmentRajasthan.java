@@ -3,12 +3,18 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+
+import com.example.medrec_1.slider_demo.utils.Constant;
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -24,12 +30,16 @@ public class FragmentRajasthan extends Fragment implements RecycleAdapter.OnItem
     APIInterface apiInterface;
     private ArrayList<CreateUserResponse> createUserResponses =  new ArrayList<>();
     private ArrayList<CreateUserResponse> createUserResponses2 =  new ArrayList<>();
+    private ArrayList<CreateUserResponse> createUserResponses3 =  new ArrayList<>();
+
 
     RecyclerView recyclerView;
     LinearLayoutManager linearLayoutManager;
     private RecycleAdapter  recycleAdapter;
     private View view;
 
+    String imgStrRaj;
+    ImageView imgRaj;
     public FragmentRajasthan() {
         // Required empty public constructor
     }
@@ -42,20 +52,29 @@ public class FragmentRajasthan extends Fragment implements RecycleAdapter.OnItem
         // Inflate the layout for this fragment
          view = inflater.inflate(R.layout.fragment_fragment_rajasthan, container, false);
          recyclerView=view.findViewById(R.id.myRecyclerRajasthan);
+    imgRaj=view.findViewById(R.id.first_imagerajasthan);
 
-         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
+        // recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
          //recycleAdapter = new RecycleAdapter(createUserResponses,getContext());
        // recycleAdapter.onOfferClickListener(this);
 
 
         linearLayoutManager=new LinearLayoutManager(getContext());
          recyclerView.setHasFixedSize(true);
-         recyclerView.setLayoutManager(linearLayoutManager);
+         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
         apiInterface = APIClient.getClient().create(APIInterface.class);
 
         // RecycleAdapter recycleAdapter=new RecycleAdapter(getContext(),moviewPoster,movienames);
         //   recyclerView.setAdapter(recycleAdapter);
         getList();
+        imgRaj.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity().getBaseContext(),MediaActivity.class);
+                i.putExtra("data",createUserResponses3.get(0));
+                getActivity().startActivity(i);
+            }
+        });
         return view;
 
 
@@ -78,13 +97,17 @@ public class FragmentRajasthan extends Fragment implements RecycleAdapter.OnItem
                 }
                 for(int j=0;j<createUserResponses.size();j++)
                 {
+
                     int minno=0;
                     int maxSize=createUserResponses.size()-1;
                     Random r = new Random();
                     int ii= r.nextInt((maxSize - minno) + 1) + minno;
 
                     createUserResponses2.add(createUserResponses.get(ii));
+                    imgStrRaj=Constant.VIDEO_URL+createUserResponses2.get(0).getStandardThumbnailUrl();
                 }
+                createUserResponses3.add(createUserResponses2.get(0));
+                createUserResponses2.remove(0);
                 setAdapter(createUserResponses2);
             }
 
@@ -98,6 +121,11 @@ public class FragmentRajasthan extends Fragment implements RecycleAdapter.OnItem
 
     private void setAdapter(ArrayList<CreateUserResponse> data) {
         recyclerView.setAdapter(new RecycleAdapter(data,this,getContext()));
+        Picasso.get()
+                .load(imgStrRaj)
+                .placeholder(R.drawable.dummyvideo)
+                .error(R.drawable.dummyvideo)
+                .into(imgRaj);
     }
 
 

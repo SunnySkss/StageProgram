@@ -7,15 +7,18 @@ import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.medrec_1.slider_demo.utils.Constant;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,28 +29,25 @@ import retrofit2.Response;
 
 public class FragmentTop extends Fragment implements RecycleAdapter.OnItemClickListener {
     RecyclerView recyclerView;
+    String first="";
+
     LinearLayoutManager linearLayoutManager;
-    private String movienames[]={"First","Second"};
-    private int moviewPoster[]={R.drawable.mv,R.drawable.mvtwo};
+
     private View view;
     APIInterface apiInterface;
     private RecycleAdapter  recycleAdapter;
     private ArrayList<CreateUserResponse> createUserResponses =  new ArrayList<>();
     private ArrayList<CreateUserResponse> createUserResponses2 =  new ArrayList<>();
-    private ProgressDialog mProgressDialog;
+    private ArrayList<CreateUserResponse> createUserResponses3 =  new ArrayList<>();
 
+    private ProgressDialog mProgressDialog;
+    private ImageView fimg;
 
 
     public FragmentTop() {
        //apiInterface=null;
         // Required empty public constructor
     }
-
-    /*@Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        Log.e("Attach","Called");
-    }*/
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,16 +57,25 @@ public class FragmentTop extends Fragment implements RecycleAdapter.OnItemClickL
          // updateView();
         Log.e("getList()", String.valueOf(createUserResponses.size()));
         //boolean aa=new Constant().isNetworkConnected();
-        if(Constant.isNetworkConnected())//|| Constant.isWifiConnected())
-        {
+//        if(Constant.isNetworkConnected())//|| Constant.isWifiConnected())
+//        {
             updateView();
             getList();
-            setAdapter(createUserResponses);
-        }
-        else
-        {
-            Toast.makeText(getContext(), "Check internet connection first...", Toast.LENGTH_SHORT).show();
-        }
+            //setAdapter(createUserResponses);
+//        }
+//        else
+//        {
+//            Toast.makeText(getContext(), "Check internet connection first...", Toast.LENGTH_SHORT).show();
+//        }
+
+        fimg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity().getBaseContext(),MediaActivity.class);
+                i.putExtra("data",createUserResponses3.get(0));
+                getActivity().startActivity(i);
+            }
+        });
         return view;
     }
     private boolean isNetworkConnected() {
@@ -76,10 +85,11 @@ public class FragmentTop extends Fragment implements RecycleAdapter.OnItemClickL
     private void updateView() {
        // recycleAdapter = new RecycleAdapter(createUserResponses,getContext());
        // recycleAdapter.onOfferClickListener(this);
+        fimg=view.findViewById(R.id.first_image);
         recyclerView=view.findViewById(R.id.myRecyclerTop);
-        linearLayoutManager=new LinearLayoutManager(getContext());
+
         mProgressDialog = new ProgressDialog(getContext());
-        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
         apiInterface = APIClient.getClient().create(APIInterface.class);
     }
 
@@ -111,6 +121,7 @@ public class FragmentTop extends Fragment implements RecycleAdapter.OnItemClickL
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
     private void getList() {
         // userList.clear();
         Log.d("inside","retro");
@@ -134,7 +145,11 @@ public class FragmentTop extends Fragment implements RecycleAdapter.OnItemClickL
                     Random r = new Random();
                     int ii= r.nextInt((maxSize - minno) + 1) + minno;
                     createUserResponses2.add(createUserResponses.get(ii));
+                    first= "http://stageprogram.com/"+createUserResponses2.get(0).getStandardThumbnailUrl();
+
                 }
+                createUserResponses3.add(createUserResponses2.get(0));
+                createUserResponses2.remove(0);
                 setAdapter(createUserResponses2);
                 mProgressDialog.dismiss();
             }
@@ -147,8 +162,12 @@ public class FragmentTop extends Fragment implements RecycleAdapter.OnItemClickL
     }
 
     private void setAdapter(ArrayList<CreateUserResponse> data) {
-//        Log.d("onFailure","sunny");
         recyclerView.setAdapter(new RecycleAdapter(data,this, getContext()));
         mProgressDialog.dismiss();
+        Picasso.get()
+                .load(first)
+                .placeholder(R.drawable.dummyvideo)
+                .error(R.drawable.dummyvideo)
+                .into(fimg);
     }
 }

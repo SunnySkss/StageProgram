@@ -1,6 +1,7 @@
 package com.example.medrec_1.slider_demo;
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import java.util.List;
@@ -83,35 +86,16 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyHolder
 
 
         viewHolder.bind(items.get(i), listener);
-
         Picasso.get()
                 .load("http://stageprogram.com/"+items.get(i).getStandardThumbnailUrl())
                 .placeholder(R.drawable.dummyvideo)
                 .error(R.drawable.dummyvideo)
                 .into(viewHolder.img);
-//        viewHolder.textView.setText(userList.get(i).getMediaUrl());
-//        String str=userList.get(i).getMediaUrl();
+
 //
-//        SpannableString content = new SpannableString(str);
-//        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
-//        viewHolder.textView.setText(content);
-////        viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
-////            @Override
-////            public void onClick(View v) {
-////                Toast.makeText(context, ""+i, Toast.LENGTH_SHORT).show();
-////
-////              //  recyclerViewClickListener.RecycleOnClick(i);
-////            }
-////        });
-//        viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                onItemClickListener.onAdapter1Click(2);
-//            }
-//        });
     }
     //commit to github
-///bgcvasdvjhsaddhasdhfdui
+
     @Override
     public int getItemCount() {
 
@@ -120,31 +104,34 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyHolder
 
     public static class MyHolder extends RecyclerView.ViewHolder {
 
+        RelativeLayout l1;
         CardView cardView;
-        ImageView img;
+        ImageView img,imgfirst;
         TextView cardVedTital,cardVedDescription,cardVedViews,cardViewHowLong;
 
         public MyHolder( View itemView) {
             super(itemView);
+            //l1=itemView.findViewById(R.id.linear_mv_Rel);
+            imgfirst=itemView.findViewById(R.id.first_image);
             img = itemView.findViewById(R.id.mimageView);
             cardVedTital=(TextView)itemView.findViewById(R.id.cardVedTitle);
-            cardView=(CardView) itemView.findViewById(R.id.card_view);
+            //cardView=(CardView) itemView.findViewById(R.id.card_view);
             cardVedDescription=itemView.findViewById(R.id.cardVedDesc);
-            cardVedViews=itemView.findViewById(R.id.cardVedViews);
-            cardViewHowLong=itemView.findViewById(R.id.cardVedHowLong);
+          //  cardVedViews=itemView.findViewById(R.id.cardVedViews);
+          //  cardViewHowLong=itemView.findViewById(R.id.cardVedHowLong);
         }
         public void bind(final CreateUserResponse item, final OnItemClickListener mlistener) {
             cardVedTital.setText(item.getVideoTitle());
             cardVedDescription.setText(item.getVideoDescription());
-            cardVedViews.setText(item.getTotalViews()+"  views");
-            cardViewHowLong.setText(item.getHowLong());
+           // cardVedViews.setText(item.getTotalViews()+"  views");
+           // cardViewHowLong.setText(item.getHowLong());
             //Picasso.load("http://stageprogram.com/"+item.getMediaUrl()).into(img);
 //            Picasso.get()
 //                .load("http://stageprogram.com/"+item.getStandardThumbnailUrl())
 //                .placeholder(R.drawable.chak_de_india)
 //                .error(R.drawable.chak_de_india)
 //                .into(MyHolder.img);
-            cardView.setOnClickListener(new View.OnClickListener() {
+            img.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
                     mlistener.onItemClick(item);
                 }
