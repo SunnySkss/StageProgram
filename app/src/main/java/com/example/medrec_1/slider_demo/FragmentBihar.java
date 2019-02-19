@@ -66,7 +66,7 @@ public class FragmentBihar extends Fragment implements RecycleAdapter.OnItemClic
         // RecycleAdapter recycleAdapter=new RecycleAdapter(getContext(),moviewPoster,movienames);
      //   recyclerView.setAdapter(recycleAdapter);
           getList();
-
+//df
           imgbihar.setOnClickListener(new View.OnClickListener() {
               @Override
               public void onClick(View v) {
