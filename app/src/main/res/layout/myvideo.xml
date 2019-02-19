@@ -23,8 +23,8 @@
         android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/imgback"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="22dp"
             android:src="@drawable/ic_arrow_back"
             />
         <TextView
@@ -45,7 +45,10 @@
         android:focusable="true"
         android:layout_margin="10dp"
         android:layout_width="fill_parent"
-        android:layout_height="250dp"
+        android:layout_height="280dp"
+
+
+
         />
 
     <!--   <VideoView
@@ -60,6 +63,7 @@
         android:layout_below="@id/myVedionew"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
+        android:layout_marginLeft="25dp"
         android:text="0" />
     <RelativeLayout
         android:id="@+id/relViews"
@@ -82,31 +86,32 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_below="@id/relViews"
+        android:layout_marginLeft="25dp"
         android:src="@drawable/like_img"
         />
 
         <TextView
             android:id="@+id/likesVedio"
-            android:layout_below="@id/relViews"
+            android:layout_below="@id/like_vedio_img"
             android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
             android:text="0" />
     <ImageView
         android:id="@+id/dislike_vedio_img"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_below="@id/relViews"
-        android:layout_marginLeft="100dp"
+        android:layout_marginLeft="120dp"
         android:src="@drawable/dis_like_img"
         />
 
     <TextView
         android:id="@+id/dislikeVedio"
-        android:layout_below="@id/relViews"
+        android:layout_below="@id/dislike_vedio_img"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="140dp"
+        android:layout_marginLeft="120dp"
 
         android:text="0" />
     <ImageView
@@ -114,16 +119,16 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_below="@id/relViews"
-        android:layout_marginLeft="170dp"
+        android:layout_marginLeft="215dp"
         android:src="@drawable/ic_share"/>
         <RelativeLayout
             android:id="@+id/shadowLine"
             android:layout_below="@+id/likesVedio"
-            android:layout_marginTop="10dp"
+
             android:layout_width="match_parent"
-            android:layout_margin="15dp"
+            android:layout_margin="8dp"
             android:layout_height="1dp"
-            android:background="@android:color/darker_gray"
+            android:background="@android:color/background_dark"
             android:elevation="1dp"></RelativeLayout>
 
     <TextView
@@ -132,7 +137,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="16dp"
+        android:layout_marginLeft="25dp"
         android:textSize="12dp"
         android:textStyle="bold"
         android:text="0" />

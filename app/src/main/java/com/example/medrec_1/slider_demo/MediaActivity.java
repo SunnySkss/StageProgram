@@ -54,9 +54,10 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
     TextView likes, dislikes, vedioTital, totViews, vedioDateTime, vedioDesc;
     CreateUserResponse mData;
     ImageView imgBack,imgLike, imgdislike, imgvedioshare;
-    private  SimpleExoPlayer exoPlayer;
+
     private SeekBar volumeSeekBar;
 
+    private  SimpleExoPlayer exoPlayer;
     private  PlayerView playerView;
 
     AudioManager audioManager;// = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
@@ -195,7 +196,6 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
                 Util.getUserAgent(this,"ExhoPlayerDemo"));
         ExtractorMediaSource mediaSource=new ExtractorMediaSource.Factory(dataSourceFactory)
                 .createMediaSource(Uri.parse(urlVedio));
-
         exoPlayer.setVolume(12);
         exoPlayer.prepare(mediaSource);
         exoPlayer.setPlayWhenReady(true);
