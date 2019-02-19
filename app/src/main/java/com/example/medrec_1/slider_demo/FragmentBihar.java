@@ -1,6 +1,7 @@
 package com.example.medrec_1.slider_demo;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -39,9 +40,10 @@ public class FragmentBihar extends Fragment implements RecycleAdapter.OnItemClic
 
     ImageView imgbihar;
     String imgStr;
+    private ProgressDialog mProgressDialog;
     private RecycleAdapter  recycleAdapter;
-   // private String movienames[]={"Chak De India","Lagan"};
-   // private int moviewPoster[]={R.drawable.chak_de_india,R.drawable.lagan};
+
+
     public FragmentBihar() {apiInterface=null;
         // Required empty public constructor
     }
@@ -60,7 +62,7 @@ public class FragmentBihar extends Fragment implements RecycleAdapter.OnItemClic
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
         apiInterface = APIClient.getClient().create(APIInterface.class);
-
+        mProgressDialog = new ProgressDialog(getContext());
         // RecycleAdapter recycleAdapter=new RecycleAdapter(getContext(),moviewPoster,movienames);
      //   recyclerView.setAdapter(recycleAdapter);
           getList();
@@ -78,6 +80,8 @@ public class FragmentBihar extends Fragment implements RecycleAdapter.OnItemClic
     }
     private void getList() {
         // userList.clear();
+        mProgressDialog.setMessage("Loading...");
+        mProgressDialog.show();
         Log.d("inside","retro");
         // Call<ResponseBody> call2=apiInterface.doGetListResources();
 
@@ -105,6 +109,7 @@ public class FragmentBihar extends Fragment implements RecycleAdapter.OnItemClic
                 createUserResponses3.add(createUserResponses2.get(0));
                 createUserResponses2.remove(0);
                 setAdapter(createUserResponses2);
+                mProgressDialog.dismiss();
             }
 
             @Override

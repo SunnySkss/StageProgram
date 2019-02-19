@@ -1,5 +1,6 @@
 package com.example.medrec_1.slider_demo;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -32,6 +33,7 @@ public class FragmentPunjabHaryana extends Fragment implements RecycleAdapter.On
     APIInterface apiInterface;
     private ArrayList<CreateUserResponse> createUserResponses =  new ArrayList<>();
     private ArrayList<CreateUserResponse> createUserResponses2 =  new ArrayList<>();
+    private ProgressDialog mProgressDialog;
 
     private ArrayList<CreateUserResponse> createUserResponses3 =  new ArrayList<>();
     RecyclerView recyclerView;
@@ -62,9 +64,12 @@ public class FragmentPunjabHaryana extends Fragment implements RecycleAdapter.On
        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
         apiInterface = APIClient.getClient().create(APIInterface.class);
         imgPunjab=view.findViewById(R.id.first_imagepunjab);
+        mProgressDialog = new ProgressDialog(getContext());
+
         // RecycleAdapter recycleAdapter=new RecycleAdapter(getContext(),moviewPoster,movienames);
         //   recyclerView.setAdapter(recycleAdapter);
         getList();
+
         imgPunjab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,6 +86,8 @@ public class FragmentPunjabHaryana extends Fragment implements RecycleAdapter.On
     private void getList() {
         // userList.clear();
         Log.d("inside","retro");
+        mProgressDialog.setMessage("Loading...");
+        mProgressDialog.show();
         // Call<ResponseBody> call2=apiInterface.doGetListResources();
 
         Call<List<CreateUserResponse>> call = apiInterface.doCreateUserWithField(1,1000,13);
@@ -107,6 +114,8 @@ public class FragmentPunjabHaryana extends Fragment implements RecycleAdapter.On
                 createUserResponses3.add(createUserResponses2.get(0));
                 createUserResponses2.remove(0);
                 setAdapter(createUserResponses2);
+                mProgressDialog.dismiss();
+
             }
 
             @Override

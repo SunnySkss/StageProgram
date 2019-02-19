@@ -248,43 +248,6 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
                 DislikeVedioAPI();
                 break;
             case R.id.share_vedio_img:
-//                Intent share = new Intent(Intent.ACTION_SEND);
-//
-//                // If you want to share a png image only, you can do:
-//                // setType("image/png"); OR for jpeg: setType("image/jpeg");
-//                share.setType("image/*");
-//
-//                // Make sure you put example png image named myImage.png in your
-//                // directory
-//                String imagePath = Constant.VIDEO_URL+mData.getMainThumbnailUrl();
-//
-//                File imageFileToShare = new File(imagePath);
-//
-//                Uri uri = Uri.fromFile(imageFileToShare);
-//                share.putExtra(Intent.EXTRA_STREAM, uri);
-//
-//                startActivity(Intent.createChooser(share, "Share Image!"));
-              //  Bitmap bitmap=getB
-    Bitmap bitmap=getBitmapFormVIew(videoView);
-//    try
-//    {
-//       // File file=new File(Constant.VIDEO_URL+mData.getMainThumbnailUrl());
-//      //  FileOutputStream fOut=new FileOutputStream(file);
-////       // bitmap.compress(Bitmap.CompressFormat.JPEG,100,fOut);
-////        fOut.flush();
-////        fOut.close();
-////        file.setReadable(true,false);
-//        final Intent intent=new Intent(Intent.ACTION_SEND);
-//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//        intent.putExtra(Intent.EXTRA_TEXT,Uri.parse(Constant.VIDEO_URL+mData.getMainThumbnailUrl()));
-//        intent.setType("image/png");
-//        startActivity(Intent.createChooser(intent,"share image via"));
-//
-//
-//    } catch (Exception e) {
-//        e.printStackTrace();
-//    }
-
 
                 try {
                     Intent shareIntent = new Intent(Intent.ACTION_SEND);

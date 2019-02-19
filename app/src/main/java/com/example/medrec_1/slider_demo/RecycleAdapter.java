@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.example.medrec_1.slider_demo.utils.Constant;
 import com.squareup.picasso.Picasso;
 import java.util.List;
 
@@ -87,7 +89,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyHolder
 
         viewHolder.bind(items.get(i), listener);
         Picasso.get()
-                .load("http://stageprogram.com/"+items.get(i).getStandardThumbnailUrl())
+                .load(Constant.VIDEO_URL +items.get(i).getStandardThumbnailUrl())
                 .placeholder(R.drawable.dummyvideo)
                 .error(R.drawable.dummyvideo)
                 .into(viewHolder.img);
@@ -104,14 +106,14 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyHolder
 
     public static class MyHolder extends RecyclerView.ViewHolder {
 
-        RelativeLayout l1;
+        LinearLayout l1;
         CardView cardView;
         ImageView img,imgfirst;
         TextView cardVedTital,cardVedDescription,cardVedViews,cardViewHowLong;
 
         public MyHolder( View itemView) {
             super(itemView);
-            //l1=itemView.findViewById(R.id.linear_mv_Rel);
+            l1=itemView.findViewById(R.id.linear_mv_click);
             imgfirst=itemView.findViewById(R.id.first_image);
             img = itemView.findViewById(R.id.mimageView);
             cardVedTital=(TextView)itemView.findViewById(R.id.cardVedTitle);
@@ -131,7 +133,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyHolder
 //                .placeholder(R.drawable.chak_de_india)
 //                .error(R.drawable.chak_de_india)
 //                .into(MyHolder.img);
-            img.setOnClickListener(new View.OnClickListener() {
+            l1.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
                     mlistener.onItemClick(item);
                 }

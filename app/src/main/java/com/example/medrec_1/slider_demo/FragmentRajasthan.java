@@ -1,4 +1,5 @@
 package com.example.medrec_1.slider_demo;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -37,6 +38,7 @@ public class FragmentRajasthan extends Fragment implements RecycleAdapter.OnItem
     LinearLayoutManager linearLayoutManager;
     private RecycleAdapter  recycleAdapter;
     private View view;
+    private ProgressDialog mProgressDialog;
 
     String imgStrRaj;
     ImageView imgRaj;
@@ -58,6 +60,7 @@ public class FragmentRajasthan extends Fragment implements RecycleAdapter.OnItem
          //recycleAdapter = new RecycleAdapter(createUserResponses,getContext());
        // recycleAdapter.onOfferClickListener(this);
 
+        mProgressDialog = new ProgressDialog(getContext());
 
         linearLayoutManager=new LinearLayoutManager(getContext());
          recyclerView.setHasFixedSize(true);
@@ -83,6 +86,8 @@ public class FragmentRajasthan extends Fragment implements RecycleAdapter.OnItem
     private void getList() {
         // userList.clear();
         Log.d("inside","retro");
+        mProgressDialog.setMessage("Loading...");
+        mProgressDialog.show();
         // Call<ResponseBody> call2=apiInterface.doGetListResources();
 
         Call<List<CreateUserResponse>> call = apiInterface.doCreateUserWithField(1,1000,30);
@@ -109,6 +114,7 @@ public class FragmentRajasthan extends Fragment implements RecycleAdapter.OnItem
                 createUserResponses3.add(createUserResponses2.get(0));
                 createUserResponses2.remove(0);
                 setAdapter(createUserResponses2);
+                mProgressDialog.dismiss();
             }
 
             @Override

@@ -3,15 +3,20 @@ package com.example.medrec_1.slider_demo;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -32,7 +37,7 @@ public class FragmentTop extends Fragment implements RecycleAdapter.OnItemClickL
     String first="";
 
     LinearLayoutManager linearLayoutManager;
-
+    AppBarLayout abl;
     private View view;
     APIInterface apiInterface;
     private RecycleAdapter  recycleAdapter;
@@ -54,6 +59,7 @@ public class FragmentTop extends Fragment implements RecycleAdapter.OnItemClickL
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
           view = inflater.inflate(R.layout.fragment_fragment_one, container, false);
+          abl=view.findViewById(R.id.app_bar);
          // updateView();
         Log.e("getList()", String.valueOf(createUserResponses.size()));
         //boolean aa=new Constant().isNetworkConnected();
@@ -99,6 +105,8 @@ public class FragmentTop extends Fragment implements RecycleAdapter.OnItemClickL
         Log.e("getList()","onCreate");
 
     }
+
+
 
 
     @Override
@@ -164,6 +172,7 @@ public class FragmentTop extends Fragment implements RecycleAdapter.OnItemClickL
     private void setAdapter(ArrayList<CreateUserResponse> data) {
         recyclerView.setAdapter(new RecycleAdapter(data,this, getContext()));
         mProgressDialog.dismiss();
+
         Picasso.get()
                 .load(first)
                 .placeholder(R.drawable.dummyvideo)

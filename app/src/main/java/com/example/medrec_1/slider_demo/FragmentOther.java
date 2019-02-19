@@ -1,5 +1,6 @@
 package com.example.medrec_1.slider_demo;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -31,6 +32,7 @@ public class FragmentOther extends Fragment implements RecycleAdapter.OnItemClic
     APIInterface apiInterface;
     private ArrayList<CreateUserResponse> createUserResponses =  new ArrayList<>();
     private ArrayList<CreateUserResponse> createUserResponses2 =  new ArrayList<>();
+    private ProgressDialog mProgressDialog;
 
     private ArrayList<CreateUserResponse> createUserResponses3 =  new ArrayList<>();
     RecyclerView recyclerView;
@@ -61,6 +63,9 @@ public class FragmentOther extends Fragment implements RecycleAdapter.OnItemClic
         imgOther=view.findViewById(R.id.first_imageOther);
         // RecycleAdapter recycleAdapter=new RecycleAdapter(getContext(),moviewPoster,movienames);
         //   recyclerView.setAdapter(recycleAdapter);
+
+        mProgressDialog = new ProgressDialog(getContext());
+
         getList();
         imgOther.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,6 +83,8 @@ public class FragmentOther extends Fragment implements RecycleAdapter.OnItemClic
     private void getList() {
         // userList.clear();
         Log.d("inside","retro");
+        mProgressDialog.setMessage("Loading...");
+        mProgressDialog.show();
         // Call<ResponseBody> call2=apiInterface.doGetListResources();
 
         Call<List<CreateUserResponse>> call = apiInterface.doCreateUserWithField(1,1000,29);
@@ -104,6 +111,8 @@ public class FragmentOther extends Fragment implements RecycleAdapter.OnItemClic
                 createUserResponses3.add(createUserResponses2.get(0));
                 createUserResponses2.remove(0);
                 setAdapter(createUserResponses2);
+                mProgressDialog.dismiss();
+
 
             }
 
