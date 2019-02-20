@@ -10,23 +10,23 @@
     tools:context=".FragmentTop">
 
     <!-- TODO: Update blank fragment layout -->
-
+    <android.support.v7.widget.RecyclerView
+        android:layout_marginTop="20dp"
+        android:id="@+id/myRecyclerTop"
+        android:layout_marginRight="5dp"
+        android:layout_width="wrap_content"
+        android:scrollbars="vertical"
+        android:layout_height="wrap_content">
+    </android.support.v7.widget.RecyclerView>
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="fill_parent"
         android:layout_height="180dp"
         android:fitsSystemWindows="true"
         android:background="@color/colorRed"
-
+        android:scrollbars="none"
         >
-        <android.support.v7.widget.RecyclerView
-            android:layout_marginTop="20dp"
-            android:id="@+id/myRecyclerTop"
-            android:layout_marginRight="5dp"
-            android:layout_width="wrap_content"
-            android:scrollbars="vertical"
-            android:layout_height="wrap_content">
-        </android.support.v7.widget.RecyclerView>
+
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/toolbar_layout"
