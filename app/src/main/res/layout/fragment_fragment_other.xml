@@ -11,6 +11,15 @@
 
     <!-- TODO: Update blank fragment layout -->
 
+    <android.support.v7.widget.RecyclerView
+
+        android:layout_marginTop="20dp"
+        android:id="@+id/myRecyclerOther"
+        android:layout_marginRight="5dp"
+        android:layout_width="wrap_content"
+        android:scrollbars="vertical"
+        android:layout_height="wrap_content">
+    </android.support.v7.widget.RecyclerView>
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_barOther"
         android:layout_width="fill_parent"
@@ -87,14 +96,7 @@
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v7.widget.RecyclerView
 
-        android:layout_marginTop="180dp"
-        android:id="@+id/myRecyclerOther"
-        android:layout_marginRight="5dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-    </android.support.v7.widget.RecyclerView>
 
 
 

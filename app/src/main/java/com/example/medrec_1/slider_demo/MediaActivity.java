@@ -131,11 +131,11 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
 //
 //            String sysddtime=DateFormat.getInstance().format(sysdate).toString();       //dateFormat.format(sysdate); //2016/11/16 12:08:43
             //Date dd=dateFormat.format(date);
-            LocalDate dateOfBirth = LocalDate.of(date.getYear(),date.getMonth(),date.getDay());
-            LocalDate currentDate = LocalDate.now();
-            long diffInDays = ChronoUnit.DAYS.between(dateOfBirth, currentDate);
-            long diffInMonths = ChronoUnit.MONTHS.between(dateOfBirth, currentDate);
-            long diffInYears = ChronoUnit.YEARS.between(dateOfBirth, currentDate);
+//            LocalDate dateOfBirth = LocalDate.of(date.getYear(),date.getMonth(),date.getDay());
+//            LocalDate currentDate = LocalDate.now();
+//            long diffInDays = ChronoUnit.DAYS.between(dateOfBirth, currentDate);
+//            long diffInMonths = ChronoUnit.MONTHS.between(dateOfBirth, currentDate);
+//            long diffInYears = ChronoUnit.YEARS.between(dateOfBirth, currentDate);
           //  SimpleDateFormat localSDF = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
           //  String localDate = localSDF.format(formatter.parse(String.valueOf(date)));

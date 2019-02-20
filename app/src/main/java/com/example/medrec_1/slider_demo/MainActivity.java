@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements FragmentTop.OnFra
         alert = new AlertDialog.Builder(this);
         navigationView=(NavigationView)findViewById(R.id.nav_view);
        // alert_img_contact=findViewById(R.id.alert_contact_img);
+
         navigationView.setNavigationItemSelectedListener(this);
         boolean aa=isNetworkConnected();
         //if(aa) {

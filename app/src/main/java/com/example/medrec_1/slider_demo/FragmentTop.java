@@ -60,7 +60,7 @@ public class FragmentTop extends Fragment implements RecycleAdapter.OnItemClickL
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
           view = inflater.inflate(R.layout.fragment_fragment_one, container, false);
-          abl=view.findViewById(R.id.app_bar);
+          //abl=view.findViewById(R.id.app_bar);
           vedTitle=view.findViewById(R.id.VedTitleTop);
          // vedDesc=view.findViewById(R.id.VedDescTop);
           vedViews=view.findViewById(R.id.VedViewsTop);
