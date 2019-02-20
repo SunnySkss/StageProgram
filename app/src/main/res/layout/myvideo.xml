@@ -14,7 +14,7 @@
         <!-- TODO: Update blank fragment layout -->
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
-        android:background="@color/colorAccent"
+        android:background="@color/colorRed"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         android:layout_width="match_parent"

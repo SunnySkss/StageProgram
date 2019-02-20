@@ -16,7 +16,7 @@
         android:orientation="vertical">
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
-        android:background="@color/colorAccent"
+        android:background="@color/colorRed"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         android:layout_width="match_parent"
@@ -40,7 +40,7 @@
         android:layout_height="30dp"
         app:tabTextColor="@android:color/white"
         android:id="@+id/tablayout"
-        android:background="@color/colorAccent"
+        android:background="@color/colorRed"
         android:elevation="1dp"
         android:minHeight="?attr/actionBarSize"
         app:tabMode="scrollable">
@@ -49,6 +49,7 @@
 
     <android.support.v4.view.ViewPager
         android:id="@+id/myPager"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 

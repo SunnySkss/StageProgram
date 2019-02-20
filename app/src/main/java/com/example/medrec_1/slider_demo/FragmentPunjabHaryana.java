@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.medrec_1.slider_demo.utils.Constant;
@@ -42,6 +43,7 @@ public class FragmentPunjabHaryana extends Fragment implements RecycleAdapter.On
     private RecycleAdapter  recycleAdapter;
     ImageView imgPunjab;
     String imgstrPunjab;
+    private TextView vedTitle,vedDesc,vedViews,vedLong;
 
     public FragmentPunjabHaryana() {
 
@@ -65,7 +67,10 @@ public class FragmentPunjabHaryana extends Fragment implements RecycleAdapter.On
         apiInterface = APIClient.getClient().create(APIInterface.class);
         imgPunjab=view.findViewById(R.id.first_imagepunjab);
         mProgressDialog = new ProgressDialog(getContext());
-
+        vedTitle=view.findViewById(R.id.VedTitlePunjab);
+        vedDesc=view.findViewById(R.id.VedDescPunjab);
+        vedViews=view.findViewById(R.id.VedViewsPunjab);
+        vedLong=view.findViewById(R.id.VedHowLongPunjab);
         // RecycleAdapter recycleAdapter=new RecycleAdapter(getContext(),moviewPoster,movienames);
         //   recyclerView.setAdapter(recycleAdapter);
         getList();
@@ -133,6 +138,11 @@ public class FragmentPunjabHaryana extends Fragment implements RecycleAdapter.On
                 .placeholder(R.drawable.dummyvideo)
                 .error(R.drawable.dummyvideo)
                 .into(imgPunjab);
+
+        vedTitle.setText(String.valueOf(createUserResponses3.get(0).getVideoTitle()));
+        vedDesc.setText(String.valueOf(createUserResponses3.get(0).getVideoDescription()));
+        vedViews.setText(String.valueOf(createUserResponses3.get(0).getTotalViews())+" views");
+        vedLong.setText(String.valueOf(createUserResponses3.get(0).getHowLong()));
     }
 
 

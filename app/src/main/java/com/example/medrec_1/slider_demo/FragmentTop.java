@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.medrec_1.slider_demo.utils.Constant;
@@ -47,7 +48,7 @@ public class FragmentTop extends Fragment implements RecycleAdapter.OnItemClickL
 
     private ProgressDialog mProgressDialog;
     private ImageView fimg;
-
+    private TextView vedTitle,vedDesc,vedViews,vedLong;
 
     public FragmentTop() {
        //apiInterface=null;
@@ -60,6 +61,10 @@ public class FragmentTop extends Fragment implements RecycleAdapter.OnItemClickL
         // Inflate the layout for this fragment
           view = inflater.inflate(R.layout.fragment_fragment_one, container, false);
           abl=view.findViewById(R.id.app_bar);
+          vedTitle=view.findViewById(R.id.VedTitleTop);
+          vedDesc=view.findViewById(R.id.VedDescTop);
+          vedViews=view.findViewById(R.id.VedViewsTop);
+          vedLong=view.findViewById(R.id.VedHowLongTop);
          // updateView();
         Log.e("getList()", String.valueOf(createUserResponses.size()));
         //boolean aa=new Constant().isNetworkConnected();
@@ -178,5 +183,13 @@ public class FragmentTop extends Fragment implements RecycleAdapter.OnItemClickL
                 .placeholder(R.drawable.dummyvideo)
                 .error(R.drawable.dummyvideo)
                 .into(fimg);
+
+//        String days=createUserResponses3.get(0).getHowLong();
+//        String day[]=days.split(" ");
+//        int tdays=Integer.parseInt(day[0]);
+        vedTitle.setText(String.valueOf(createUserResponses3.get(0).getVideoTitle()));
+        vedDesc.setText(String.valueOf(createUserResponses3.get(0).getVideoDescription()));
+        vedViews.setText(String.valueOf(createUserResponses3.get(0).getTotalViews())+" views");
+        vedLong.setText(createUserResponses3.get(0).getHowLong());
     }
 }

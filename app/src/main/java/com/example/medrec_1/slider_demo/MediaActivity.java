@@ -106,14 +106,15 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
 
         DateTimeFormatter formatter = null;
         try {
-            formatter = DateTimeFormatter.ofPattern("yyyy-mm-dd'T'hh:mm:sss");
+            formatter = DateTimeFormatter.ofPattern("yyyy-mm-dd'T'hh:mm:ss.SSSZ");
         } catch (Exception e) {
 
             e.printStackTrace();
         }
 
-  /*      final ZonedDateTime parsed = ZonedDateTime.parse(dateTime,formatter);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSSSZ");
+        final ZonedDateTime parsed = ZonedDateTime.parse(dateTime,formatter);
+
+      /*  SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSSSZ");
         sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
 
 */

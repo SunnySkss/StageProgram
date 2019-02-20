@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
@@ -42,6 +43,7 @@ public class FragmentOther extends Fragment implements RecycleAdapter.OnItemClic
     ImageView imgOther;
     String imgStr;
 
+    TextView vedTitle,vedDesc,vedViews,vedLong;
     public FragmentOther() {
         // Required empty public constructor
     }
@@ -61,6 +63,10 @@ public class FragmentOther extends Fragment implements RecycleAdapter.OnItemClic
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
         apiInterface = APIClient.getClient().create(APIInterface.class);
         imgOther=view.findViewById(R.id.first_imageOther);
+        vedTitle=view.findViewById(R.id.VedTitleOther);
+        vedDesc=view.findViewById(R.id.VedDescOther);
+        vedViews=view.findViewById(R.id.VedViewsOther);
+        vedLong=view.findViewById(R.id.VedHowLongOther);
         // RecycleAdapter recycleAdapter=new RecycleAdapter(getContext(),moviewPoster,movienames);
         //   recyclerView.setAdapter(recycleAdapter);
 
@@ -75,6 +81,7 @@ public class FragmentOther extends Fragment implements RecycleAdapter.OnItemClic
                 getActivity().startActivity(i);
             }
         });
+
         return view;
 
 
@@ -133,6 +140,10 @@ public class FragmentOther extends Fragment implements RecycleAdapter.OnItemClic
                 .placeholder(R.drawable.dummyvideo)
                 .error(R.drawable.dummyvideo)
                 .into(imgOther);
+        vedTitle.setText(String.valueOf(createUserResponses3.get(0).getVideoTitle()));
+        vedDesc.setText(String.valueOf(createUserResponses3.get(0).getVideoDescription()));
+        vedViews.setText(String.valueOf(createUserResponses3.get(0).getTotalViews())+" views");
+        vedLong.setText(String.valueOf(createUserResponses3.get(0).getHowLong()));
     }
 
 

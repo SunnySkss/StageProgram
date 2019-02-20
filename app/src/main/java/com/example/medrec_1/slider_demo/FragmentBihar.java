@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
@@ -43,7 +44,7 @@ public class FragmentBihar extends Fragment implements RecycleAdapter.OnItemClic
     private ProgressDialog mProgressDialog;
     private RecycleAdapter  recycleAdapter;
 
-
+    private TextView vedTitle,vedDesc,vedViews,vedLong;
     public FragmentBihar() {apiInterface=null;
         // Required empty public constructor
     }
@@ -63,6 +64,10 @@ public class FragmentBihar extends Fragment implements RecycleAdapter.OnItemClic
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
         apiInterface = APIClient.getClient().create(APIInterface.class);
         mProgressDialog = new ProgressDialog(getContext());
+        vedTitle=view.findViewById(R.id.VedTitleBihar);
+        vedDesc=view.findViewById(R.id.VedDescBihar);
+        vedViews=view.findViewById(R.id.VedViewsBihar);
+        vedLong=view.findViewById(R.id.VedHowLongBihar);
         // RecycleAdapter recycleAdapter=new RecycleAdapter(getContext(),moviewPoster,movienames);
      //   recyclerView.setAdapter(recycleAdapter);
           getList();
@@ -128,6 +133,11 @@ public class FragmentBihar extends Fragment implements RecycleAdapter.OnItemClic
                 .placeholder(R.drawable.dummyvideo)
                 .error(R.drawable.dummyvideo)
                 .into(imgbihar);
+
+        vedTitle.setText(String.valueOf(createUserResponses3.get(0).getVideoTitle()));
+        vedDesc.setText(String.valueOf(createUserResponses3.get(0).getVideoDescription()));
+        vedViews.setText(String.valueOf(createUserResponses3.get(0).getTotalViews())+" views");
+        vedLong.setText(String.valueOf(createUserResponses3.get(0).getHowLong()));
     }
 
 

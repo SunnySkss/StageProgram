@@ -7,40 +7,34 @@
     android:layout_height="wrap_content"
 
     tools:context=".MainActivity">
+
     <LinearLayout
         android:id="@+id/linear_mv_click"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical" >
-
+        android:orientation="vertical"
+        >
 <android.support.design.widget.CollapsingToolbarLayout
-
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="5dp"
     android:padding="2dp"
     android:background="@drawable/layout_bg"
-
     app:layout_scrollFlags="scroll|exitUntilCollapsed">
-
-
 
             <ImageView
                 android:id="@+id/mimageView"
                 android:layout_width="fill_parent"
-                android:layout_height="130dp"
-                android:scaleType="fitXY"
-
-                />
-
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY"/>
 
    <RelativeLayout
             android:id="@+id/rel"
-            android:paddingTop="50dp"
-            android:layout_width="wrap_content"
+            android:layout_marginTop="60dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_mv_layout"
-       >
+            android:background="@color/colorRed"
+            android:alpha="0.7" >
        <LinearLayout
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
@@ -48,7 +42,6 @@
            android:id="@+id/line"
            >
            <TextView
-
                android:id="@+id/cardVedTitle"
                android:layout_width="match_parent"
                android:layout_height="25dp"
@@ -56,15 +49,15 @@
                android:textColor="@android:color/white"
                android:textStyle="italic"
 
-               android:textSize="17dp"/>
+               android:textSize="18dp"/>
 
            <TextView
                android:id="@+id/cardVedDesc"
                android:layout_width="match_parent"
-               android:layout_height="26dp"
+               android:layout_height="27dp"
                android:layout_marginLeft="5dp"
-               android:layout_marginTop="5dp"
-               android:layout_marginBottom="5dp"
+               android:layout_marginTop="3dp"
+
                android:textColor="@android:color/white"
                android:textStyle="normal"
                android:textSize="11dp"/>
@@ -77,23 +70,23 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:textStyle="normal"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="4dp"
                 android:textColor="@android:color/white"
-                android:textSize="11dp"/>
+                android:textSize="12dp"/>
             <TextView
                 android:layout_below="@id/line"
                 android:id="@+id/cardVedHowLong"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="4dp"
                 android:layout_marginLeft="85dp"
                 android:textColor="@android:color/white"
                 android:textStyle="normal"
-                android:textSize="11dp"/>
+                android:textSize="12dp"/>
         </RelativeLayout>
 
     </android.support.design.widget.CollapsingToolbarLayout>
-</LinearLayout>
 
+    </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>
