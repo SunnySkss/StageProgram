@@ -39,8 +39,11 @@ import java.security.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
@@ -115,14 +118,24 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
             formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
             formatter.setTimeZone(TimeZone.getTimeZone("GMT+05:30"));
             date = (Date) formatter.parse(str_date);
+
             createDate=DateFormat.getInstance().format(date).toString();
             long time=date.getTime();
 
-            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-            Date sysdate = new Date();
-            String sysddtime=dateFormat.format(sysdate); //2016/11/16 12:08:43
 
 
+//            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+//            dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+05:30"));
+//            Date sysdate = new Date();
+//            sysdate=(Date)dateFormat.parse(String.valueOf(sysdate));
+//
+//            String sysddtime=DateFormat.getInstance().format(sysdate).toString();       //dateFormat.format(sysdate); //2016/11/16 12:08:43
+            //Date dd=dateFormat.format(date);
+            LocalDate dateOfBirth = LocalDate.of(date.getYear(),date.getMonth(),date.getDay());
+            LocalDate currentDate = LocalDate.now();
+            long diffInDays = ChronoUnit.DAYS.between(dateOfBirth, currentDate);
+            long diffInMonths = ChronoUnit.MONTHS.between(dateOfBirth, currentDate);
+            long diffInYears = ChronoUnit.YEARS.between(dateOfBirth, currentDate);
           //  SimpleDateFormat localSDF = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
           //  String localDate = localSDF.format(formatter.parse(String.valueOf(date)));
