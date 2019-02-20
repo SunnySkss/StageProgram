@@ -69,7 +69,7 @@ public class FragmentRajasthan extends Fragment implements RecycleAdapter.OnItem
         apiInterface = APIClient.getClient().create(APIInterface.class);
 
         vedTitle=view.findViewById(R.id.VedTitleRajasthan);
-        vedDesc=view.findViewById(R.id.VedDescRajasthan);
+       // vedDesc=view.findViewById(R.id.VedDescRajasthan);
         vedViews=view.findViewById(R.id.VedViewsRajasthan);
         vedLong=view.findViewById(R.id.VedHowLongRajasthan);
         // RecycleAdapter recycleAdapter=new RecycleAdapter(getContext(),moviewPoster,movienames);
@@ -138,7 +138,7 @@ public class FragmentRajasthan extends Fragment implements RecycleAdapter.OnItem
                 .error(R.drawable.dummyvideo)
                 .into(imgRaj);
         vedTitle.setText(String.valueOf(createUserResponses3.get(0).getVideoTitle()));
-        vedDesc.setText(String.valueOf(createUserResponses3.get(0).getVideoDescription()));
+      //  vedDesc.setText(String.valueOf(createUserResponses3.get(0).getVideoDescription()));
         vedViews.setText(String.valueOf(createUserResponses3.get(0).getTotalViews())+" views");
         vedLong.setText(String.valueOf(createUserResponses3.get(0).getHowLong()));
     }

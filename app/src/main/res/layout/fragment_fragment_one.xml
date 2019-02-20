@@ -11,38 +11,34 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <LinearLayout
-        android:id="@+id/linear_mv_click"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@color/colorRed">
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="fill_parent"
         android:layout_height="180dp"
-            android:fitsSystemWindows="true"
+        android:fitsSystemWindows="true"
         android:background="@color/colorRed"
         >
+
+
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/toolbar_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
 
             app:contentScrim="@color/colorRed"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             >
-        <ImageView
 
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:scaleType="fitXY"
-            android:id="@+id/first_image" />
+            <ImageView
 
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:id="@+id/first_image" />
             <RelativeLayout
                 android:id="@+id/rel"
-                android:layout_marginTop="80dp"
+                android:layout_marginTop="90dp"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:background="@color/colorRed"
@@ -51,42 +47,33 @@
                 <TextView
                     android:id="@+id/VedTitleTop"
                     android:layout_width="match_parent"
-                    android:layout_height="22dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
+                    android:layout_margin="5dp"
                     android:textColor="@android:color/white"
                     android:textStyle="italic"
 
-                    android:textSize="18dp"/>
-
-                <TextView
-                    android:id="@+id/VedDescTop"
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginTop="30dp"
-
-                    android:textColor="@android:color/white"
-                    android:textStyle="normal"
-                    android:textSize="13dp"/>
+                    android:textSize="20dp"/>
 
 
                 <TextView
-                    android:layout_below="@id/VedDescTop"
+                    android:layout_below="@id/VedTitleTop"
                     android:id="@+id/VedViewsTop"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="25dp"
+                    android:layout_marginLeft="15dp"
                     android:textStyle="normal"
-                    android:layout_marginTop="15dp"
+                    android:layout_margin="5dp"
                     android:textColor="@android:color/white"
                     android:textSize="12dp"/>
                 <TextView
-                    android:layout_below="@id/VedDescTop"
+                    android:layout_below="@id/VedTitleTop"
                     android:id="@+id/VedHowLongTop"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginLeft="160dp"
+                    android:layout_margin="5dp"
+                    android:layout_alignParentRight="true"
+                    android:paddingRight="20dp"
                     android:textColor="@android:color/white"
                     android:textStyle="normal"
                     android:textSize="12dp"/>
@@ -94,35 +81,36 @@
 
 
 
+
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
-    </LinearLayout>
-            <android.support.v7.widget.RecyclerView
 
-                android:layout_marginTop="185dp"
-                android:id="@+id/myRecyclerTop"
-                android:layout_marginRight="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-            </android.support.v7.widget.RecyclerView>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_marginTop="180dp"
+        android:id="@+id/myRecyclerTop"
+        android:layout_marginRight="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    </android.support.v7.widget.RecyclerView>
 
 
 
 
 
 </android.support.design.widget.CoordinatorLayout>
-    
 
 
 
-<!--
- <android.support.v7.widget.RecyclerView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_marginTop="100dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/myRecycler"
-        tools:context=".MainActivity">
-    </android.support.v7.widget.RecyclerView>
--->
+
+    <!--
+     <android.support.v7.widget.RecyclerView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_marginTop="100dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/myRecycler"
+            tools:context=".MainActivity">
+        </android.support.v7.widget.RecyclerView>
+    -->

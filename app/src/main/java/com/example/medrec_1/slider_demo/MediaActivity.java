@@ -35,12 +35,16 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
+import java.security.Timestamp;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -99,20 +103,31 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
         int totlikes = mData.getTotalLike();
         int totdislike = mData.getTotalDislike();
                //   2017-05-18T21:01:55.203
-        final String dateTime = mData.getCreatedDate();
+       // final String dateTime = mData.getCreatedDate();
      //   final DateFormat df = new SimpleDateFormat("yyyyMMddHHmmss.SSS");
 
          //ZonedDateTime d = ZonedDateTime.parse(dateTime);
-
-        DateTimeFormatter formatter = null;
+        Date date;
+        String str_date=mData.getCreatedDate();
         try {
-            formatter = DateTimeFormatter.ofPattern("yyyy-mm-dd'T'hh:mm:ss.SSSZ");
-        } catch (Exception e) {
+            DateFormat formatter;
+            formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+            formatter.setTimeZone(TimeZone.getTimeZone("GMT+05:30"));
+            date = (Date) formatter.parse(str_date);
+            long dt=date.getDay();
+            //Timestamp dateTimeStamp;//=new Timestamp(Long.parseLong(date.getTime()));
+            long l=date.getTime();
+          //  SimpleDateFormat localSDF = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-            e.printStackTrace();
+          //  String localDate = localSDF.format(formatter.parse(String.valueOf(date)));
+            //java.sql.Timestamp timeStampDate = new Timestamp(date.getTime());
+
+           // return timeStampDate;
+        } catch (ParseException e) {
+            System.out.println("Exception :" + e);
+
         }
-
-        final ZonedDateTime parsed = ZonedDateTime.parse(dateTime,formatter);
+      //  final ZonedDateTime parsed = ZonedDateTime.parse(dateTime,formatter);
 
       /*  SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSSSZ");
         sdf.setTimeZone(TimeZone.getTimeZone("GMT"));

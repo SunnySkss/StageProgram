@@ -10,93 +10,86 @@
     tools:context=".FragmentOther">
 
     <!-- TODO: Update blank fragment layout -->
-    <LinearLayout
-        android:id="@+id/linear_mv_click"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@color/colorRed">
+
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_barOther"
         android:layout_width="fill_parent"
         android:layout_height="180dp"
         android:fitsSystemWindows="true"
-        android:background="@color/colorRed">
+        android:background="@color/colorRed"
+        >
+
+
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
 
-            app:contentScrim="@color/colorForAppBar"
+            app:contentScrim="@color/colorRed"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             >
+
             <ImageView
 
                 android:layout_width="fill_parent"
                 android:layout_height="match_parent"
                 android:scaleType="fitXY"
                 android:id="@+id/first_imageOther" />
-
             <RelativeLayout
-            android:id="@+id/rel"
-            android:layout_marginTop="80dp"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="@color/colorRed"
-            android:alpha="0.7" >
-
-            <TextView
-                android:id="@+id/VedTitleOther"
-                android:layout_width="match_parent"
-                android:layout_height="22dp"
-                android:layout_marginLeft="15dp"
-                android:textColor="@android:color/white"
-                android:textStyle="italic"
-
-                android:textSize="18dp"/>
-
-            <TextView
-                android:id="@+id/VedDescOther"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="30dp"
-
-                android:textColor="@android:color/white"
-                android:textStyle="normal"
-                android:textSize="13dp"/>
-
-
-            <TextView
-                android:layout_below="@id/VedDescOther"
-                android:id="@+id/VedViewsOther"
+                android:id="@+id/rel"
+                android:layout_marginTop="80dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:textStyle="normal"
-                android:layout_marginTop="15dp"
-                android:textColor="@android:color/white"
-                android:textSize="12dp"/>
-            <TextView
-                android:layout_below="@id/VedDescOther"
-                android:id="@+id/VedHowLongOther"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:layout_marginLeft="160dp"
-                android:textColor="@android:color/white"
-                android:textStyle="normal"
-                android:textSize="12dp"/>
-        </RelativeLayout>
+                android:layout_height="match_parent"
+                android:background="@color/colorRed"
+                android:alpha="0.7" >
+
+                <TextView
+                    android:id="@+id/VedTitleOther"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:textColor="@android:color/white"
+                    android:textStyle="italic"
+
+                    android:textSize="20dp"/>
+
+
+
+
+                <TextView
+                    android:layout_below="@id/VedTitleOther"
+                    android:id="@+id/VedViewsOther"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:textStyle="italic"
+                    android:layout_margin="5dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="12dp"/>
+                <TextView
+                    android:layout_below="@id/VedTitleOther"
+                    android:id="@+id/VedHowLongOther"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_marginLeft="160dp"
+                    android:layout_alignParentRight="true"
+                    android:paddingRight="20dp"
+                    android:textColor="@android:color/white"
+                    android:textStyle="normal"
+                    android:textSize="12dp"/>
+            </RelativeLayout>
+
+
 
 
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
-    </LinearLayout>
+
     <android.support.v7.widget.RecyclerView
 
-        android:layout_marginTop="185dp"
+        android:layout_marginTop="180dp"
         android:id="@+id/myRecyclerOther"
         android:layout_marginRight="5dp"
         android:layout_width="wrap_content"

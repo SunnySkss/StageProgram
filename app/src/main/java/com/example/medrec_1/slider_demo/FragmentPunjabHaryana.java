@@ -68,7 +68,7 @@ public class FragmentPunjabHaryana extends Fragment implements RecycleAdapter.On
         imgPunjab=view.findViewById(R.id.first_imagepunjab);
         mProgressDialog = new ProgressDialog(getContext());
         vedTitle=view.findViewById(R.id.VedTitlePunjab);
-        vedDesc=view.findViewById(R.id.VedDescPunjab);
+      //  vedDesc=view.findViewById(R.id.VedDescPunjab);
         vedViews=view.findViewById(R.id.VedViewsPunjab);
         vedLong=view.findViewById(R.id.VedHowLongPunjab);
         // RecycleAdapter recycleAdapter=new RecycleAdapter(getContext(),moviewPoster,movienames);
@@ -140,7 +140,7 @@ public class FragmentPunjabHaryana extends Fragment implements RecycleAdapter.On
                 .into(imgPunjab);
 
         vedTitle.setText(String.valueOf(createUserResponses3.get(0).getVideoTitle()));
-        vedDesc.setText(String.valueOf(createUserResponses3.get(0).getVideoDescription()));
+       // vedDesc.setText(String.valueOf(createUserResponses3.get(0).getVideoDescription()));
         vedViews.setText(String.valueOf(createUserResponses3.get(0).getTotalViews())+" views");
         vedLong.setText(String.valueOf(createUserResponses3.get(0).getHowLong()));
     }

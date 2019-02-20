@@ -1,12 +1,12 @@
 package com.example.medrec_1.slider_demo;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -29,7 +29,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class FragmentBihar extends Fragment implements RecycleAdapter.OnItemClickListener{
+public class FragmentBihar extends android.support.v4.app.Fragment implements RecycleAdapter.OnItemClickListener{
 
     APIInterface apiInterface;
     private ArrayList<CreateUserResponse> createUserResponses =  new ArrayList<>();
@@ -65,7 +65,7 @@ public class FragmentBihar extends Fragment implements RecycleAdapter.OnItemClic
         apiInterface = APIClient.getClient().create(APIInterface.class);
         mProgressDialog = new ProgressDialog(getContext());
         vedTitle=view.findViewById(R.id.VedTitleBihar);
-        vedDesc=view.findViewById(R.id.VedDescBihar);
+      //  vedDesc=view.findViewById(R.id.VedDescBihar);
         vedViews=view.findViewById(R.id.VedViewsBihar);
         vedLong=view.findViewById(R.id.VedHowLongBihar);
         // RecycleAdapter recycleAdapter=new RecycleAdapter(getContext(),moviewPoster,movienames);
@@ -135,7 +135,7 @@ public class FragmentBihar extends Fragment implements RecycleAdapter.OnItemClic
                 .into(imgbihar);
 
         vedTitle.setText(String.valueOf(createUserResponses3.get(0).getVideoTitle()));
-        vedDesc.setText(String.valueOf(createUserResponses3.get(0).getVideoDescription()));
+     //   vedDesc.setText(String.valueOf(createUserResponses3.get(0).getVideoDescription()));
         vedViews.setText(String.valueOf(createUserResponses3.get(0).getTotalViews())+" views");
         vedLong.setText(String.valueOf(createUserResponses3.get(0).getHowLong()));
     }

@@ -1,11 +1,11 @@
 package com.example.medrec_1.slider_demo;
 
+import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,7 +28,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class FragmentOther extends Fragment implements RecycleAdapter.OnItemClickListener{
+public class FragmentOther extends android.support.v4.app.Fragment implements RecycleAdapter.OnItemClickListener{
 
     APIInterface apiInterface;
     private ArrayList<CreateUserResponse> createUserResponses =  new ArrayList<>();
@@ -64,7 +64,7 @@ public class FragmentOther extends Fragment implements RecycleAdapter.OnItemClic
         apiInterface = APIClient.getClient().create(APIInterface.class);
         imgOther=view.findViewById(R.id.first_imageOther);
         vedTitle=view.findViewById(R.id.VedTitleOther);
-        vedDesc=view.findViewById(R.id.VedDescOther);
+      //  vedDesc=view.findViewById(R.id.VedDescOther);
         vedViews=view.findViewById(R.id.VedViewsOther);
         vedLong=view.findViewById(R.id.VedHowLongOther);
         // RecycleAdapter recycleAdapter=new RecycleAdapter(getContext(),moviewPoster,movienames);
@@ -141,9 +141,9 @@ public class FragmentOther extends Fragment implements RecycleAdapter.OnItemClic
                 .error(R.drawable.dummyvideo)
                 .into(imgOther);
         vedTitle.setText(String.valueOf(createUserResponses3.get(0).getVideoTitle()));
-        vedDesc.setText(String.valueOf(createUserResponses3.get(0).getVideoDescription()));
-        vedViews.setText(String.valueOf(createUserResponses3.get(0).getTotalViews())+" views");
-        vedLong.setText(String.valueOf(createUserResponses3.get(0).getHowLong()));
+       // vedDesc.setText(String.valueOf(createUserResponses3.get(0).getVideoDescription()));
+        vedViews.setText(String.valueOf(createUserResponses3.get(0).getTotalViews()));
+        vedLong.setText(String.valueOf(createUserResponses3.get(0).getHowLong())+" views");
     }
 
 

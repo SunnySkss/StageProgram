@@ -62,7 +62,7 @@ public class FragmentTop extends Fragment implements RecycleAdapter.OnItemClickL
           view = inflater.inflate(R.layout.fragment_fragment_one, container, false);
           abl=view.findViewById(R.id.app_bar);
           vedTitle=view.findViewById(R.id.VedTitleTop);
-          vedDesc=view.findViewById(R.id.VedDescTop);
+         // vedDesc=view.findViewById(R.id.VedDescTop);
           vedViews=view.findViewById(R.id.VedViewsTop);
           vedLong=view.findViewById(R.id.VedHowLongTop);
          // updateView();
@@ -188,7 +188,7 @@ public class FragmentTop extends Fragment implements RecycleAdapter.OnItemClickL
 //        String day[]=days.split(" ");
 //        int tdays=Integer.parseInt(day[0]);
         vedTitle.setText(String.valueOf(createUserResponses3.get(0).getVideoTitle()));
-        vedDesc.setText(String.valueOf(createUserResponses3.get(0).getVideoDescription()));
+       // vedDesc.setText(String.valueOf(createUserResponses3.get(0).getVideoDescription()));
         vedViews.setText(String.valueOf(createUserResponses3.get(0).getTotalViews())+" views");
         vedLong.setText(createUserResponses3.get(0).getHowLong());
     }

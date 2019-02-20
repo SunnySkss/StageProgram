@@ -118,13 +118,13 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyHolder
             img = itemView.findViewById(R.id.mimageView);
             cardVedTital=(TextView)itemView.findViewById(R.id.cardVedTitle);
             //cardView=(CardView) itemView.findViewById(R.id.card_view);
-            cardVedDescription=itemView.findViewById(R.id.cardVedDesc);
+          //  cardVedDescription=itemView.findViewById(R.id.cardVedDesc);
            cardVedViews=itemView.findViewById(R.id.cardVedViews);
            cardViewHowLong=itemView.findViewById(R.id.cardVedHowLong);
         }
         public void bind(final CreateUserResponse item, final OnItemClickListener mlistener) {
             cardVedTital.setText(item.getVideoTitle());
-            cardVedDescription.setText(item.getVideoDescription());
+           // cardVedDescription.setText(item.getVideoDescription());
             cardVedViews.setText(item.getTotalViews()+"  views");
             cardViewHowLong.setText(item.getHowLong());
             //Picasso.load("http://stageprogram.com/"+item.getMediaUrl()).into(img);
