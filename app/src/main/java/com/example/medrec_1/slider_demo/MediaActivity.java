@@ -41,6 +41,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -60,7 +61,7 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
     ImageView imgBack,imgLike, imgdislike, imgvedioshare;
 
     private SeekBar volumeSeekBar;
-
+    private String createDate;
     private  SimpleExoPlayer exoPlayer;
     private  PlayerView playerView;
 
@@ -114,9 +115,14 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
             formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
             formatter.setTimeZone(TimeZone.getTimeZone("GMT+05:30"));
             date = (Date) formatter.parse(str_date);
-            long dt=date.getDay();
-            //Timestamp dateTimeStamp;//=new Timestamp(Long.parseLong(date.getTime()));
-            long l=date.getTime();
+            createDate=DateFormat.getInstance().format(date).toString();
+            long time=date.getTime();
+
+            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+            Date sysdate = new Date();
+            String sysddtime=dateFormat.format(sysdate); //2016/11/16 12:08:43
+
+
           //  SimpleDateFormat localSDF = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
           //  String localDate = localSDF.format(formatter.parse(String.valueOf(date)));
@@ -144,7 +150,7 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
         dislikes.setText(String.valueOf(totdislike));
         vedioTital.setText(mData.getVideoTitle());
         totViews.setText(String.valueOf(mData.getTotalViews()) + "views");
-        vedioDateTime.setText(mData.getCreatedDate());
+        vedioDateTime.setText(createDate);
         vedioDesc.setText(mData.getVideoDescription());
         getViewers();
         //playVideo(Constant.VIDEO_URL + mData.getMediaUrl());
