@@ -10,6 +10,7 @@ import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -119,23 +120,44 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
             formatter.setTimeZone(TimeZone.getTimeZone("GMT+05:30"));
             date = (Date) formatter.parse(str_date);
 
+            String pDate=DateFormat.getInstance().format(date).toString();
             createDate=DateFormat.getInstance().format(date).toString();
+
             long time=date.getTime();
+            String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
+            DateFormat format;
+            format=new SimpleDateFormat("yyyyMMdd_HHmmss");
+            format.setTimeZone(TimeZone.getTimeZone("GMT+05:30"));
+            Date sysdd=(Date)format.parse(timeStamp);
+            String cDate=DateFormat.getInstance().format(sysdd);
 
 
+//            LocalDate endofCentury = LocalDate.of(date.getYear(), date.getMonth(), date.getMonth());
+//
+//            LocalDate now = LocalDate.now();
+//
+//            Period diff = Period.between(endofCentury, now);
+//
+//            System.out.printf("Difference is %d years, %d months and %d days old",
+//                    diff.getYears(), diff.getMonths(), diff.getDays());
+//
+//
+//            String pTime=String.valueOf(date.getTime());
+//            String cTime=String.valueOf(sysdd.getTime());
 
+            //long mm=SystemClock.currentThreadTimeMillis();
+
+            Log.e("hi","hello");
 //            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-//            dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+05:30"));
-//            Date sysdate = new Date();
-//            sysdate=(Date)dateFormat.parse(String.valueOf(sysdate));
+//
 //
 //            String sysddtime=DateFormat.getInstance().format(sysdate).toString();       //dateFormat.format(sysdate); //2016/11/16 12:08:43
             //Date dd=dateFormat.format(date);
-//            LocalDate dateOfBirth = LocalDate.of(date.getYear(),date.getMonth(),date.getDay());
-//            LocalDate currentDate = LocalDate.now();
-//            long diffInDays = ChronoUnit.DAYS.between(dateOfBirth, currentDate);
-//            long diffInMonths = ChronoUnit.MONTHS.between(dateOfBirth, currentDate);
-//            long diffInYears = ChronoUnit.YEARS.between(dateOfBirth, currentDate);
+            LocalDate dateOfBirth = LocalDate.of(date.getYear(),date.getMonth(),date.getDay());
+            LocalDate currentDate = LocalDate.now();
+           // long diffInDays = ChronoUnit.DAYS.between(dateOfBirth, cDate);
+            long diffInMonths = ChronoUnit.MONTHS.between(dateOfBirth, currentDate);
+            long diffInYears = ChronoUnit.YEARS.between(dateOfBirth, currentDate);
           //  SimpleDateFormat localSDF = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
           //  String localDate = localSDF.format(formatter.parse(String.valueOf(date)));
@@ -427,7 +449,6 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
                 call.cancel();
             }
         });
-
     }
 
     private void onViewers(ViewerResponse body) {
