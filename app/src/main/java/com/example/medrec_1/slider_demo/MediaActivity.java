@@ -1,5 +1,6 @@
 package com.example.medrec_1.slider_demo;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 
@@ -8,8 +9,10 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -63,18 +66,18 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
     TextView likes, dislikes, vedioTital, totViews, vedioDateTime, vedioDesc;
     CreateUserResponse mData;
     ImageView imgBack,imgLike, imgdislike, imgvedioshare;
-
+    private int position = 0;
     private SeekBar volumeSeekBar;
     private String createDate;
     private  SimpleExoPlayer exoPlayer;
     private  PlayerView playerView;
-
+    private ProgressDialog progressDialog;
     AudioManager audioManager;// = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.myvideo);
-        //videoView = findViewById(R.id.myVedionew);
+        videoView = findViewById(R.id.myVedionew);
         likes = findViewById(R.id.likesVedio);
         dislikes = findViewById(R.id.dislikeVedio);
         vedioTital = findViewById(R.id.vedioTital);
@@ -85,11 +88,18 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
         imgdislike = findViewById(R.id.dislike_vedio_img);
         imgvedioshare = findViewById(R.id.share_vedio_img);
         imgBack=findViewById(R.id.imgback);
+        progressDialog = new ProgressDialog(MediaActivity.this);
+        progressDialog.setTitle("welcome  to my vedio");
+        progressDialog.setMessage("Loading...");
+        progressDialog.setCancelable(true);
+        // show the progress bar
+        progressDialog.show();
         imgBack.setOnClickListener(this);
         imgLike.setOnClickListener(this);
         imgdislike.setOnClickListener(this);
         imgvedioshare.setOnClickListener(this);
-        playerView=findViewById(R.id.myVedionew);
+
+        //playerView=findViewById(R.id.myVedionew);
         apiInterface = APIClient.getClient().create(APIInterface.class);
 
         volumeSeekBar=findViewById(R.id.seekbar);
@@ -131,39 +141,69 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
         vedioDateTime.setText(createDate);
         vedioDesc.setText(mData.getVideoDescription());
         getViewers();
-        //playVideo(Constant.VIDEO_URL + mData.getMediaUrl());
 
 
+        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
 
-
-        audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-        volumeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                audioManager.setStreamVolume(exoPlayer.getAudioStreamType(), i, 0);
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
+            public void onPrepared(MediaPlayer mediaPlayer) {
+                // close the progress bar and play the video
+               // progressDialog.dismiss();
+                //if we have a position on savedInstanceState, the video playback should start from here
+                videoView.seekTo(position);
+                if (position == 0) {
+                    videoView.start();
+                } else {
+                    //if we come from a resumed activity, video playback will be paused
+                    videoView.pause();
+                }
             }
         });
 
+        playVideo(Constant.VIDEO_URL + mData.getMediaUrl());
+
+//        audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+//        volumeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+//            @Override
+//            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+//                audioManager.setStreamVolume(exoPlayer.getAudioStreamType(), i, 0);
+//            }
+//
+//            @Override
+//            public void onStartTrackingTouch(SeekBar seekBar) {
+//
+//            }
+//
+//            @Override
+//            public void onStopTrackingTouch(SeekBar seekBar) {
+//
+//            }
+//        });
+
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        position=savedInstanceState.getInt("Position");
+        videoView.seekTo(position);
+
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle saveInstanceState) {
+        super.onSaveInstanceState(saveInstanceState);
+        saveInstanceState.putInt("Position",videoView.getCurrentPosition());
+        videoView.pause();
     }
 
     public void playVideo(String str) {
 
         MediaController m = new MediaController(this);
-        m.playSoundEffect(View.SOUND_EFFECTS_ENABLED);
-        m.setZ(100);
-        m.setX(10);
-        m.setY(13);
-        m.setBottom(Color.BLUE);
+        m.setAnchorView(videoView);
+
+//        m.playSoundEffect(View.SOUND_EFFECTS_ENABLED);
+
+
         videoView.setMediaController(m);
 
 
@@ -176,25 +216,22 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
         super.onStart();
         String urlVedio=Constant.VIDEO_URL+mData.getMediaUrl();
 
-        exoPlayer=ExoPlayerFactory.newSimpleInstance(this,
-                new DefaultTrackSelector());
-        playerView.setPlayer(exoPlayer);
-
-        DefaultDataSourceFactory dataSourceFactory=new DefaultDataSourceFactory(this,
-                Util.getUserAgent(this,"eo"));
-        ExtractorMediaSource mediaSource=new ExtractorMediaSource.Factory(dataSourceFactory)
-                .createMediaSource(Uri.parse(urlVedio));
-        exoPlayer.setVolume(12);
-        exoPlayer.prepare(mediaSource);
-        exoPlayer.setPlayWhenReady(true);
+//        exoPlayer=ExoPlayerFactory.newSimpleInstance(this,
+//                new DefaultTrackSelector());
+//        playerView.setPlayer(exoPlayer);
+//
+//        DefaultDataSourceFactory dataSourceFactory=new DefaultDataSourceFactory(this,
+//                Util.getUserAgent(this,"eo"));
+//        ExtractorMediaSource mediaSource=new ExtractorMediaSource.Factory(dataSourceFactory)
+//                .createMediaSource(Uri.parse(urlVedio));
+//        exoPlayer.setVolume(12);
+//        exoPlayer.prepare(mediaSource);
+//        exoPlayer.setPlayWhenReady(true);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        playerView.setPlayer(null);
-        exoPlayer.release();
-        exoPlayer=null;
 
     }
 
