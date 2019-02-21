@@ -3,6 +3,7 @@ package com.example.medrec_1.slider_demo;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.icu.text.DecimalFormat;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -141,8 +142,31 @@ public class FragmentPunjabHaryana extends Fragment implements RecycleAdapter.On
 
         vedTitle.setText(String.valueOf(createUserResponses3.get(0).getVideoTitle()));
        // vedDesc.setText(String.valueOf(createUserResponses3.get(0).getVideoDescription()));
-        vedViews.setText(String.valueOf(createUserResponses3.get(0).getTotalViews())+" views");
-        vedLong.setText(String.valueOf(createUserResponses3.get(0).getHowLong()));
+        int viewers=createUserResponses3.get(0).getTotalViews();
+        double viewr=(double) viewers/1000;
+        vedViews.setText(new DecimalFormat("##.#").format( viewr)+" views");
+
+        String ago="";
+        String Sdays=createUserResponses3.get(0).getHowLong();
+        String[] parts = Sdays.split(" ");
+        String tDays = parts[0];
+        int tYears= Integer.parseInt(tDays)/365;
+        int rDays=Integer.parseInt(tDays)%365;
+        int month=rDays/30;
+        int rrDays=rDays%30;
+        if(tYears>0)
+        {
+            ago=String.valueOf(tYears)+" year ago";
+        }
+        else if(month>0)
+        {
+            ago=String.valueOf(month)+" month ago";
+        }
+        else if(rrDays>0)
+        {
+            ago=String.valueOf(rrDays)+" days ago";
+        }
+        vedLong.setText(ago);
     }
 
 

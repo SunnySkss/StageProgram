@@ -5,9 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.icu.text.DecimalFormat;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -19,6 +22,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,7 +49,8 @@ public class FragmentTop extends Fragment implements RecycleAdapter.OnItemClickL
     private ArrayList<CreateUserResponse> createUserResponses =  new ArrayList<>();
     private ArrayList<CreateUserResponse> createUserResponses2 =  new ArrayList<>();
     private ArrayList<CreateUserResponse> createUserResponses3 =  new ArrayList<>();
-
+    GridLayoutManager grid;
+    Boolean isScrolling=false;
     private ProgressDialog mProgressDialog;
     private ImageView fimg;
     private TextView vedTitle,vedDesc,vedViews,vedLong;
@@ -72,6 +77,7 @@ public class FragmentTop extends Fragment implements RecycleAdapter.OnItemClickL
 //        {
             updateView();
             getList();
+
             //setAdapter(createUserResponses);
 //        }
 //        else
@@ -89,6 +95,9 @@ public class FragmentTop extends Fragment implements RecycleAdapter.OnItemClickL
         });
         return view;
     }
+
+
+
     private boolean isNetworkConnected() {
         ConnectivityManager cm = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         return cm.getActiveNetworkInfo() != null;
@@ -100,6 +109,7 @@ public class FragmentTop extends Fragment implements RecycleAdapter.OnItemClickL
         recyclerView=view.findViewById(R.id.myRecyclerTop);
 
         mProgressDialog = new ProgressDialog(getContext());
+
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
         apiInterface = APIClient.getClient().create(APIInterface.class);
     }
@@ -189,7 +199,31 @@ public class FragmentTop extends Fragment implements RecycleAdapter.OnItemClickL
 //        int tdays=Integer.parseInt(day[0]);
         vedTitle.setText(String.valueOf(createUserResponses3.get(0).getVideoTitle()));
        // vedDesc.setText(String.valueOf(createUserResponses3.get(0).getVideoDescription()));
-        vedViews.setText(String.valueOf(createUserResponses3.get(0).getTotalViews())+" views");
-        vedLong.setText(createUserResponses3.get(0).getHowLong());
+        int viewers=createUserResponses3.get(0).getTotalViews();
+        double viewr=(double) viewers/1000;
+        vedViews.setText(new DecimalFormat("##.#").format( viewr)+" views");
+
+
+        String ago="";
+        String Sdays=createUserResponses3.get(0).getHowLong();
+        String[] parts = Sdays.split(" ");
+        String tDays = parts[0];
+        int tYears= Integer.parseInt(tDays)/365;
+        int rDays=Integer.parseInt(tDays)%365;
+        int month=rDays/30;
+        int rrDays=rDays%30;
+        if(tYears>0)
+        {
+            ago=String.valueOf(tYears)+" year ago";
+        }
+        else if(month>0)
+        {
+            ago=String.valueOf(month)+" month ago";
+        }
+        else if(rrDays>0)
+        {
+            ago=String.valueOf(rrDays)+" days ago";
+        }
+        vedLong.setText(ago);
     }
 }

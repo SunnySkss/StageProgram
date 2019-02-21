@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="main_activity_parallax_initial_height">25</dimen>
+    <dimen name="main_activity_toolbar_height">20</dimen>
+</resources>

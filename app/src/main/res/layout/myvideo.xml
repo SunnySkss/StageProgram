@@ -1,94 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    <RelativeLayout
 
-    tools:context=".MediaActivity">
 
-    <!-- TODO: Update blank fragment layout -->
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+
+        tools:context=".MediaActivity">
+
+        <!-- TODO: Update blank fragment layout -->
 
 
 
         <!-- TODO: Update blank fragment layout -->
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:background="@color/colorRed"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        android:layout_width="match_parent"
-        android:minHeight="?attr/actionBarSize"
-
-        android:layout_height="wrap_content">
-        <ImageView
-            android:id="@+id/imgback"
-            android:layout_width="30dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_arrow_back"
-            />
-        <TextView
-            android:textColor="@android:color/white"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:background="@color/colorRed"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Details Screen"
-            android:layout_marginLeft="65dp"
-            android:textSize="26dp"
-            android:textStyle="italic|bold"
+            android:minHeight="?attr/actionBarSize"
 
-            />
-    </android.support.v7.widget.Toolbar>
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/imgback"
+                android:layout_width="33dp"
+                android:layout_height="25dp"
+                android:src="@drawable/ic_arrow_back"
+                />
+            <TextView
+                android:textColor="@android:color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Details Screen"
+                android:layout_marginLeft="65dp"
+                android:textSize="26dp"
+                android:textStyle="italic|bold"
 
-    <com.google.android.exoplayer2.ui.PlayerView
-        android:layout_below="@+id/toolbar"
-        android:id="@+id/myVedionew"
-        android:focusable="true"
-        android:layout_margin="10dp"
-        android:layout_width="fill_parent"
-        android:layout_height="280dp"
+                />
+        </android.support.v7.widget.Toolbar>
 
-
-
-        />
-
-    <!--   <VideoView
+        <com.google.android.exoplayer2.ui.PlayerView
             android:layout_below="@+id/toolbar"
             android:id="@+id/myVedionew"
-            android:layout_margin="10dp"
+            android:focusable="true"
+            android:layout_margin="3dp"
+            android:layout_width="match_parent"
+            android:layout_height="280dp"
+            app:use_controller="false"
+            />
+
+        <!--   <VideoView
+                android:layout_below="@+id/toolbar"
+                android:id="@+id/myVedionew"
+                android:layout_margin="10dp"
+                android:layout_width="fill_parent"
+                android:layout_height="250dp"
+                 />  -->
+        <TextView
+            android:id="@+id/vedioTital"
+            android:layout_below="@id/myVedionew"
             android:layout_width="fill_parent"
-            android:layout_height="250dp"
-             />  -->
-    <TextView
-        android:id="@+id/vedioTital"
-        android:layout_below="@id/myVedionew"
-        android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:layout_marginLeft="25dp"
-        android:text="0" />
-    <RelativeLayout
-        android:id="@+id/relViews"
-        android:layout_width="fill_parent"
-        android:layout_height="40dp"
-        android:layout_below="@+id/vedioTital">
-        <TextView
-            android:id="@+id/TotViews"
-            android:layout_width="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginLeft="25dp"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/vedioDateTime"
-            android:layout_width="wrap_content"
-            android:layout_marginLeft="200dp"
-            android:layout_height="wrap_content" />
-    </RelativeLayout>
-    <ImageView
-        android:id="@+id/like_vedio_img"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_below="@id/relViews"
-        android:layout_marginLeft="25dp"
-        android:src="@drawable/like_img"
-        />
+            android:textSize="18dp" />
+        <RelativeLayout
+            android:id="@+id/relViews"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/vedioTital">
+            <TextView
+                android:id="@+id/TotViews"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/vedioDateTime"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="200dp"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+        <ImageView
+            android:id="@+id/like_vedio_img"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_below="@id/relViews"
+            android:layout_marginLeft="25dp"
+            android:src="@drawable/like_img"
+            />
 
         <TextView
             android:id="@+id/likesVedio"
@@ -97,58 +102,62 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
             android:text="0" />
-    <ImageView
-        android:id="@+id/dislike_vedio_img"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_below="@id/relViews"
-        android:layout_marginLeft="120dp"
-        android:src="@drawable/dis_like_img"
-        />
+        <ImageView
+            android:id="@+id/dislike_vedio_img"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_below="@id/relViews"
+            android:layout_marginLeft="120dp"
+            android:src="@drawable/dis_like_img"
+            />
 
-    <TextView
-        android:id="@+id/dislikeVedio"
-        android:layout_below="@id/dislike_vedio_img"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="120dp"
+        <TextView
+            android:id="@+id/dislikeVedio"
+            android:layout_below="@id/dislike_vedio_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="120dp"
 
-        android:text="0" />
-    <ImageView
-        android:id="@+id/share_vedio_img"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_below="@id/relViews"
-        android:layout_marginLeft="215dp"
-        android:src="@drawable/ic_share"/>
+            android:text="0" />
+        <ImageView
+            android:id="@+id/share_vedio_img"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_below="@id/relViews"
+            android:layout_marginLeft="215dp"
+            android:src="@drawable/ic_share"/>
         <RelativeLayout
             android:id="@+id/shadowLine"
             android:layout_below="@+id/likesVedio"
-
             android:layout_width="match_parent"
             android:layout_margin="8dp"
             android:layout_height="1dp"
             android:background="@android:color/background_dark"
-            android:elevation="1dp"></RelativeLayout>
+            android:elevation="1dp">
 
-    <TextView
-        android:id="@+id/vedioDesc"
-        android:layout_below="@id/shadowLine"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="25dp"
-        android:textSize="12dp"
-        android:textStyle="bold"
-        android:text="0" />
+        </RelativeLayout>
 
-    <SeekBar
-        android:layout_below="@id/vedioDesc"
-        android:id="@+id/seekbar"
-        android:layout_width="match_parent"
-        android:layout_height="25dp"
-        android:visibility="gone"
-        />
+        <TextView
+            android:id="@+id/vedioDesc"
+            android:layout_below="@id/shadowLine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="25dp"
+            android:textSize="12dp"
+            android:textStyle="bold"
+            android:text="0" />
 
-</RelativeLayout>
+        <SeekBar
+            android:layout_below="@id/vedioDesc"
+            android:id="@+id/seekbar"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:visibility="gone"
+            />
+
+    </RelativeLayout>
+
+</FrameLayout>
+
 

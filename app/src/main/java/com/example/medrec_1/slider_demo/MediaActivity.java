@@ -96,20 +96,13 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
         if (getIntent() != null && getIntent().hasExtra("data")) {
             mData = getIntent().getParcelableExtra("data");
         }
-        Intent i = getIntent();
-        //String videoUrl = i.getStringExtra("mediaUrl");
-        //int totlikes = i.getIntExtra("likesVed", 0);
-        //int totdislike = i.getIntExtra("dislikeVed", 1);
 
-//        Utils.getIPAddress(true);
         mobileIp = getIPAddress(true);
 
         // String videoUrl = Constant.VIDEO_URL +mData.getMediaUrl();
         int totlikes = mData.getTotalLike();
         int totdislike = mData.getTotalDislike();
                //   2017-05-18T21:01:55.203
-       // final String dateTime = mData.getCreatedDate();
-     //   final DateFormat df = new SimpleDateFormat("yyyyMMddHHmmss.SSS");
 
          //ZonedDateTime d = ZonedDateTime.parse(dateTime);
         Date date;
@@ -123,64 +116,14 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
             String pDate=DateFormat.getInstance().format(date).toString();
             createDate=DateFormat.getInstance().format(date).toString();
 
-            long time=date.getTime();
-            String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
-            DateFormat format;
-            format=new SimpleDateFormat("yyyyMMdd_HHmmss");
-            format.setTimeZone(TimeZone.getTimeZone("GMT+05:30"));
-            Date sysdd=(Date)format.parse(timeStamp);
-            String cDate=DateFormat.getInstance().format(sysdd);
-
-
-//            LocalDate endofCentury = LocalDate.of(date.getYear(), date.getMonth(), date.getMonth());
-//
-//            LocalDate now = LocalDate.now();
-//
-//            Period diff = Period.between(endofCentury, now);
-//
-//            System.out.printf("Difference is %d years, %d months and %d days old",
-//                    diff.getYears(), diff.getMonths(), diff.getDays());
-//
-//
-//            String pTime=String.valueOf(date.getTime());
-//            String cTime=String.valueOf(sysdd.getTime());
-
-            //long mm=SystemClock.currentThreadTimeMillis();
-
-            Log.e("hi","hello");
-//            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-//
-//
-//            String sysddtime=DateFormat.getInstance().format(sysdate).toString();       //dateFormat.format(sysdate); //2016/11/16 12:08:43
-            //Date dd=dateFormat.format(date);
-            LocalDate dateOfBirth = LocalDate.of(date.getYear(),date.getMonth(),date.getDay());
-            LocalDate currentDate = LocalDate.now();
-           // long diffInDays = ChronoUnit.DAYS.between(dateOfBirth, cDate);
-            long diffInMonths = ChronoUnit.MONTHS.between(dateOfBirth, currentDate);
-            long diffInYears = ChronoUnit.YEARS.between(dateOfBirth, currentDate);
-          //  SimpleDateFormat localSDF = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-          //  String localDate = localSDF.format(formatter.parse(String.valueOf(date)));
-            //java.sql.Timestamp timeStampDate = new Timestamp(date.getTime());
-
-           // return timeStampDate;
         } catch (ParseException e) {
             System.out.println("Exception :" + e);
 
         }
-      //  final ZonedDateTime parsed = ZonedDateTime.parse(dateTime,formatter);
-
-      /*  SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSSSZ");
-        sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
-
-*/
 
 
-        String datenTime = mData.getCreatedDate();
-        String[] parts = datenTime.split("T");
-        String part1 = parts[0];
-        String part2 = parts[1];
-        // final String sender=this.getIntent().getExtras().getString("SENDER_KEY");
+
+
         likes.setText(String.valueOf(totlikes));
         dislikes.setText(String.valueOf(totdislike));
         vedioTital.setText(mData.getVideoTitle());
@@ -214,19 +157,6 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
     }
 
     public void playVideo(String str) {
-//        //playerView.v
-//        SimpleExoPlayer player=ExoPlayerFactory.newSimpleInstance(this.getApplicationContext());
-//        playerView.setPlayer(player);
-//
-//        DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(getApplicationContext(),
-//                Util.getUserAgent(getApplicationContext(), "yourApplicationName"));
-//// This is the MediaSource representing the media to be played.
-//        MediaSource videoSource = new ExtractorMediaSource.Factory(dataSourceFactory)
-//                .createMediaSource(Uri.parse(str));
-//// Prepare the player with the source.
-//        player.prepare(videoSource);
-
-
 
         MediaController m = new MediaController(this);
         m.playSoundEffect(View.SOUND_EFFECTS_ENABLED);
@@ -245,12 +175,13 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
     protected void onStart() {
         super.onStart();
         String urlVedio=Constant.VIDEO_URL+mData.getMediaUrl();
+
         exoPlayer=ExoPlayerFactory.newSimpleInstance(this,
                 new DefaultTrackSelector());
         playerView.setPlayer(exoPlayer);
 
         DefaultDataSourceFactory dataSourceFactory=new DefaultDataSourceFactory(this,
-                Util.getUserAgent(this,"ExhoPlayerDemo"));
+                Util.getUserAgent(this,"eo"));
         ExtractorMediaSource mediaSource=new ExtractorMediaSource.Factory(dataSourceFactory)
                 .createMediaSource(Uri.parse(urlVedio));
         exoPlayer.setVolume(12);
@@ -319,24 +250,6 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
                 } catch (Exception e) {
                     //e.toString();
                 }
-
-//                Uri imageUri = Uri.parse(Constant.VIDEO_URL+mData.getMediaUrl());
-//                Intent shareIntent = new Intent();
-//                shareIntent.setAction(Intent.ACTION_SEND);
-//                //Target whatsapp:
-//
-//                shareIntent.setPackage("com.whatsapp");
-//                //Add text and then Image URI
-//                shareIntent.putExtra(Intent.EXTRA_TEXT, mData.getVideoTitle());
-//                shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
-//                shareIntent.setType("image/jpeg");
-//                shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-//
-//                try {
-//                    startActivity(shareIntent);
-//                } catch (android.content.ActivityNotFoundException ex) {
-//                    //ToastHelper.MakeShortText("Whatsapp have not been installed.");
-//                }
                 break;
             case R.id.imgback:
                 onBackPressed();

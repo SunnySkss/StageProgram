@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.icu.text.DecimalFormat;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -142,8 +143,31 @@ public class FragmentOther extends android.support.v4.app.Fragment implements Re
                 .into(imgOther);
         vedTitle.setText(String.valueOf(createUserResponses3.get(0).getVideoTitle()));
        // vedDesc.setText(String.valueOf(createUserResponses3.get(0).getVideoDescription()));
-        vedViews.setText(String.valueOf(createUserResponses3.get(0).getTotalViews()));
-        vedLong.setText(String.valueOf(createUserResponses3.get(0).getHowLong())+" views");
+        int viewers=createUserResponses3.get(0).getTotalViews();
+        double viewr=(double) viewers/1000;
+        vedViews.setText(new DecimalFormat("##.#").format( viewr)+" views");
+
+        String ago="";
+        String Sdays=createUserResponses3.get(0).getHowLong();
+        String[] parts = Sdays.split(" ");
+        String tDays = parts[0];
+        int tYears= Integer.parseInt(tDays)/365;
+        int rDays=Integer.parseInt(tDays)%365;
+        int month=rDays/30;
+        int rrDays=rDays%30;
+        if(tYears>0)
+        {
+            ago=String.valueOf(tYears)+" year ago";
+        }
+        else if(month>0)
+        {
+            ago=String.valueOf(month)+" month ago";
+        }
+        else if(rrDays>0)
+        {
+            ago=String.valueOf(rrDays)+" days ago";
+        }
+        vedLong.setText(ago);
     }
 
 

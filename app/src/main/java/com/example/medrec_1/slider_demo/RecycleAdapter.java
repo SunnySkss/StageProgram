@@ -1,6 +1,7 @@
 package com.example.medrec_1.slider_demo;
 
 import android.content.Context;
+import android.icu.text.DecimalFormat;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
@@ -87,6 +88,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyHolder
     public void onBindViewHolder(@NonNull final MyHolder viewHolder, final int i) {
 
 
+
         viewHolder.bind(items.get(i), listener);
         Picasso.get()
                 .load(Constant.VIDEO_URL +items.get(i).getStandardThumbnailUrl())
@@ -123,10 +125,36 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyHolder
            cardViewHowLong=itemView.findViewById(R.id.cardVedHowLong);
         }
         public void bind(final CreateUserResponse item, final OnItemClickListener mlistener) {
+            String ago="";
+            String Sdays=item .getHowLong();
+            String[] parts = Sdays.split(" ");
+            String tDays = parts[0];
+            int tYears= Integer.parseInt(tDays)/365;
+            int rDays=Integer.parseInt(tDays)%365;
+            int month=rDays/30;
+            int rrDays=rDays%30;
+            if(tYears>0)
+            {
+                ago=String.valueOf(tYears)+" year ago";
+            }
+            else if(month>0)
+            {
+                ago=String.valueOf(month)+" month ago";
+            }
+            else if(rrDays>0)
+            {
+                ago=String.valueOf(rrDays)+" days ago";
+            }
+
+           //  ago=String.valueOf(tYears)+" years "+String.valueOf(month)+"month "+String.valueOf(rrDays)+" days ago";
+
+            int viewers=item.getTotalViews();
+            double viewr=(double) viewers/1000;
+
             cardVedTital.setText(item.getVideoTitle());
            // cardVedDescription.setText(item.getVideoDescription());
-            cardVedViews.setText(item.getTotalViews()+"  views");
-            cardViewHowLong.setText(item.getHowLong());
+            cardVedViews.setText(new DecimalFormat("##.#").format( viewr)+"k views");
+            cardViewHowLong.setText(ago);
             //Picasso.load("http://stageprogram.com/"+item.getMediaUrl()).into(img);
 //            Picasso.get()
 //                .load("http://stageprogram.com/"+item.getStandardThumbnailUrl())
