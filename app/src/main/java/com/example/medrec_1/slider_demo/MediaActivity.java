@@ -1,5 +1,6 @@
 package com.example.medrec_1.slider_demo;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -14,9 +15,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.os.SystemClock;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.SeekBar;
@@ -24,14 +28,28 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 import com.example.medrec_1.slider_demo.utils.Constant;
+import com.google.android.exoplayer2.C;
+import com.google.android.exoplayer2.DefaultLoadControl;
+import com.google.android.exoplayer2.DefaultRenderersFactory;
 import com.google.android.exoplayer2.ExoPlayerFactory;
+import com.google.android.exoplayer2.LoadControl;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
+import com.google.android.exoplayer2.source.hls.HlsMediaSource;
+import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
+import com.google.android.exoplayer2.trackselection.TrackSelection;
+import com.google.android.exoplayer2.trackselection.TrackSelector;
+import com.google.android.exoplayer2.ui.PlaybackControlView;
 import com.google.android.exoplayer2.ui.PlayerView;
+import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
+import com.google.android.exoplayer2.upstream.BandwidthMeter;
 import com.google.android.exoplayer2.upstream.DataSource;
+import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
+import com.google.android.exoplayer2.upstream.DefaultHttpDataSource;
+import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -73,11 +91,35 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
     private  PlayerView playerView;
     private ProgressDialog progressDialog;
     AudioManager audioManager;// = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+
+
+    private final String STATE_RESUME_WINDOW = "resumeWindow";
+    private final String STATE_RESUME_POSITION = "resumePosition";
+    private final String STATE_PLAYER_FULLSCREEN = "playerFullscreen";
+
+    private SimpleExoPlayerView mExoPlayerView;
+    private MediaSource mVideoSource;
+    private boolean mExoPlayerFullscreen = true;
+    private FrameLayout mFullScreenButton;
+    private ImageView mFullScreenIcon;
+    private Dialog mFullScreenDialog;
+
+    private int mResumeWindow;
+    private long mResumePosition;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.myvideo);
-        videoView = findViewById(R.id.myVedionew);
+
+        if (savedInstanceState != null) {
+            mResumeWindow = savedInstanceState.getInt(STATE_RESUME_WINDOW);
+            mResumePosition = savedInstanceState.getLong(STATE_RESUME_POSITION);
+            mExoPlayerFullscreen = savedInstanceState.getBoolean(STATE_PLAYER_FULLSCREEN);
+        }
+     //   videoView = findViewById(R.id.myVedionew);
         likes = findViewById(R.id.likesVedio);
         dislikes = findViewById(R.id.dislikeVedio);
         vedioTital = findViewById(R.id.vedioTital);
@@ -88,12 +130,12 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
         imgdislike = findViewById(R.id.dislike_vedio_img);
         imgvedioshare = findViewById(R.id.share_vedio_img);
         imgBack=findViewById(R.id.imgback);
-        progressDialog = new ProgressDialog(MediaActivity.this);
-        progressDialog.setTitle("welcome  to my vedio");
-        progressDialog.setMessage("Loading...");
-        progressDialog.setCancelable(true);
-        // show the progress bar
-        progressDialog.show();
+//        progressDialog = new ProgressDialog(MediaActivity.this);
+//        progressDialog.setTitle("welcome  to my vedio");
+//        progressDialog.setMessage("Loading...");
+//        progressDialog.setCancelable(true);
+//        // show the progress bar
+//        progressDialog.show();
         imgBack.setOnClickListener(this);
         imgLike.setOnClickListener(this);
         imgdislike.setOnClickListener(this);
@@ -143,23 +185,23 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
         getViewers();
 
 
-        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+//        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+//
+//            public void onPrepared(MediaPlayer mediaPlayer) {
+//                // close the progress bar and play the video
+//               // progressDialog.dismiss();
+//                //if we have a position on savedInstanceState, the video playback should start from here
+//                videoView.seekTo(position);
+//                if (position == 0) {
+//                    videoView.start();
+//                } else {
+//                    //if we come from a resumed activity, video playback will be paused
+//                    videoView.pause();
+//                }
+//            }
+//        });
 
-            public void onPrepared(MediaPlayer mediaPlayer) {
-                // close the progress bar and play the video
-               // progressDialog.dismiss();
-                //if we have a position on savedInstanceState, the video playback should start from here
-                videoView.seekTo(position);
-                if (position == 0) {
-                    videoView.start();
-                } else {
-                    //if we come from a resumed activity, video playback will be paused
-                    videoView.pause();
-                }
-            }
-        });
-
-        playVideo(Constant.VIDEO_URL + mData.getMediaUrl());
+       // playVideo(Constant.VIDEO_URL + mData.getMediaUrl());
 
 //        audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 //        volumeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -179,22 +221,179 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
 //            }
 //        });
 
-    }
 
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        position=savedInstanceState.getInt("Position");
-        videoView.seekTo(position);
 
     }
 
     @Override
-    public void onSaveInstanceState(Bundle saveInstanceState) {
-        super.onSaveInstanceState(saveInstanceState);
-        saveInstanceState.putInt("Position",videoView.getCurrentPosition());
-        videoView.pause();
+    public void onSaveInstanceState(Bundle outState) {
+
+        outState.putInt(STATE_RESUME_WINDOW, mResumeWindow);
+        outState.putLong(STATE_RESUME_POSITION, mResumePosition);
+        outState.putBoolean(STATE_PLAYER_FULLSCREEN, mExoPlayerFullscreen);
+
+        super.onSaveInstanceState(outState);
     }
+
+
+    private void initFullscreenDialog() {
+
+        mFullScreenDialog = new Dialog(this, android.R.style.Theme_Black_NoTitleBar_Fullscreen) {
+            public void onBackPressed() {
+                if (mExoPlayerFullscreen)
+                    closeFullscreenDialog();
+                super.onBackPressed();
+            }
+        };
+    }
+
+
+    private void openFullscreenDialog() {
+
+        ((ViewGroup) mExoPlayerView.getParent()).removeView(mExoPlayerView);
+        mFullScreenDialog.addContentView(mExoPlayerView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        mFullScreenIcon.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_fullscreen_skrink));
+        mExoPlayerFullscreen = true;
+        mFullScreenDialog.show();
+    }
+
+
+    private void closeFullscreenDialog() {
+
+        ((ViewGroup) mExoPlayerView.getParent()).removeView(mExoPlayerView);
+        ((FrameLayout) findViewById(R.id.main_media_frame)).addView(mExoPlayerView);
+        mExoPlayerFullscreen = false;
+        mFullScreenDialog.dismiss();
+        mFullScreenIcon.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_fullscreen_expand));
+    }
+
+
+    private void initFullscreenButton() {
+
+        PlaybackControlView controlView = mExoPlayerView.findViewById(R.id.exo_controller);
+        mFullScreenIcon = controlView.findViewById(R.id.exo_fullscreen_icon);
+        mFullScreenButton = controlView.findViewById(R.id.exo_fullscreen_button);
+        mFullScreenButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!mExoPlayerFullscreen)
+                    openFullscreenDialog();
+                else
+                    closeFullscreenDialog();
+            }
+        });
+    }
+
+
+    private void initExoPlayer() {
+
+        BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
+        TrackSelection.Factory videoTrackSelectionFactory = new AdaptiveTrackSelection.Factory(bandwidthMeter);
+        TrackSelector trackSelector = new DefaultTrackSelector(videoTrackSelectionFactory);
+        LoadControl loadControl = new DefaultLoadControl();
+        SimpleExoPlayer player = ExoPlayerFactory.newSimpleInstance(new DefaultRenderersFactory(this), trackSelector, loadControl);
+       // mExoPlayerView.setPlayer(player);
+
+        boolean haveResumePosition = mResumeWindow == C.INDEX_UNSET;
+
+        if (haveResumePosition) {
+            mExoPlayerView.getPlayer().seekTo(mResumeWindow, mResumePosition);
+        }
+
+        mExoPlayerView.setPlayer(player);
+        player.setPlayWhenReady(true);
+        mExoPlayerView.hideController();
+        //mExoPlayerView.setUseController(useControler);
+        player.prepare(mVideoSource);
+        player.setPlayWhenReady(true);
+        //playerNeedsSource = false;
+
+       // mExoPlayerView.getPlayer().prepare(mVideoSource);
+        //mExoPlayerView.getPlayer().setPlayWhenReady(true);
+    }
+
+
+    @Override
+    protected void onResume() {
+
+        super.onResume();
+
+        if (mExoPlayerView == null) {
+
+            mExoPlayerView = (SimpleExoPlayerView) findViewById(R.id.exoplayer);
+            initFullscreenDialog();
+            initFullscreenButton();
+
+            String streamUrl = Constant.VIDEO_URL+mData.getMediaUrl();
+            String userAgent = Util.getUserAgent(this, getApplicationContext().getApplicationInfo().packageName);
+            DefaultHttpDataSourceFactory httpDataSourceFactory = new DefaultHttpDataSourceFactory(userAgent, null, DefaultHttpDataSource.DEFAULT_CONNECT_TIMEOUT_MILLIS, DefaultHttpDataSource.DEFAULT_READ_TIMEOUT_MILLIS, true);
+            DefaultDataSourceFactory dataSourceFactory = new DefaultDataSourceFactory(this, null, httpDataSourceFactory);
+            Uri daUri = Uri.parse(streamUrl);
+
+            mVideoSource = new HlsMediaSource(daUri, dataSourceFactory, 1, null, null);
+        }
+
+        initExoPlayer();
+
+        if (mExoPlayerFullscreen) {
+            ((ViewGroup) mExoPlayerView.getParent()).removeView(mExoPlayerView);
+            mFullScreenDialog.addContentView(mExoPlayerView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            mFullScreenIcon.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_fullscreen_skrink));
+            mFullScreenDialog.show();
+        }
+    }
+
+
+    @Override
+    protected void onPause() {
+
+        super.onPause();
+
+        if (mExoPlayerView != null && mExoPlayerView.getPlayer() != null) {
+            mResumeWindow = mExoPlayerView.getPlayer().getCurrentWindowIndex();
+            mResumePosition = Math.max(0, mExoPlayerView.getPlayer().getContentPosition());
+
+            mExoPlayerView.getPlayer().release();
+        }
+
+        if (mFullScreenDialog != null)
+            mFullScreenDialog.dismiss();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//    @Override
+//    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+//        super.onRestoreInstanceState(savedInstanceState);
+//        position=savedInstanceState.getInt("Position");
+//        videoView.seekTo(position);
+//
+//    }
+
+//    @Override
+//    public void onSaveInstanceState(Bundle saveInstanceState) {
+//        super.onSaveInstanceState(saveInstanceState);
+//        saveInstanceState.putInt("Position",videoView.getCurrentPosition());
+//        videoView.pause();
+//    }
 
     public void playVideo(String str) {
 
