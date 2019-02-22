@@ -19,6 +19,12 @@
 
 
         <!-- TODO: Update blank fragment layout -->
+        <RelativeLayout
+            android:id="@+id/tool_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:background="@color/colorRed"
@@ -36,7 +42,7 @@
                 />
             <TextView
                 android:textColor="@android:color/white"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Details Screen"
                 android:layout_marginLeft="65dp"
@@ -44,8 +50,20 @@
                 android:textStyle="italic|bold"
 
                 />
+            <ImageButton
+                android:id="@+id/fullscreen"
+                android:background="@drawable/ic_fullscreen_player"
+                style="@android:style/MediaButton"
+                />
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="visible"
+                />
         </android.support.v7.widget.Toolbar>
-
+        </RelativeLayout>
        <!-- <com.google.android.exoplayer2.ui.PlayerView
             android:layout_below="@+id/toolbar"
             android:id="@+id/myVedionew"
@@ -55,9 +73,13 @@
             android:layout_height="280dp"
             app:use_controller="false"
             /> -->
-
+        <RelativeLayout
+            android:layout_below="@id/tool_layout"
+            android:id="@+id/aa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
            <VideoView
-                android:layout_below="@+id/toolbar"
+
                 android:id="@+id/myVedionew"
                 android:layout_margin="10dp"
                 android:layout_width="match_parent"
@@ -65,9 +87,12 @@
 
                 android:layout_height="300dp"
                  />
+
+
+        </RelativeLayout>
         <TextView
             android:id="@+id/vedioTital"
-            android:layout_below="@id/myVedionew"
+            android:layout_below="@id/aa"
             android:layout_width="fill_parent"
             android:layout_height="50dp"
             android:layout_marginLeft="25dp"
@@ -88,14 +113,21 @@
                 android:layout_marginLeft="200dp"
                 android:layout_height="wrap_content" />
         </RelativeLayout>
-        <ImageView
+        <ImageButton
+            android:id="@+id/like_vedio_img"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_below="@id/relViews"
+            android:layout_marginLeft="25dp"
+            android:background="@drawable/like_img" />
+      <!--  <ImageView
             android:id="@+id/like_vedio_img"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_below="@id/relViews"
             android:layout_marginLeft="25dp"
             android:src="@drawable/like_img"
-            />
+            />   -->
 
         <TextView
             android:id="@+id/likesVedio"

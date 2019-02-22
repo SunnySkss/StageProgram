@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 
+import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -12,13 +13,22 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.PersistableBundle;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.MediaController;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -65,18 +75,27 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
     VideoView videoView;
     TextView likes, dislikes, vedioTital, totViews, vedioDateTime, vedioDesc;
     CreateUserResponse mData;
-    ImageView imgBack,imgLike, imgdislike, imgvedioshare;
+    ImageView imgBack, imgdislike, imgvedioshare;
+    ImageButton imgLike;
     private int position = 0;
     private SeekBar volumeSeekBar;
     private String createDate;
-    private  SimpleExoPlayer exoPlayer;
+
+    private int measuredWidth = 0;
+    private int measuredHeight = 0;
+    String videoUrl="";
     private  PlayerView playerView;
-    private ProgressDialog progressDialog;
+    private  SimpleExoPlayer exoPlayer;
+    //private val progressBar: ProgressBar by lazy { findViewById<ProgressBar>(R.id.progress_bar) }
+    private ProgressBar progressBar;
     AudioManager audioManager;// = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+    ImageButton fullscreenbtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.myvideo);
+        fullscreenbtn=findViewById(R.id.fullscreen);
         videoView = findViewById(R.id.myVedionew);
         likes = findViewById(R.id.likesVedio);
         dislikes = findViewById(R.id.dislikeVedio);
@@ -88,12 +107,40 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
         imgdislike = findViewById(R.id.dislike_vedio_img);
         imgvedioshare = findViewById(R.id.share_vedio_img);
         imgBack=findViewById(R.id.imgback);
-        progressDialog = new ProgressDialog(MediaActivity.this);
-        progressDialog.setTitle("welcome  to my vedio");
-        progressDialog.setMessage("Loading...");
-        progressDialog.setCancelable(true);
+        progressBar=findViewById(R.id.progress_bar);
+
+
+
+
+        fullscreenbtn.setOnClickListener(new Button.OnClickListener(){
+
+            @Override
+            public void onClick(View arg0) {
+              //  setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                        WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                DisplayMetrics metrics = new DisplayMetrics();
+                getWindowManager().getDefaultDisplay().getMetrics(metrics);
+                android.widget.RelativeLayout.LayoutParams params = new android.widget.RelativeLayout.LayoutParams(
+                        RelativeLayout.LayoutParams.MATCH_PARENT,
+                        RelativeLayout.LayoutParams.MATCH_PARENT);
+               // videoView.setNewDimension(metrics.widthPixels, metrics.heightPixels);
+//                player.getHolder().setFixedSize(metrics.heightPixels,
+//                        metrics.widthPixels);
+                videoView.setLayoutParams(params);
+            }
+
+        });
+
+
+//        progressDialog = new ProgressDialog(MediaActivity.this);
+//        progressDialog.setTitle("welcome  to my vedio");
+//        progressDialog.setMessage("Loading...");
+//        progressDialog.setCancelable(true);
         // show the progress bar
-        progressDialog.show();
+//        progressDialog.show();
         imgBack.setOnClickListener(this);
         imgLike.setOnClickListener(this);
         imgdislike.setOnClickListener(this);
@@ -108,8 +155,7 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
         }
 
         mobileIp = getIPAddress(true);
-
-        // String videoUrl = Constant.VIDEO_URL +mData.getMediaUrl();
+        videoUrl = Constant.VIDEO_URL +mData.getMediaUrl();
         int totlikes = mData.getTotalLike();
         int totdislike = mData.getTotalDislike();
                //   2017-05-18T21:01:55.203
@@ -125,10 +171,8 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
 
             String pDate=DateFormat.getInstance().format(date).toString();
             createDate=DateFormat.getInstance().format(date).toString();
-
         } catch (ParseException e) {
             System.out.println("Exception :" + e);
-
         }
 
 
@@ -159,7 +203,15 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
             }
         });
 
-        playVideo(Constant.VIDEO_URL + mData.getMediaUrl());
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                progressBar.setVisibility(View.VISIBLE);
+            }
+        },2000);
+
+       // playVideo(Constant.VIDEO_URL + mData.getMediaUrl());
 
 //        audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 //        volumeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -181,6 +233,10 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
+    public void setNewDimension(int width, int height) {
+        this.measuredHeight = height;
+        this.measuredWidth = width;
+    }
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
@@ -198,23 +254,56 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
 
     public void playVideo(String str) {
 
-        MediaController m = new MediaController(this);
-        m.setAnchorView(videoView);
+        //progressBar.setVisibility(View.GONE);
+        MediaController mcontroller =  (MediaController) findViewById(R.id.mymediaController);
+//        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+//        lp.gravity = Gravity.BOTTOM;
+//        mcontroller.setLayoutParams(lp);
+
+
+         mcontroller.setAnchorView(videoView);
 
 //        m.playSoundEffect(View.SOUND_EFFECTS_ENABLED);
 
-
-        videoView.setMediaController(m);
-
+        videoView.setMediaController(mcontroller);
 
         Uri myUri = Uri.parse(str);
         videoView.setVideoURI(myUri);
         videoView.start();
+
     }
+
     @Override
     protected void onStart() {
         super.onStart();
-        String urlVedio=Constant.VIDEO_URL+mData.getMediaUrl();
+
+        MediaController mcontroller =new MediaController  (this);//MediaController) findViewById(R.id.mymediaController);
+//        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+//        lp.gravity = Gravity.BOTTOM;
+//        mcontroller.setLayoutParams(lp);
+
+//
+        mcontroller.setAnchorView(videoView);
+
+//        m.playSoundEffect(View.SOUND_EFFECTS_ENABLED);
+
+        videoView.setMediaController(mcontroller);
+
+        Uri myUri = Uri.parse(videoUrl);
+        videoView.setVideoURI(myUri);
+        videoView.start();
+
+
+
+
+
+
+
+
+        //progressBar.setVisibility(View.GONE);
+//        int progress = 15 * 100 / 100;
+//        progressBar.setProgress(progress);
+
 
 //        exoPlayer=ExoPlayerFactory.newSimpleInstance(this,
 //                new DefaultTrackSelector());
@@ -223,7 +312,7 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
 //        DefaultDataSourceFactory dataSourceFactory=new DefaultDataSourceFactory(this,
 //                Util.getUserAgent(this,"eo"));
 //        ExtractorMediaSource mediaSource=new ExtractorMediaSource.Factory(dataSourceFactory)
-//                .createMediaSource(Uri.parse(urlVedio));
+//                .createMediaSource(Uri.parse(videoUrl));
 //        exoPlayer.setVolume(12);
 //        exoPlayer.prepare(mediaSource);
 //        exoPlayer.setPlayWhenReady(true);
