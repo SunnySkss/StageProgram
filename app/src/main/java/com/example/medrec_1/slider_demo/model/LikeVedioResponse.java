@@ -1,6 +1,7 @@
-package com.example.medrec_1.slider_demo;
+package com.example.medrec_1.slider_demo.model;
 
-public class DisLikeVedioResponse {
+public class LikeVedioResponse {
+
     /**
      * token :
      * message : Already Added

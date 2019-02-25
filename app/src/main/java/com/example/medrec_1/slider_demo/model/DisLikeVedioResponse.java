@@ -1,10 +1,10 @@
-package com.example.medrec_1.slider_demo;
+package com.example.medrec_1.slider_demo.model;
 
-public class ViewerResponse {
+public class DisLikeVedioResponse {
     /**
      * token :
-     * message : Incremented
-     * messagetype : Success
+     * message : Already Added
+     * messagetype : Failed
      */
 
     private String token;

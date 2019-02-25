@@ -1,32 +1,36 @@
 package com.example.medrec_1.slider_demo;
 import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.icu.text.DecimalFormat;
 import android.media.AudioManager;
-import android.media.MediaPlayer;
 import android.net.Uri;
+import android.opengl.Visibility;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.os.SystemClock;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
+
+import com.example.medrec_1.slider_demo.model.CreateUserResponse;
+import com.example.medrec_1.slider_demo.model.DisLikeVedioResponse;
+import com.example.medrec_1.slider_demo.model.LikeVedioResponse;
+import com.example.medrec_1.slider_demo.model.ViewerResponse;
 import com.example.medrec_1.slider_demo.utils.Constant;
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.DefaultLoadControl;
@@ -36,7 +40,6 @@ import com.google.android.exoplayer2.LoadControl;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
-import com.google.android.exoplayer2.source.hls.HlsMediaSource;
 import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.TrackSelection;
@@ -45,28 +48,16 @@ import com.google.android.exoplayer2.ui.PlaybackControlView;
 import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.BandwidthMeter;
-import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
-import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSource;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+
 import java.net.InetAddress;
 import java.net.NetworkInterface;
-import java.security.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.Period;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -137,7 +128,6 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
             formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
             formatter.setTimeZone(TimeZone.getTimeZone("GMT+05:30"));
             date = (Date) formatter.parse(str_date);
-            //String ddt=date.getDate();
             String dd=formatter.format(date.getTime());
             String pDate=DateFormat.getInstance().format(date);
 
@@ -147,15 +137,7 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
             String strTime=parts[1];
             String strAMPM=parts[2];
 
-
-//            DateFormat formatter2;
-//            formatter2 = new SimpleDateFormat("yyyy-MM-dd'at'HH:mm:ss");
-//            formatter2.setTimeZone(TimeZone.getTimeZone("GMT+05:30"));
-//            date2 = (Date) formatter2.parse(pDate);
-//            String pDate2=DateFormat.getInstance().format(date2).toString();
-////
-
-            createDate=strDate+" at "+strTime+strAMPM;
+            createDate=strDate+" at "+strTime+" "+strAMPM;
 
         } catch (ParseException e) {
             System.out.println("Exception :" + e);
@@ -163,12 +145,10 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
 
         int viewers=mData.getTotalViews();
         double viewr=(double) viewers/1000;
-        //vedViews.setText(new DecimalFormat("##.#").format( viewr)+" views");
 
         likes.setText(String.valueOf(totlikes));
         dislikes.setText(String.valueOf(totdislike));
         vedioTital.setText(mData.getVideoTitle());
-        //totViews.setText(new DecimalFormat("##.##").format( viewr)+" views");
         vedioDateTime.setText(createDate);
         vedioDesc.setText(mData.getVideoDescription());
         getViewers();
@@ -240,6 +220,10 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
     private void initFullscreenButton() {
 
         PlaybackControlView controlView = mExoPlayerView.findViewById(R.id.exo_controller);
+        ImageButton img=controlView.findViewById(R.id.exo_next);
+
+        img.setSaveEnabled(true);
+       // img.clearFocus();
         mFullScreenIcon = controlView.findViewById(R.id.exo_fullscreen_icon);
         mFullScreenButton = controlView.findViewById(R.id.exo_fullscreen_button);
         mFullScreenButton.setOnClickListener(new View.OnClickListener() {

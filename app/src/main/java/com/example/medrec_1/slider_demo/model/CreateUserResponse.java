@@ -1,4 +1,4 @@
-package com.example.medrec_1.slider_demo;
+package com.example.medrec_1.slider_demo.model;
 
 
 import android.os.Parcel;

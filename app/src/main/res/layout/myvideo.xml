@@ -29,8 +29,8 @@
             android:layout_height="wrap_content">
             <ImageView
                 android:id="@+id/imgback"
-                android:layout_width="33dp"
-                android:layout_height="25dp"
+                android:layout_width="40dp"
+                android:layout_height="32dp"
                 android:src="@drawable/ic_arrow_back"
                 />
             <TextView

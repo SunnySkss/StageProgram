@@ -1,7 +1,6 @@
 package com.example.medrec_1.slider_demo;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.icu.text.DecimalFormat;
 import android.net.Uri;
@@ -16,8 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.medrec_1.slider_demo.model.CreateUserResponse;
 import com.example.medrec_1.slider_demo.utils.Constant;
 import com.squareup.picasso.Picasso;
 

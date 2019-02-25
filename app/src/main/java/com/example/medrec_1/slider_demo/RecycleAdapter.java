@@ -2,7 +2,6 @@ package com.example.medrec_1.slider_demo;
 
 import android.content.Context;
 import android.icu.text.DecimalFormat;
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -11,9 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.medrec_1.slider_demo.model.CreateUserResponse;
 import com.example.medrec_1.slider_demo.utils.Constant;
 import com.squareup.picasso.Picasso;
 import java.util.List;

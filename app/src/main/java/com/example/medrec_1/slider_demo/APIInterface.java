@@ -1,5 +1,10 @@
 package com.example.medrec_1.slider_demo;
 
+import com.example.medrec_1.slider_demo.model.CreateUserResponse;
+import com.example.medrec_1.slider_demo.model.DisLikeVedioResponse;
+import com.example.medrec_1.slider_demo.model.LikeVedioResponse;
+import com.example.medrec_1.slider_demo.model.ViewerResponse;
+
 import java.util.List;
 
 import retrofit2.Call;
@@ -25,15 +30,15 @@ interface APIInterface {
 
     @FormUrlEncoded
     @POST("/LikeVideo")
-    Call<LikeVedioResponse> doLikeVedio(@Field("VideoSourceId") int VideoSourceId,@Field("UserIp") String UserIp);
+    Call<LikeVedioResponse> doLikeVedio(@Field("VideoSourceId") int VideoSourceId, @Field("UserIp") String UserIp);
 
 
     @FormUrlEncoded
     @POST("/DisLikeVideo")
-    Call<DisLikeVedioResponse> doDisLikeVedio(@Field("VideoSourceId") int VideoSourceId,@Field("UserIp") String UserIp);
+    Call<DisLikeVedioResponse> doDisLikeVedio(@Field("VideoSourceId") int VideoSourceId, @Field("UserIp") String UserIp);
 
 
     @FormUrlEncoded
     @POST("/SetViews")
-    Call<ViewerResponse> doViewers(@Field("VideoSourceId") int VideoSourceId,@Field("UserIp") String UserIp);
+    Call<ViewerResponse> doViewers(@Field("VideoSourceId") int VideoSourceId, @Field("UserIp") String UserIp);
 }

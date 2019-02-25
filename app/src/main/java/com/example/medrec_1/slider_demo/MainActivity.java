@@ -32,20 +32,19 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
-//ableLayout;
 
 public class MainActivity extends AppCompatActivity implements FragmentTop.OnFragmentInteractionListener,
         FragmentBihar.OnFragmentInteractionListener,FragmentPunjabHaryana.OnFragmentInteractionListener,
         FragmentRajasthan.OnFragmentInteractionListener,FragmentOther.OnFragmentInteractionListener,
         NavigationView.OnNavigationItemSelectedListener {
 
-    TabLayout mTablayout;
+    private TabLayout mTablayout;
     private DrawerLayout drawerLayout;
     private ViewPager viewPager;
-    Toolbar mtoolbar;
-    NavigationView navigationView;
-    AlertDialog.Builder  alert;
-    ImageView alert_img_contact;
+    private Toolbar mtoolbar;
+    private NavigationView navigationView;
+    private AlertDialog.Builder  alert;
+    private ImageView alert_img_contact;
     private Date systime;
     private TextView timesystem;
 
@@ -91,17 +90,7 @@ public class MainActivity extends AppCompatActivity implements FragmentTop.OnFra
             toggle.syncState();
             selectTab();
 
-    /*    viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageSelected(final int position) {
-                for (int i = 0; i < mTablayout.getTabCount(); ++i)
-                    mTablayout.getTabAt(i).setIcon(i != position ? TAB_ICONS_UNSELECTED[i] : TAB_ICONS_SELECTED[i]);
-            }
-        });*/
-//        }
-//        else
-//            Toast.makeText(this, "Check Your Internet Connection...", Toast.LENGTH_SHORT).show();
-    }
+   }
 
     private boolean isNetworkConnected() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -159,45 +148,13 @@ public class MainActivity extends AppCompatActivity implements FragmentTop.OnFra
                 aboutintent.putExtra("URL","http://stageprogram.com/About");
                 aboutintent.putExtra("name","About Us");
                 startActivity(aboutintent);
-                      //  Toast.makeText(this, "You click on about us", Toast.LENGTH_SHORT).show();
-                       // drawerLayout.closeDrawer(GravityCompat.START);  //Navigation drawer close immediately
                         return true;
             case R.id.nav_contact:
-//                MenuItem m1;
-//                m1=findViewById(R.id.nav_contact);
-//                String str=String.valueOf(getText(m1));
                 Intent contactintent=new Intent(this,WebActivity.class);
                 contactintent.putExtra("URL","http://stageprogram.com/Contact");
                 contactintent.putExtra("name","Contact Us");
                 startActivity(contactintent);
-                   // startActivity(new Intent(MainActivity.this,ContactActivity.class));
-//                AlertDialog.Builder alert = new AlertDialog.Builder(this);
-//                LayoutInflater layoutInflaterContact=this.getLayoutInflater();
-//                View dialogviewContact=layoutInflaterContact.inflate(R.layout.alertcontact,null);
-//                alert.setView(dialogviewContact);
 
-             // alert_img_contact.setImageResource(R.drawable.office);
-               // alert.setView(dialogviewContact);
-//                alert.setNeutralButton("Ok!!", new DialogInterface.OnClickListener() {
-//                   public void onClick(DialogInterface dlg, int sumthin) {
-//
-//                   }
-//                });
-//                alert.create();
-//                alert.show();
-//                        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//                        builder.setMessage("You can cantact to us below No:-\n +911234567890");
-//                        builder.setPositiveButton("Ok",null);
-//                        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                Toast.makeText(getApplicationContext(), "hiiiii", Toast.LENGTH_SHORT).show();
-//                            }
-//                        });
-//                        builder.setIcon(R.drawable.ic_info);
-//                        builder.setTitle("Contact Info");
-//                        builder.create();
-//                        builder.show();
                         return true;
             case R.id.nav_share:
                     try {
@@ -209,36 +166,14 @@ public class MainActivity extends AppCompatActivity implements FragmentTop.OnFra
                         shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
                         startActivity(Intent.createChooser(shareIntent, "choose one"));
                        } catch(Exception e) {
-                        //e.toString();
                     }
-                 //   drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
             case R.id.nav_policy:
                 Intent policyintent=new Intent(this,WebActivity.class);
                 policyintent.putExtra("URL","http://stageprogram.com/Privacy");
                 policyintent.putExtra("name","Privacy Policy");
                 startActivity(policyintent);
-//                startActivity(new Intent(MainActivity.this,PolicyActivity.class));
 
-//                final AlertDialog.Builder myalert=new AlertDialog.Builder(this);
-//                LayoutInflater layoutInflater=this.getLayoutInflater();
-//                View dialogview=layoutInflater.inflate(R.layout.alert_layout,null);
-//                myalert.setView(dialogview);
-//                TextView texTitle=dialogview.findViewById(R.id.textTitle);
-//                TextView textMsg=dialogview.findViewById(R.id.textMsg);
-//                Button btnok=dialogview.findViewById(R.id.okBtn);
-//                texTitle.setText("Welcome To India");
-//                textMsg.setText("Are you a student....?");
-//                final AlertDialog alertDialog = myalert.create();
-//                alertDialog.show();
-//                btnok.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        Toast.makeText(MainActivity.this, "Data Saved...", Toast.LENGTH_SHORT).show();
-//                        alertDialog.dismiss();
-//                        return ;
-//                    }
-//                });
                 return true;
 
         case R.id.nav_exit:
@@ -268,4 +203,3 @@ public class MainActivity extends AppCompatActivity implements FragmentTop.OnFra
         return true;
     }
 }
-// jjhiojoijijijjoi
