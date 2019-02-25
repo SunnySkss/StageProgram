@@ -1,14 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:layout_height="match_parent">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbarweb"
+        android:background="@color/colorRed"
 
+        android:layout_width="match_parent"
+        android:minHeight="?attr/actionBarSize"
+
+        android:layout_height="wrap_content">
+        <ImageButton
+            android:id="@+id/webimgbac"
+            android:layout_width="45dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_arrow_back"
+            android:background="@color/colorRed"
+            />
+        <TextView
+            android:id="@+id/webTitle"
+            android:textColor="@android:color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Details Screen"
+            android:layout_marginLeft="65dp"
+            android:textSize="26dp"
+            android:textStyle="italic|bold"
+
+            />
+    </android.support.v7.widget.Toolbar>
     <WebView
         android:id="@+id/webviews"
-        android:layout_width="395dp"
-        android:layout_height="715dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="8dp" />
-</RelativeLayout>
+</LinearLayout>

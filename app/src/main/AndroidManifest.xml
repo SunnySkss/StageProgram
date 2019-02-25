@@ -9,7 +9,7 @@
         android:icon="@mipmap/myapp"
         android:roundIcon="@mipmap/myapp"
         android:supportsRtl="true"
-        android:label="Stage Program"
+        android:label="Stage Prog"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity" android:screenOrientation="portrait" android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
@@ -18,9 +18,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MediaActivity"  android:theme="@style/AppTheme.NoActionBar" android:configChanges="orientation"></activity>
+        <activity android:name=".MediaActivity"  android:theme="@style/AppTheme.NoActionBar"></activity>
 
-        <activity android:name=".WebActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".WebActivity" android:screenOrientation="portrait" android:theme="@style/AppTheme.NoActionBar"></activity>
 
     </application>
 

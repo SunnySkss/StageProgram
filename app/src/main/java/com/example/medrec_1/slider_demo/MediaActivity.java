@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.icu.text.DecimalFormat;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -99,7 +100,7 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
 
     private SimpleExoPlayerView mExoPlayerView;
     private MediaSource mVideoSource;
-    private boolean mExoPlayerFullscreen = true;
+    private boolean mExoPlayerFullscreen = false;
     private FrameLayout mFullScreenButton;
     private ImageView mFullScreenIcon;
     private Dialog mFullScreenDialog;
@@ -107,7 +108,7 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
     private int mResumeWindow;
     private long mResumePosition;
 
-
+    private ExtractorMediaSource mediaSource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,7 +120,46 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
             mResumePosition = savedInstanceState.getLong(STATE_RESUME_POSITION);
             mExoPlayerFullscreen = savedInstanceState.getBoolean(STATE_PLAYER_FULLSCREEN);
         }
-     //   videoView = findViewById(R.id.myVedionew);
+
+        initializeControlls();
+
+        if (getIntent() != null && getIntent().hasExtra("data")) {
+            mData = getIntent().getParcelableExtra("data");
+        }
+
+        mobileIp = getIPAddress(true);
+        int totlikes = mData.getTotalLike();
+        int totdislike = mData.getTotalDislike();
+        Date date;
+        String str_date=mData.getCreatedDate();
+        try {
+            DateFormat formatter;
+            formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+            formatter.setTimeZone(TimeZone.getTimeZone("GMT+05:30"));
+            date = (Date) formatter.parse(str_date);
+            String pDate=DateFormat.getInstance().format(date).toString();
+            createDate=DateFormat.getInstance().format(date).toString();
+
+        } catch (ParseException e) {
+            System.out.println("Exception :" + e);
+        }
+
+        int viewers=mData.getTotalViews();
+        double viewr=(double) viewers/1000;
+        //vedViews.setText(new DecimalFormat("##.#").format( viewr)+" views");
+
+        likes.setText(String.valueOf(totlikes));
+        dislikes.setText(String.valueOf(totdislike));
+        vedioTital.setText(mData.getVideoTitle());
+        //totViews.setText(new DecimalFormat("##.##").format( viewr)+" views");
+        vedioDateTime.setText(createDate);
+        vedioDesc.setText(mData.getVideoDescription());
+        getViewers();
+
+    }
+
+    public void initializeControlls()
+    {
         likes = findViewById(R.id.likesVedio);
         dislikes = findViewById(R.id.dislikeVedio);
         vedioTital = findViewById(R.id.vedioTital);
@@ -130,101 +170,13 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
         imgdislike = findViewById(R.id.dislike_vedio_img);
         imgvedioshare = findViewById(R.id.share_vedio_img);
         imgBack=findViewById(R.id.imgback);
-//        progressDialog = new ProgressDialog(MediaActivity.this);
-//        progressDialog.setTitle("welcome  to my vedio");
-//        progressDialog.setMessage("Loading...");
-//        progressDialog.setCancelable(true);
-//        // show the progress bar
-//        progressDialog.show();
         imgBack.setOnClickListener(this);
         imgLike.setOnClickListener(this);
         imgdislike.setOnClickListener(this);
         imgvedioshare.setOnClickListener(this);
-
-        //playerView=findViewById(R.id.myVedionew);
         apiInterface = APIClient.getClient().create(APIInterface.class);
-
         volumeSeekBar=findViewById(R.id.seekbar);
-        if (getIntent() != null && getIntent().hasExtra("data")) {
-            mData = getIntent().getParcelableExtra("data");
-        }
-
-        mobileIp = getIPAddress(true);
-
-        // String videoUrl = Constant.VIDEO_URL +mData.getMediaUrl();
-        int totlikes = mData.getTotalLike();
-        int totdislike = mData.getTotalDislike();
-               //   2017-05-18T21:01:55.203
-
-         //ZonedDateTime d = ZonedDateTime.parse(dateTime);
-        Date date;
-        String str_date=mData.getCreatedDate();
-        try {
-            DateFormat formatter;
-            formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-            formatter.setTimeZone(TimeZone.getTimeZone("GMT+05:30"));
-            date = (Date) formatter.parse(str_date);
-
-            String pDate=DateFormat.getInstance().format(date).toString();
-            createDate=DateFormat.getInstance().format(date).toString();
-
-        } catch (ParseException e) {
-            System.out.println("Exception :" + e);
-
-        }
-
-
-
-
-        likes.setText(String.valueOf(totlikes));
-        dislikes.setText(String.valueOf(totdislike));
-        vedioTital.setText(mData.getVideoTitle());
-        totViews.setText(String.valueOf(mData.getTotalViews()) + "views");
-        vedioDateTime.setText(createDate);
-        vedioDesc.setText(mData.getVideoDescription());
-        getViewers();
-
-
-//        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-//
-//            public void onPrepared(MediaPlayer mediaPlayer) {
-//                // close the progress bar and play the video
-//               // progressDialog.dismiss();
-//                //if we have a position on savedInstanceState, the video playback should start from here
-//                videoView.seekTo(position);
-//                if (position == 0) {
-//                    videoView.start();
-//                } else {
-//                    //if we come from a resumed activity, video playback will be paused
-//                    videoView.pause();
-//                }
-//            }
-//        });
-
-       // playVideo(Constant.VIDEO_URL + mData.getMediaUrl());
-
-//        audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-//        volumeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-//            @Override
-//            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-//                audioManager.setStreamVolume(exoPlayer.getAudioStreamType(), i, 0);
-//            }
-//
-//            @Override
-//            public void onStartTrackingTouch(SeekBar seekBar) {
-//
-//            }
-//
-//            @Override
-//            public void onStopTrackingTouch(SeekBar seekBar) {
-//
-//            }
-//        });
-
-
-
     }
-
     @Override
     public void onSaveInstanceState(Bundle outState) {
 
@@ -252,7 +204,7 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
 
         ((ViewGroup) mExoPlayerView.getParent()).removeView(mExoPlayerView);
         mFullScreenDialog.addContentView(mExoPlayerView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        mFullScreenIcon.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_fullscreen_skrink));
+        mFullScreenIcon.setImageDrawable(ContextCompat.getDrawable(MediaActivity.this, R.drawable.ic_fullscreen_skrink));
         mExoPlayerFullscreen = true;
         mFullScreenDialog.show();
     }
@@ -264,7 +216,7 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
         ((FrameLayout) findViewById(R.id.main_media_frame)).addView(mExoPlayerView);
         mExoPlayerFullscreen = false;
         mFullScreenDialog.dismiss();
-        mFullScreenIcon.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_fullscreen_expand));
+        mFullScreenIcon.setImageDrawable(ContextCompat.getDrawable(MediaActivity.this, R.drawable.ic_fullscreen_expand));
     }
 
 
@@ -292,24 +244,19 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
         TrackSelector trackSelector = new DefaultTrackSelector(videoTrackSelectionFactory);
         LoadControl loadControl = new DefaultLoadControl();
         SimpleExoPlayer player = ExoPlayerFactory.newSimpleInstance(new DefaultRenderersFactory(this), trackSelector, loadControl);
-       // mExoPlayerView.setPlayer(player);
+        player.prepare(mediaSource);
 
-        boolean haveResumePosition = mResumeWindow == C.INDEX_UNSET;
+        mExoPlayerView.setPlayer(player);
+
+        boolean haveResumePosition = mResumeWindow != C.INDEX_UNSET;
 
         if (haveResumePosition) {
             mExoPlayerView.getPlayer().seekTo(mResumeWindow, mResumePosition);
         }
 
-        mExoPlayerView.setPlayer(player);
-        player.setPlayWhenReady(true);
-        mExoPlayerView.hideController();
-        //mExoPlayerView.setUseController(useControler);
-        player.prepare(mVideoSource);
-        player.setPlayWhenReady(true);
-        //playerNeedsSource = false;
 
-       // mExoPlayerView.getPlayer().prepare(mVideoSource);
-        //mExoPlayerView.getPlayer().setPlayWhenReady(true);
+        // mExoPlayerView.getPlayer().prepare(mVideoSource);
+        mExoPlayerView.getPlayer().setPlayWhenReady(true);
     }
 
 
@@ -324,13 +271,19 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
             initFullscreenDialog();
             initFullscreenButton();
 
-            String streamUrl = Constant.VIDEO_URL+mData.getMediaUrl();
-            String userAgent = Util.getUserAgent(this, getApplicationContext().getApplicationInfo().packageName);
+            // String streamUrl ="https://www.youtube.com/watch?v=wJkT-SGOiEQ.m3u8";//
+            String streamUrl= Constant.VIDEO_URL+mData.getMediaUrl();
+            String userAgent = Util.getUserAgent(MediaActivity.this, getApplicationContext().getApplicationInfo().packageName);
             DefaultHttpDataSourceFactory httpDataSourceFactory = new DefaultHttpDataSourceFactory(userAgent, null, DefaultHttpDataSource.DEFAULT_CONNECT_TIMEOUT_MILLIS, DefaultHttpDataSource.DEFAULT_READ_TIMEOUT_MILLIS, true);
-            DefaultDataSourceFactory dataSourceFactory = new DefaultDataSourceFactory(this, null, httpDataSourceFactory);
+//            DefaultDataSourceFactory dataSourceFactory = new DefaultDataSourceFactory(MainActivity.this, null, httpDataSourceFactory);
             Uri daUri = Uri.parse(streamUrl);
+            mediaSource = new ExtractorMediaSource.Factory(httpDataSourceFactory)
+                    .createMediaSource(daUri, null, null);
 
-            mVideoSource = new HlsMediaSource(daUri, dataSourceFactory, 1, null, null);
+            // mVideoSource = new  HlsMediaSource(daUri, dataSourceFactory,5,null,null);
+
+//            ImaAdsMediaSource imaAdsMediaSource =
+//                    new ImaAdsMediaSource(mediaSource, cacheDataSourceFactory, imaAdsLoader, adUiContainer);
         }
 
         initExoPlayer();
@@ -338,7 +291,7 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
         if (mExoPlayerFullscreen) {
             ((ViewGroup) mExoPlayerView.getParent()).removeView(mExoPlayerView);
             mFullScreenDialog.addContentView(mExoPlayerView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-            mFullScreenIcon.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_fullscreen_skrink));
+            mFullScreenIcon.setImageDrawable(ContextCompat.getDrawable(MediaActivity.this, R.drawable.ic_fullscreen_skrink));
             mFullScreenDialog.show();
         }
     }
@@ -380,11 +333,14 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
 
 
 
+
 //    @Override
-//    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-//        super.onRestoreInstanceState(savedInstanceState);
-//        position=savedInstanceState.getInt("Position");
-//        videoView.seekTo(position);
+//    protected void onRestoreInstanceState(Bundle outState) {
+//        outState.putInt(STATE_RESUME_WINDOW, mResumeWindow);
+//        outState.putLong(STATE_RESUME_POSITION, mResumePosition);
+//        outState.putBoolean(STATE_PLAYER_FULLSCREEN, mExoPlayerFullscreen);
+//
+//        super.onSaveInstanceState(outState);
 //
 //    }
 
@@ -409,29 +365,6 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
         Uri myUri = Uri.parse(str);
         videoView.setVideoURI(myUri);
         videoView.start();
-    }
-    @Override
-    protected void onStart() {
-        super.onStart();
-        String urlVedio=Constant.VIDEO_URL+mData.getMediaUrl();
-
-//        exoPlayer=ExoPlayerFactory.newSimpleInstance(this,
-//                new DefaultTrackSelector());
-//        playerView.setPlayer(exoPlayer);
-//
-//        DefaultDataSourceFactory dataSourceFactory=new DefaultDataSourceFactory(this,
-//                Util.getUserAgent(this,"eo"));
-//        ExtractorMediaSource mediaSource=new ExtractorMediaSource.Factory(dataSourceFactory)
-//                .createMediaSource(Uri.parse(urlVedio));
-//        exoPlayer.setVolume(12);
-//        exoPlayer.prepare(mediaSource);
-//        exoPlayer.setPlayWhenReady(true);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-
     }
 
     public static String getIPAddress(boolean useIPv4) {
@@ -508,9 +441,9 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
     }
     public void LikeVedioAPI() {
 
-        // userList.clear();
+
         Log.d("inside", "retro");
-        // Call<ResponseBody> call2=apiInterface.doGetListResources();
+
 
         retrofit2.Call<LikeVedioResponse> call = apiInterface.doLikeVedio(mData.getVideoSourceId(), mobileIp);
         call.enqueue(new Callback<LikeVedioResponse>() {
@@ -518,12 +451,8 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
             public void onResponse(retrofit2.Call<LikeVedioResponse> call, Response<LikeVedioResponse> response) {
 
                 if (response.isSuccessful() && response.code() == 200) {
-                    //for (int i = 0; i < response.body().size(); i++) {
-
                     onLikeSuccess(response.body());
-                    // likeVedioResponses.add(response.body());//.get(i));
                 }
-                //setAdapter(createUserResponses);
             }
 
             @Override
@@ -601,11 +530,12 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
 
     private void onViewers(ViewerResponse body) {
         if(body!=null && body.getMessage().equalsIgnoreCase("Incremented")){
-            int tot_Viewer=mData.getTotalViews();
-            totViews.setText(String.valueOf(tot_Viewer+1)+" views");
-           // Toast.makeText(this, "Dislike the video", Toast.LENGTH_SHORT).show();
+            //int tot_Viewer=mData.getTotalViews();
+            int viewers=mData.getTotalViews();
+            double viewr=(double) viewers/1000;
+            //vedViews.setText(new DecimalFormat("##.#").format( viewr)+" views");
+            totViews.setText(new DecimalFormat("##.#").format( viewr)+"k views");
         } else if (body.getMessage().equalsIgnoreCase("Already Added")) {
-           // Toast.makeText(this, "You already Dislike this video", Toast.LENGTH_SHORT).show();
         }
     }
 

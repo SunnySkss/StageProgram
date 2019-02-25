@@ -22,8 +22,7 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:background="@color/colorRed"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+
             android:layout_width="match_parent"
             android:minHeight="?attr/actionBarSize"
 
@@ -67,7 +66,7 @@
             <com.google.android.exoplayer2.ui.SimpleExoPlayerView
                 android:id="@+id/exoplayer"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center" />
 
         </FrameLayout>
@@ -76,6 +75,7 @@
             android:layout_below="@id/main_media_frame"
             android:layout_width="fill_parent"
             android:layout_height="50dp"
+            android:layout_marginTop="10dp"
             android:layout_marginLeft="25dp"
             android:textSize="18dp" />
         <RelativeLayout

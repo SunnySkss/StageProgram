@@ -138,13 +138,18 @@ public class MainActivity extends AppCompatActivity implements FragmentTop.OnFra
             case R.id.nav_aboutus:
                 Intent aboutintent=new Intent(this,WebActivity.class);
                 aboutintent.putExtra("URL","http://stageprogram.com/About");
+                aboutintent.putExtra("name","About Us");
                 startActivity(aboutintent);
                       //  Toast.makeText(this, "You click on about us", Toast.LENGTH_SHORT).show();
                        // drawerLayout.closeDrawer(GravityCompat.START);  //Navigation drawer close immediately
                         return true;
             case R.id.nav_contact:
+//                MenuItem m1;
+//                m1=findViewById(R.id.nav_contact);
+//                String str=String.valueOf(getText(m1));
                 Intent contactintent=new Intent(this,WebActivity.class);
                 contactintent.putExtra("URL","http://stageprogram.com/Contact");
+                contactintent.putExtra("name","Contact Us");
                 startActivity(contactintent);
                    // startActivity(new Intent(MainActivity.this,ContactActivity.class));
 //                AlertDialog.Builder alert = new AlertDialog.Builder(this);
@@ -192,6 +197,7 @@ public class MainActivity extends AppCompatActivity implements FragmentTop.OnFra
             case R.id.nav_policy:
                 Intent policyintent=new Intent(this,WebActivity.class);
                 policyintent.putExtra("URL","http://stageprogram.com/Privacy");
+                policyintent.putExtra("name","Privacy Policy");
                 startActivity(policyintent);
 //                startActivity(new Intent(MainActivity.this,PolicyActivity.class));
 
