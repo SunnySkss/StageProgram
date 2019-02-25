@@ -25,6 +25,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 //ableLayout;
 
 public class MainActivity extends AppCompatActivity implements FragmentTop.OnFragmentInteractionListener,
@@ -39,6 +46,8 @@ public class MainActivity extends AppCompatActivity implements FragmentTop.OnFra
     NavigationView navigationView;
     AlertDialog.Builder  alert;
     ImageView alert_img_contact;
+    private Date systime;
+    private TextView timesystem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +58,17 @@ public class MainActivity extends AppCompatActivity implements FragmentTop.OnFra
         drawerLayout= findViewById(R.id.drawer_layout);
         alert = new AlertDialog.Builder(this);
         navigationView=(NavigationView)findViewById(R.id.nav_view);
+        timesystem=navigationView.getHeaderView(0).findViewById(R.id.time_system_head);
        // alert_img_contact=findViewById(R.id.alert_contact_img);
+        systime=new Date();
+
+        SimpleDateFormat formatter= new SimpleDateFormat("hh:mm aa");
+        formatter.setTimeZone(TimeZone.getTimeZone("GMT+05:30"));
+        Date date = new Date(System.currentTimeMillis());
+        String pDate=DateFormat.getInstance().format(date).toString();
+        String dd=formatter.format(date.getTime());
+        timesystem.setText(dd);
+
 
         navigationView.setNavigationItemSelectedListener(this);
         boolean aa=isNetworkConnected();

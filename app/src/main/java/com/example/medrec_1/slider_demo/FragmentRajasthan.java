@@ -142,7 +142,7 @@ public class FragmentRajasthan extends Fragment implements RecycleAdapter.OnItem
       //  vedDesc.setText(String.valueOf(createUserResponses3.get(0).getVideoDescription()));
         int viewers=createUserResponses3.get(0).getTotalViews();
         double viewr=(double) viewers/1000;
-        vedViews.setText(new DecimalFormat("##.#").format( viewr)+" views");
+        vedViews.setText(new DecimalFormat("##.#").format( viewr)+"k views");
 
         String ago="";
         String Sdays=createUserResponses3.get(0).getHowLong();

@@ -1,5 +1,4 @@
 package com.example.medrec_1.slider_demo;
-
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -79,7 +78,7 @@ import retrofit2.Response;
 public class MediaActivity extends AppCompatActivity implements View.OnClickListener {
 
     String mobileIp;
-   // private ArrayList<LikeVedioResponse> likeVedioResponses = new ArrayList<>();
+    // private ArrayList<LikeVedioResponse> likeVedioResponses = new ArrayList<>();
     APIInterface apiInterface;
     VideoView videoView;
     TextView likes, dislikes, vedioTital, totViews, vedioDateTime, vedioDesc;
@@ -131,14 +130,32 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
         int totlikes = mData.getTotalLike();
         int totdislike = mData.getTotalDislike();
         Date date;
+        Date date2;
         String str_date=mData.getCreatedDate();
         try {
             DateFormat formatter;
             formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
             formatter.setTimeZone(TimeZone.getTimeZone("GMT+05:30"));
             date = (Date) formatter.parse(str_date);
-            String pDate=DateFormat.getInstance().format(date).toString();
-            createDate=DateFormat.getInstance().format(date).toString();
+            //String ddt=date.getDate();
+            String dd=formatter.format(date.getTime());
+            String pDate=DateFormat.getInstance().format(date);
+
+
+            String[] parts = pDate.split(" ");
+            String strDate = parts[0];
+            String strTime=parts[1];
+            String strAMPM=parts[2];
+
+
+//            DateFormat formatter2;
+//            formatter2 = new SimpleDateFormat("yyyy-MM-dd'at'HH:mm:ss");
+//            formatter2.setTimeZone(TimeZone.getTimeZone("GMT+05:30"));
+//            date2 = (Date) formatter2.parse(pDate);
+//            String pDate2=DateFormat.getInstance().format(date2).toString();
+////
+
+            createDate=strDate+" at "+strTime+strAMPM;
 
         } catch (ParseException e) {
             System.out.println("Exception :" + e);
@@ -516,7 +533,7 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
             public void onResponse(retrofit2.Call<ViewerResponse> call, Response<ViewerResponse> response) {
                 if(response.isSuccessful() && response.code()==200)
                 {
-                        onViewers(response.body());
+                    onViewers(response.body());
                 }
             }
 

@@ -140,7 +140,7 @@ public class FragmentBihar extends android.support.v4.app.Fragment implements Re
 
         int viewers=createUserResponses3.get(0).getTotalViews();
         double viewr=(double) viewers/1000;
-        vedViews.setText(new DecimalFormat("##.#").format( viewr)+" views");
+        vedViews.setText(new DecimalFormat("##.#").format( viewr)+"k views");
 
 
         String ago="";

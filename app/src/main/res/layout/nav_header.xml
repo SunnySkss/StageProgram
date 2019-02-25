@@ -6,11 +6,16 @@
     android:layout_height="178dp"
     android:background="@color/colorRed"
     android:gravity="bottom"
-    android:padding="16dp"
+    android:padding="8dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
 
     >
 
+    <TextView
+
+        android:id="@+id/time_system_head"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
     <ImageView
         android:layout_gravity="center"
         android:layout_width="110dp"
