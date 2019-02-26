@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.icu.text.DecimalFormat;
 import android.net.ConnectivityManager;
 import android.net.Uri;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
@@ -77,6 +78,10 @@ public class FragmentTop extends Fragment implements RecycleAdapter.OnItemClickL
 //            Toast.makeText(getContext(), "Check internet connection first...", Toast.LENGTH_SHORT).show();
 //        }
 
+        if(fimg==null)
+        {
+            fimg.setVisibility(View.INVISIBLE);
+        }
         fimg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -179,6 +184,7 @@ public class FragmentTop extends Fragment implements RecycleAdapter.OnItemClickL
     private void setAdapter(ArrayList<CreateUserResponse> data) {
         recyclerView.setAdapter(new RecycleAdapter(data,this, getContext()));
         mProgressDialog.dismiss();
+
 
         Picasso.get()
                 .load(first)

@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements FragmentTop.OnFra
             final PageAdapter adapter = new PageAdapter(getSupportFragmentManager(), mTablayout.getTabCount());
             viewPager.setAdapter(adapter);
             viewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTablayout));
-            mTablayout.setTabTextColors(Color.parseColor("#727272"), Color.parseColor("#ffffff"));
+            mTablayout.setSelectedTabIndicatorColor(Color.WHITE);
 
             ActionBarDrawerToggle toggle;
             toggle = new ActionBarDrawerToggle(this, drawerLayout, mtoolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -104,7 +104,9 @@ public class MainActivity extends AppCompatActivity implements FragmentTop.OnFra
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
-                mTablayout.setTabTextColors(Color.parseColor("#726272"), Color.parseColor("#ffffff"));
+                mTablayout.setSelectedTabIndicatorColor(Color.WHITE);
+                //
+                // .mTablayout.setTabTextColors(Color.parseColor("#bbbbbb"), Color.parseColor("#bbbbbb"));
 
 
                 //viewPager.setCurrentItem(tab.getPosition());

@@ -14,45 +14,56 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:orientation="vertical">
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:background="@color/colorRed"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        android:layout_width="match_parent"
-        android:minHeight="?attr/actionBarSize"
-        android:gravity="top"
-        app:layout_collapseMode="pin"
-        app:titleMarginTop="13dp"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/stage_program"
-            android:layout_gravity="center"
-            android:textSize="30dp"
-            android:textColor="@android:color/white"
-            android:textStyle="bold"
-            android:id="@+id/toolbar_title" />
 
-    </android.support.v7.widget.Toolbar>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@color/colorRed"
+            android:orientation="vertical">
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:background="@color/colorRed"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                android:layout_width="match_parent"
+                android:minHeight="?attr/actionBarSize"
+                android:gravity="top"
+                app:layout_collapseMode="pin"
+                app:titleMarginTop="13dp"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/stage_program"
+                    android:layout_gravity="center"
+                    android:textSize="30dp"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    android:id="@+id/toolbar_title" />
 
-    <android.support.design.widget.TabLayout
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        app:tabTextColor="@android:color/white"
-        android:id="@+id/tablayout"
-        android:background="@color/colorRed"
-        android:elevation="1dp"
-        android:minHeight="?attr/actionBarSize"
-        app:tabMode="scrollable">
+            </android.support.v7.widget.Toolbar>
 
-    </android.support.design.widget.TabLayout>
+            <android.support.design.widget.TabLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                app:tabTextColor="@android:color/white"
+                android:id="@+id/tablayout"
+                android:background="@color/colorRed"
+                android:elevation="1dp"
+                android:minHeight="?attr/actionBarSize"
+                app:tabMode="scrollable">
+
+            </android.support.design.widget.TabLayout>
+
+        </LinearLayout>
+
 
     <android.support.v4.view.ViewPager
         android:id="@+id/myPager"
-
+        android:layout_margin="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
