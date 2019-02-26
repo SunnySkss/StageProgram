@@ -26,7 +26,7 @@
         android:layout_width="fill_parent"
         android:layout_height="180dp"
         android:fitsSystemWindows="true"
-        android:background="@color/colorRed"
+        android:background="#ffffff"
         >
 
 
@@ -39,16 +39,21 @@
             app:contentScrim="@color/colorRed"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             >
-
+            <FrameLayout
+                android:id="@+id/framePunjab"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                >
             <ImageView
 
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="fitXY"
+
                 android:id="@+id/first_imagepunjab" />
+            </FrameLayout>
             <RelativeLayout
                 android:id="@+id/rel"
-                android:layout_marginTop="90dp"
+                android:layout_marginTop="100dp"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:background="@color/colorRed"
@@ -57,7 +62,7 @@
                 <TextView
                     android:id="@+id/VedTitlePunjab"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="38dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="5dp"
