@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.medrec_1.slider_demo.model.CreateUserResponse;
@@ -41,7 +42,7 @@ public class FragmentBihar extends android.support.v4.app.Fragment implements Re
     String imgStr;
     private ProgressDialog mProgressDialog;
     private RecycleAdapter  recycleAdapter;
-
+    private RelativeLayout rl;
     private TextView vedTitle,vedDesc,vedViews,vedLong;
     public FragmentBihar() {apiInterface=null;
         // Required empty public constructor
@@ -70,6 +71,8 @@ public class FragmentBihar extends android.support.v4.app.Fragment implements Re
      //   recyclerView.setAdapter(recycleAdapter);
           getList();
 //df
+        rl=view.findViewById(R.id.relBihar);
+        rl.setVisibility(View.INVISIBLE);
           imgbihar.setOnClickListener(new View.OnClickListener() {
               @Override
               public void onClick(View v) {
@@ -124,7 +127,10 @@ public class FragmentBihar extends android.support.v4.app.Fragment implements Re
     }
 
     private void setAdapter(ArrayList<CreateUserResponse> data) {
-        recyclerView.setAdapter(new RecycleAdapter(data,this,getContext()));
+        if(data!=null) {
+            recyclerView.setAdapter(new RecycleAdapter(data, this, getContext()));
+            rl.setVisibility(View.VISIBLE);
+        }
 
         Picasso.get()
                 .load(imgStr)

@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.medrec_1.slider_demo.model.CreateUserResponse;
@@ -43,6 +44,7 @@ public class FragmentRajasthan extends Fragment implements RecycleAdapter.OnItem
     private View view;
     private ProgressDialog mProgressDialog;
     private TextView vedTitle,vedDesc,vedViews,vedLong;
+    private RelativeLayout rl;
     String imgStrRaj;
     ImageView imgRaj;
     public FragmentRajasthan() {
@@ -74,6 +76,8 @@ public class FragmentRajasthan extends Fragment implements RecycleAdapter.OnItem
        // vedDesc=view.findViewById(R.id.VedDescRajasthan);
         vedViews=view.findViewById(R.id.VedViewsRajasthan);
         vedLong=view.findViewById(R.id.VedHowLongRajasthan);
+        rl=view.findViewById(R.id.relRajasthan);
+        rl.setVisibility(View.INVISIBLE);
         // RecycleAdapter recycleAdapter=new RecycleAdapter(getContext(),moviewPoster,movienames);
         //   recyclerView.setAdapter(recycleAdapter);
         getList();
@@ -133,7 +137,10 @@ public class FragmentRajasthan extends Fragment implements RecycleAdapter.OnItem
     }
 
     private void setAdapter(ArrayList<CreateUserResponse> data) {
-        recyclerView.setAdapter(new RecycleAdapter(data,this,getContext()));
+        if(data!=null) {
+            recyclerView.setAdapter(new RecycleAdapter(data, this, getContext()));
+            rl.setVisibility(View.VISIBLE);
+        }
         Picasso.get()
                 .load(imgStrRaj)
                 .placeholder(R.drawable.dummyvideo)

@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.medrec_1.slider_demo.model.CreateUserResponse;
@@ -41,7 +42,7 @@ public class FragmentOther extends android.support.v4.app.Fragment implements Re
     private RecycleAdapter  recycleAdapter;
     ImageView imgOther;
     String imgStr;
-
+    private RelativeLayout rl;
     TextView vedTitle,vedDesc,vedViews,vedLong;
     public FragmentOther() {
         // Required empty public constructor
@@ -68,6 +69,7 @@ public class FragmentOther extends android.support.v4.app.Fragment implements Re
         vedLong=view.findViewById(R.id.VedHowLongOther);
         // RecycleAdapter recycleAdapter=new RecycleAdapter(getContext(),moviewPoster,movienames);
         //   recyclerView.setAdapter(recycleAdapter);
+    rl=view.findViewById(R.id.relOther);
 
         mProgressDialog = new ProgressDialog(getContext());
 
@@ -80,7 +82,7 @@ public class FragmentOther extends android.support.v4.app.Fragment implements Re
                 getActivity().startActivity(i);
             }
         });
-
+        rl.setVisibility(View.INVISIBLE);
         return view;
 
 
@@ -132,8 +134,10 @@ public class FragmentOther extends android.support.v4.app.Fragment implements Re
 
     private void setAdapter(ArrayList<CreateUserResponse> data) {
      //   Toast.makeText(getContext(), "hh"+String.valueOf(data.size()), Toast.LENGTH_SHORT).show();
-        recyclerView.setAdapter(new RecycleAdapter(data,this,getContext()));
-
+        if(data!=null) {
+            recyclerView.setAdapter(new RecycleAdapter(data, this, getContext()));
+            rl.setVisibility(View.VISIBLE);
+        }
         Picasso.get()
                 .load(imgStr)
                 .placeholder(R.drawable.dummyvideo)

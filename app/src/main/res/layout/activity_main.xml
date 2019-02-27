@@ -38,7 +38,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/stage_program"
                     android:layout_gravity="center"
-                    android:textSize="30dp"
+                    android:textSize="30sp"
                     android:textColor="@android:color/white"
                     android:textStyle="bold"
                     android:id="@+id/toolbar_title" />

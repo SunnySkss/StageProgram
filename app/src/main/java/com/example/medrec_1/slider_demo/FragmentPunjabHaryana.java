@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.medrec_1.slider_demo.model.CreateUserResponse;
@@ -44,7 +45,7 @@ public class FragmentPunjabHaryana extends Fragment implements RecycleAdapter.On
     ImageView imgPunjab;
     String imgstrPunjab;
     private TextView vedTitle,vedDesc,vedViews,vedLong;
-
+    private RelativeLayout rl;
     public FragmentPunjabHaryana() {
 
         // Required empty public constructor
@@ -71,6 +72,8 @@ public class FragmentPunjabHaryana extends Fragment implements RecycleAdapter.On
       //  vedDesc=view.findViewById(R.id.VedDescPunjab);
         vedViews=view.findViewById(R.id.VedViewsPunjab);
         vedLong=view.findViewById(R.id.VedHowLongPunjab);
+        rl=view.findViewById(R.id.relPunjab);
+        rl.setVisibility(View.INVISIBLE);
         // RecycleAdapter recycleAdapter=new RecycleAdapter(getContext(),moviewPoster,movienames);
         //   recyclerView.setAdapter(recycleAdapter);
         getList();
@@ -132,7 +135,10 @@ public class FragmentPunjabHaryana extends Fragment implements RecycleAdapter.On
     }
 
     private void setAdapter(ArrayList<CreateUserResponse> data) {
+        if(data!=null){
         recyclerView.setAdapter(new RecycleAdapter(data,this,getContext()));
+        rl.setVisibility(View.VISIBLE);
+        }
         Picasso.get()
                 .load(imgstrPunjab)
                 .placeholder(R.drawable.dummyvideo)

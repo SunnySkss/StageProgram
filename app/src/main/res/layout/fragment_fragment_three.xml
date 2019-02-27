@@ -52,7 +52,7 @@
                 android:id="@+id/first_imagepunjab" />
             </FrameLayout>
             <RelativeLayout
-                android:id="@+id/rel"
+                android:id="@+id/relPunjab"
                 android:layout_marginTop="100dp"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"

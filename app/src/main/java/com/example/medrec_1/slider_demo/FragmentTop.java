@@ -18,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.medrec_1.slider_demo.model.CreateUserResponse;
@@ -47,7 +48,7 @@ public class FragmentTop extends Fragment implements RecycleAdapter.OnItemClickL
     private ProgressDialog mProgressDialog;
     private ImageView fimg;
     private TextView vedTitle,vedDesc,vedViews,vedLong;
-
+    private RelativeLayout rl;
     public FragmentTop() {
        //apiInterface=null;
         // Required empty public constructor
@@ -63,6 +64,7 @@ public class FragmentTop extends Fragment implements RecycleAdapter.OnItemClickL
          // vedDesc=view.findViewById(R.id.VedDescTop);
           vedViews=view.findViewById(R.id.VedViewsTop);
           vedLong=view.findViewById(R.id.VedHowLongTop);
+          rl=view.findViewById(R.id.relone);
          // updateView();
         Log.e("getList()", String.valueOf(createUserResponses.size()));
         //boolean aa=new Constant().isNetworkConnected();
@@ -77,11 +79,11 @@ public class FragmentTop extends Fragment implements RecycleAdapter.OnItemClickL
 //        {
 //            Toast.makeText(getContext(), "Check internet connection first...", Toast.LENGTH_SHORT).show();
 //        }
-
-        if(fimg==null)
-        {
-            fimg.setVisibility(View.INVISIBLE);
-        }
+        rl.setVisibility(View.INVISIBLE);
+//        if(fimg==null)
+//        {
+//            fimg.setVisibility(View.INVISIBLE);
+//        }
         fimg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -182,8 +184,14 @@ public class FragmentTop extends Fragment implements RecycleAdapter.OnItemClickL
     }
 
     private void setAdapter(ArrayList<CreateUserResponse> data) {
-        recyclerView.setAdapter(new RecycleAdapter(data,this, getContext()));
-        mProgressDialog.dismiss();
+        if(data!=null){
+            recyclerView.setAdapter(new RecycleAdapter(data,this, getContext()));
+            rl.setVisibility(View.VISIBLE);
+            mProgressDialog.dismiss();
+        }
+
+
+
 
 
         Picasso.get()
