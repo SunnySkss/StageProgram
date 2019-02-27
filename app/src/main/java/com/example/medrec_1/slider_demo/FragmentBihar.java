@@ -116,7 +116,6 @@ public class FragmentBihar extends android.support.v4.app.Fragment implements Re
                 createUserResponses3.add(createUserResponses2.get(0));
                 createUserResponses2.remove(0);
                 setAdapter(createUserResponses2);
-
             }
 
             @Override
