@@ -554,5 +554,7 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        MediaActivity.this.overridePendingTransition(R.anim.trans_right_in,
+                R.anim.trans_right_out);
     }
 }
