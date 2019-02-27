@@ -15,14 +15,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.example.medrec_1.slider_demo.model.CreateUserResponse;
 import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -44,7 +41,8 @@ public class FragmentBihar extends android.support.v4.app.Fragment implements Re
     private RecycleAdapter  recycleAdapter;
     private RelativeLayout rl;
     private TextView vedTitle,vedDesc,vedViews,vedLong;
-    public FragmentBihar() {apiInterface=null;
+    public FragmentBihar() {
+        apiInterface=null;
         // Required empty public constructor
     }
 
@@ -110,7 +108,7 @@ public class FragmentBihar extends android.support.v4.app.Fragment implements Re
                     int maxSize=createUserResponses.size()-1;
                     Random r = new Random();
                     int ii= r.nextInt((maxSize - minno) + 1) + minno;
-                    createUserResponses2.add(createUserResponses.get(ii));
+                    createUserResponses2.add(createUserResponses.get(j));
                     imgStr="http://stageprogram.com/"+createUserResponses2.get(0).getStandardThumbnailUrl();
                 }
                 createUserResponses3.add(createUserResponses2.get(0));
@@ -143,9 +141,18 @@ public class FragmentBihar extends android.support.v4.app.Fragment implements Re
         vedTitle.setText(String.valueOf(createUserResponses3.get(0).getVideoTitle()));
      //   vedDesc.setText(String.valueOf(createUserResponses3.get(0).getVideoDescription()));
 
-        int viewers=createUserResponses3.get(0).getTotalViews();
-        double viewr=(double) viewers/1000;
-        vedViews.setText("Views "+new DecimalFormat("##.#").format( viewr)+"k");
+
+        int totalViewrs=createUserResponses3.get(0).getTotalViews();
+        if(totalViewrs>1000) {
+            double totView = (double) totalViewrs / 1000;
+            //vedViews.setText(new DecimalFormat("##.#").format( viewr)+" views");
+            vedViews.setText("Views "+new DecimalFormat("##.#").format(totView) + "k");
+        }
+        else{
+            vedViews.setText("Views "+String.valueOf(totalViewrs));
+        }
+
+
 
 
         String ago="";

@@ -119,7 +119,7 @@ public class FragmentRajasthan extends Fragment implements RecycleAdapter.OnItem
                     Random r = new Random();
                     int ii= r.nextInt((maxSize - minno) + 1) + minno;
 
-                    createUserResponses2.add(createUserResponses.get(ii));
+                    createUserResponses2.add(createUserResponses.get(j));
                     imgStrRaj=Constant.VIDEO_URL+createUserResponses2.get(0).getStandardThumbnailUrl();
                 }
                 createUserResponses3.add(createUserResponses2.get(0));
@@ -148,10 +148,15 @@ public class FragmentRajasthan extends Fragment implements RecycleAdapter.OnItem
                 .into(imgRaj);
         vedTitle.setText(String.valueOf(createUserResponses3.get(0).getVideoTitle()));
       //  vedDesc.setText(String.valueOf(createUserResponses3.get(0).getVideoDescription()));
-        int viewers=createUserResponses3.get(0).getTotalViews();
-        double viewr=(double) viewers/1000;
-        vedViews.setText("Views "+new DecimalFormat("##.#").format( viewr)+"k");
-
+        int totalViewrs=createUserResponses3.get(0).getTotalViews();
+        if(totalViewrs>1000) {
+            double totView = (double) totalViewrs / 1000;
+            //vedViews.setText(new DecimalFormat("##.#").format( viewr)+" views");
+            vedViews.setText("Views "+new DecimalFormat("##.#").format(totView) + "k");
+        }
+        else{
+            vedViews.setText("Views "+String.valueOf(totalViewrs));
+        }
         String ago="";
         String Sdays=createUserResponses3.get(0).getHowLong();
         String[] parts = Sdays.split(" ");

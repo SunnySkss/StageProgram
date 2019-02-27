@@ -152,7 +152,19 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyHolder
 
             cardVedTital.setText(item.getVideoTitle());
            // cardVedDescription.setText(item.getVideoDescription());
-            cardVedViews.setText("Views "+new DecimalFormat("##.#").format( viewr)+"k");
+
+            int totalViewrs=item.getTotalViews();
+            if(viewers>1000) {
+                double totView = (double) totalViewrs / 1000;
+                //vedViews.setText(new DecimalFormat("##.#").format( viewr)+" views");
+                cardVedViews.setText("Views "+new DecimalFormat("##.#").format(totView) + "k");
+            }
+            else{
+                cardVedViews.setText("Views "+String.valueOf(totalViewrs));
+            }
+
+
+           // cardVedViews.setText("Views "+new DecimalFormat("##.#").format( viewr)+"k");
             cardViewHowLong.setText(ago);
             //Picasso.load("http://stageprogram.com/"+item.getMediaUrl()).into(img);
 //            Picasso.get()

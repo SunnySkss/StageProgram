@@ -141,7 +141,7 @@
             android:layout_below="@+id/likesVedio"
             android:layout_width="match_parent"
             android:layout_margin="8dp"
-            android:layout_height="2dp"
+            android:layout_height="1dp"
             android:background="@android:color/background_dark"
             android:elevation="1dp">
 

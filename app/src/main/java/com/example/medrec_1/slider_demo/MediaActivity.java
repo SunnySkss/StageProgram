@@ -150,6 +150,16 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
         vedioTital.setText(mData.getVideoTitle());
         vedioDateTime.setText(createDate);
         vedioDesc.setText(mData.getVideoDescription());
+        int totalViewrs=mData.getTotalViews();
+        if(viewers>1000) {
+            double totView = (double) totalViewrs / 1000;
+            //vedViews.setText(new DecimalFormat("##.#").format( viewr)+" views");
+            totViews.setText("Views "+new DecimalFormat("##.#").format(totView) + "k");
+        }
+        else{
+            totViews.setText("Views "+String.valueOf(totalViewrs+1));
+        }
+
         getViewers();
 
     }
@@ -199,7 +209,7 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
     private void openFullscreenDialog() {
 
         ((ViewGroup) mExoPlayerView.getParent()).removeView(mExoPlayerView);
-        mFullScreenDialog.addContentView(mExoPlayerView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        mFullScreenDialog.addContentView(mExoPlayerView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT));
         mFullScreenIcon.setImageDrawable(ContextCompat.getDrawable(MediaActivity.this, R.drawable.ic_fullscreen_skrink));
         mExoPlayerFullscreen = true;
         mFullScreenDialog.show();
@@ -223,17 +233,17 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
 
         img.setSaveEnabled(true);
        // img.clearFocus();
-        volume=controlView.findViewById(R.id.mutevol);
-        volume.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                mExoPlayerView.setRewindIncrementMs(1000);
-                //mExoPlayerView.getNextFocusForwardId().
-                //player.selectTrack(FullPlayer.TYPE_AUDIO, ExoPlayer.TRACK_DISABLED);
-                Toast.makeText(MediaActivity.this, "volume key", Toast.LENGTH_SHORT).show();
-            }
-        });
+       // volume=controlView.findViewById(R.id.mutevol);
+//        volume.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                mExoPlayerView.setRewindIncrementMs(1000);
+//                //mExoPlayerView.getNextFocusForwardId().
+//                //player.selectTrack(FullPlayer.TYPE_AUDIO, ExoPlayer.TRACK_DISABLED);
+//                Toast.makeText(MediaActivity.this, "volume key", Toast.LENGTH_SHORT).show();
+//            }
+//        });
         mFullScreenIcon = controlView.findViewById(R.id.exo_fullscreen_icon);
         mFullScreenButton = controlView.findViewById(R.id.exo_fullscreen_button);
 
@@ -543,10 +553,7 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
     private void onViewers(ViewerResponse body) {
         if(body!=null && body.getMessage().equalsIgnoreCase("Incremented")){
             //int tot_Viewer=mData.getTotalViews();
-            int viewers=mData.getTotalViews();
-            double viewr=(double) viewers/1000;
-            //vedViews.setText(new DecimalFormat("##.#").format( viewr)+" views");
-            totViews.setText(new DecimalFormat("##.#").format( viewr)+"k views");
+
         } else if (body.getMessage().equalsIgnoreCase("Already Added")) {
         }
     }
