@@ -33,7 +33,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
-//assassas
+//second...
 public class MainActivity extends AppCompatActivity implements FragmentTop.OnFragmentInteractionListener,
         FragmentBihar.OnFragmentInteractionListener,FragmentPunjabHaryana.OnFragmentInteractionListener,
         FragmentRajasthan.OnFragmentInteractionListener,FragmentOther.OnFragmentInteractionListener,
@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements FragmentTop.OnFra
         mtoolbar=findViewById(R.id.toolbar);
         drawerLayout= findViewById(R.id.drawer_layout);
         alert = new AlertDialog.Builder(this);
+
         navigationView=(NavigationView)findViewById(R.id.nav_view);
         timesystem=navigationView.getHeaderView(0).findViewById(R.id.time_system_head);
        // alert_img_contact=findViewById(R.id.alert_contact_img);
