@@ -61,10 +61,12 @@
                     android:id="@+id/VedTitleBihar"
                     android:layout_width="match_parent"
                     android:layout_height="38dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="8px"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="5dp"
                     android:textColor="@android:color/white"
+                    android:singleLine="true"
+                    android:ellipsize="end"
                     android:textStyle="italic"
                     android:textSize="18sp"/>
 
@@ -74,6 +76,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="normal"
+                    android:layout_marginTop="25px"
                     android:layout_marginLeft="15dp"
                     android:textColor="@android:color/white"
                     android:textSize="12sp"/>
@@ -84,6 +87,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:paddingRight="20dp"
+                    android:layout_marginTop="25px"
                     android:textColor="@android:color/white"
                     android:textStyle="normal"
                     android:textSize="12sp"/>

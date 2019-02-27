@@ -97,7 +97,7 @@ public class FragmentRajasthan extends Fragment implements RecycleAdapter.OnItem
     private void getList() {
         // userList.clear();
         Log.d("inside","retro");
-        mProgressDialog.setMessage("Loading...");
+        mProgressDialog.setIcon(R.drawable.loader);
         mProgressDialog.show();
         // Call<ResponseBody> call2=apiInterface.doGetListResources();
 
@@ -150,7 +150,7 @@ public class FragmentRajasthan extends Fragment implements RecycleAdapter.OnItem
       //  vedDesc.setText(String.valueOf(createUserResponses3.get(0).getVideoDescription()));
         int viewers=createUserResponses3.get(0).getTotalViews();
         double viewr=(double) viewers/1000;
-        vedViews.setText(new DecimalFormat("##.#").format( viewr)+"k views");
+        vedViews.setText("Views "+new DecimalFormat("##.#").format( viewr)+"k");
 
         String ago="";
         String Sdays=createUserResponses3.get(0).getHowLong();

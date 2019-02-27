@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements FragmentTop.OnFra
         Date date = new Date(System.currentTimeMillis());
         String pDate=DateFormat.getInstance().format(date).toString();
         String dd=formatter.format(date.getTime());
-        timesystem.setText(dd);
+        //timesystem.setText(dd);
 
 
         navigationView.setNavigationItemSelectedListener(this);

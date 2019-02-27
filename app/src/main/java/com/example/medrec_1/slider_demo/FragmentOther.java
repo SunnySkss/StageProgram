@@ -91,7 +91,7 @@ public class FragmentOther extends android.support.v4.app.Fragment implements Re
     private void getList() {
         // userList.clear();
         Log.d("inside","retro");
-        mProgressDialog.setMessage("Loading...");
+        mProgressDialog.setIcon(R.drawable.loader);
         mProgressDialog.show();
         // Call<ResponseBody> call2=apiInterface.doGetListResources();
 
@@ -147,7 +147,7 @@ public class FragmentOther extends android.support.v4.app.Fragment implements Re
        // vedDesc.setText(String.valueOf(createUserResponses3.get(0).getVideoDescription()));
         int viewers=createUserResponses3.get(0).getTotalViews();
         double viewr=(double) viewers/1000;
-        vedViews.setText(new DecimalFormat("##.#").format( viewr)+"k views");
+        vedViews.setText("Views "+new DecimalFormat("##.#").format( viewr)+"k");
 
         String ago="";
         String Sdays=createUserResponses3.get(0).getHowLong();

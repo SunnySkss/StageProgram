@@ -86,7 +86,8 @@ public class FragmentBihar extends android.support.v4.app.Fragment implements Re
     }
     private void getList() {
         // userList.clear();
-        mProgressDialog.setMessage("Loading...");
+        mProgressDialog.setIcon(R.drawable.loader);
+
         mProgressDialog.show();
         Log.d("inside","retro");
         // Call<ResponseBody> call2=apiInterface.doGetListResources();
@@ -115,7 +116,7 @@ public class FragmentBihar extends android.support.v4.app.Fragment implements Re
                 createUserResponses3.add(createUserResponses2.get(0));
                 createUserResponses2.remove(0);
                 setAdapter(createUserResponses2);
-                mProgressDialog.dismiss();
+
             }
 
             @Override
@@ -128,7 +129,9 @@ public class FragmentBihar extends android.support.v4.app.Fragment implements Re
 
     private void setAdapter(ArrayList<CreateUserResponse> data) {
         if(data!=null) {
+            mProgressDialog.dismiss();
             recyclerView.setAdapter(new RecycleAdapter(data, this, getContext()));
+
             rl.setVisibility(View.VISIBLE);
         }
 
@@ -143,7 +146,7 @@ public class FragmentBihar extends android.support.v4.app.Fragment implements Re
 
         int viewers=createUserResponses3.get(0).getTotalViews();
         double viewr=(double) viewers/1000;
-        vedViews.setText(new DecimalFormat("##.#").format( viewr)+"k views");
+        vedViews.setText("Views "+new DecimalFormat("##.#").format( viewr)+"k");
 
 
         String ago="";

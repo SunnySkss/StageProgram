@@ -152,7 +152,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyHolder
 
             cardVedTital.setText(item.getVideoTitle());
            // cardVedDescription.setText(item.getVideoDescription());
-            cardVedViews.setText(new DecimalFormat("##.#").format( viewr)+"k views");
+            cardVedViews.setText("Views "+new DecimalFormat("##.#").format( viewr)+"k");
             cardViewHowLong.setText(ago);
             //Picasso.load("http://stageprogram.com/"+item.getMediaUrl()).into(img);
 //            Picasso.get()
