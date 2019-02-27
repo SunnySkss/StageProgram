@@ -78,9 +78,7 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
     private int position = 0;
     private SeekBar volumeSeekBar;
     private String createDate;
-    private  SimpleExoPlayer exoPlayer;
-    private  PlayerView playerView;
-    private ProgressDialog progressDialog;
+
     AudioManager audioManager;// = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 
 
@@ -93,6 +91,7 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
     private boolean mExoPlayerFullscreen = false;
     private FrameLayout mFullScreenButton;
     private ImageView mFullScreenIcon;
+    ImageButton volume;
     private Dialog mFullScreenDialog;
 
     private int mResumeWindow;
@@ -224,8 +223,20 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
 
         img.setSaveEnabled(true);
        // img.clearFocus();
+        volume=controlView.findViewById(R.id.mutevol);
+        volume.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                mExoPlayerView.setRewindIncrementMs(1000);
+                //mExoPlayerView.getNextFocusForwardId().
+                //player.selectTrack(FullPlayer.TYPE_AUDIO, ExoPlayer.TRACK_DISABLED);
+                Toast.makeText(MediaActivity.this, "volume key", Toast.LENGTH_SHORT).show();
+            }
+        });
         mFullScreenIcon = controlView.findViewById(R.id.exo_fullscreen_icon);
         mFullScreenButton = controlView.findViewById(R.id.exo_fullscreen_button);
+
         mFullScreenButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

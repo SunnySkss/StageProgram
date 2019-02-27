@@ -42,10 +42,10 @@
                 <TextView
                     android:id="@+id/cardVedTitle"
                     android:layout_width="wrap_content"
-                    android:layout_height="30dp"
+                    android:layout_height="32dp"
                     android:layout_marginLeft="5dp"
                     android:textColor="@android:color/white"
-                    android:textSize="14sp"
+                    android:textSize="13sp"
                     android:textStyle="normal|bold" />
 
                 <LinearLayout

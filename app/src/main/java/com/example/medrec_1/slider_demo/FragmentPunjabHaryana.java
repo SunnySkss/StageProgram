@@ -2,10 +2,12 @@ package com.example.medrec_1.slider_demo;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.icu.text.DecimalFormat;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -46,6 +48,7 @@ public class FragmentPunjabHaryana extends Fragment implements RecycleAdapter.On
     String imgstrPunjab;
     private TextView vedTitle,vedDesc,vedViews,vedLong;
     private RelativeLayout rl;
+    AppCompatDialog progressDialog;
     public FragmentPunjabHaryana() {
 
         // Required empty public constructor
@@ -89,12 +92,15 @@ public class FragmentPunjabHaryana extends Fragment implements RecycleAdapter.On
         return view;
 
 
+
+
+
     }
 
     private void getList() {
         // userList.clear();
         Log.d("inside","retro");
-        mProgressDialog.setIcon(R.drawable.loader);
+        mProgressDialog.setProgressStyle(R.drawable.progressbar);
         mProgressDialog.show();
         // Call<ResponseBody> call2=apiInterface.doGetListResources();
 

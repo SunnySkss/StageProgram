@@ -86,7 +86,7 @@ public class FragmentBihar extends android.support.v4.app.Fragment implements Re
     }
     private void getList() {
         // userList.clear();
-        mProgressDialog.setIcon(R.drawable.loader);
+        mProgressDialog.setProgressStyle(R.drawable.loader);
 
         mProgressDialog.show();
         Log.d("inside","retro");

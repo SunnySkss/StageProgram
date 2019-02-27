@@ -149,7 +149,7 @@ public class FragmentTop extends Fragment implements RecycleAdapter.OnItemClickL
         Log.d("inside","retro");
         // Call<ResponseBody> call2=apiInterface.doGetListResources();
        // mProgressDialog.setMessage("Loading");
-        mProgressDialog.setIcon(R.drawable.loader);
+        mProgressDialog.setProgressStyle(R.style.TransparentProgressDialog);
         mProgressDialog.show();
         Call<List<CreateUserResponse>> call = apiInterface.doCreateUserWithField(1,1000);
         call.enqueue(new Callback<List<CreateUserResponse>>() {

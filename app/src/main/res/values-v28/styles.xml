@@ -16,4 +16,8 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="CustomDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:progressDrawable">@drawable/loader</item>
+    </style>
+
 </resources>
